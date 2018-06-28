@@ -11,15 +11,17 @@ namespace CurrencyCalc2
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
-		}
+            MainPage = new MainPage();
+            //MainPage = new LoadingPage();
+        }
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
-		}
+            // Handle when your app starts
+            
+        }
 
-		protected override void OnSleep ()
+        protected override void OnSleep ()
 		{
 			// Handle when your app sleeps
 		}

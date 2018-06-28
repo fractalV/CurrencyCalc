@@ -5,6 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="default.xml" />
+    <None Remove="logo_alta.png" />
+    <None Remove="sync24px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="default.xml" />
+    <EmbeddedResource Include="logo_alta.png" />
+    <EmbeddedResource Include="sync24px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />
+    <PackageReference Include="Xamarin.Essentials" Version="0.7.0.17-preview" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
   </ItemGroup>
 </Project>

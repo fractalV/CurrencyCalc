@@ -6,6 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Content;
+using Android.Content.Res;
 
 namespace CurrencyCalc2.Droid
 {
@@ -14,14 +16,35 @@ namespace CurrencyCalc2.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+            Xamarin.Essentials.Platform.Init(this, bundle);
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
 
+            if (!isPad(this))
+            {
+                RequestedOrientation = ScreenOrientation.Portrait;
+            }
+
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public static bool isPad(Context context)
+        {
+            return (context.Resources.Configuration.ScreenLayout & ScreenLayout.SizeMask) >= ScreenLayout.SizeLarge;
+        }
+
     }
 }
 
