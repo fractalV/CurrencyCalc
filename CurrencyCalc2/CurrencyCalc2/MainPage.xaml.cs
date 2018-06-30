@@ -36,12 +36,13 @@ namespace CurrencyCalc2
         }
 
     }
-
-
-
+   
 
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
+
+        
+        private Image _btnImage;        
 
         enum FavoritesCurrency { RUR, GBP, USD, EUR,  CNY, JPY, CHF };
 
@@ -70,45 +71,27 @@ namespace CurrencyCalc2
 
         Currency rub = new Currency("RUB", "1", "Российский Рубль", "1");
 
+       
 
         public MainPage()
         {
-
-            
-            //Currency usd = new Currency("", "1", "", "1");
             _valutes.Add(rub);
-            //_valutes.Add(usd);
-
-            //ConnectivityTest(); //проверка наличия интеренета
-
-            //XMLparse(GetResourceTextFile("default.xml"));
-
-
-            //SortCurrency();
-
-
-            //UpdateCurrencyAsync().wait();  //обновление валют
-
-            //Task.Run(async () => {
-
-            //    if (await UpdateCurrencyAsync())
-            //    {
-            //        SortCurrency();
-            //        UpdateLabelDate();
-            //    };
-
-            //});
-            //System.Threading.Thread.Sleep(1000);
-
-           
             InitializeComponent();
+
+            //_btnLabel = this.FindByName<Label>("ButtonLabel");
+
+            //_btnLabel.GestureRecognizers.Add(new TapGestureRecognizer
+            //{
+            //    Command = new Command(async () => await OnConnect()),
+            //});
+
+                  
+
+
 
             Exrin.Common.ThreadHelper.Init(SynchronizationContext.Current);
             Exrin.Common.ThreadHelper.RunOnUIThread(async () => { await UpdateCurrencyAsync(); });
-
             Trace.WriteLine(DateTime.Now.ToString() + " - Start of Main");
-
-           
 
             UpdateLabelDate();
             buttonDigitComma.Text = separator.ToString();
@@ -201,24 +184,40 @@ namespace CurrencyCalc2
                 }
             }
 
+            //labelChange tap
+            var labelChangeStackLayont_tap = new TapGestureRecognizer();
+            labelChangeStackLayont_tap.Tapped += (s, e) =>
+            {
+                if (labelDigitsOne.FontAttributes == FontAttributes.Bold)
+                {
+                    tapClickLAbelTwo();
+                    labelDigitsOne.Text = CalculateItog(labelDigitsTwo.Text);                    
+                }
+                else
+                {
+                    tapClickLabelOne();
+                    labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); 
+                };
+            };
+            labelChangeStackLayont.GestureRecognizers.Add(labelChangeStackLayont_tap);
 
+            _btnImage = this.FindByName<Image>("ButtonImage");
+            _btnImage.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(async () => await OnConnect()),
+            });
 
             // labelUpdateStart tap event
             var labelUpdateDate_tap = new TapGestureRecognizer();
             labelUpdateDate_tap.Tapped += (s, e) =>
             {
-                // Debug.WriteLine("Start update currency");
-
-
+                Debug.WriteLine("Start update currency");
+                new Command(async () => await OnConnect());
                 Exrin.Common.ThreadHelper.RunOnUIThread(async () => { await UpdateCurrencyAsync(); });
-                UpdateLabelDate();
-                //ConnectivityTest();
-                //UpdateCurrencyAsync();
-                //SortCurrency();
-                //Debug.WriteLine("End update currency");
+                UpdateLabelDate();                
             };
-            labelUpdateDate.GestureRecognizers.Add(labelUpdateDate_tap);
-            imageUpdate.GestureRecognizers.Add(labelUpdateDate_tap);
+            //labelUpdateDate.GestureRecognizers.Add(labelUpdateDate_tap);
+            ButtonImage.GestureRecognizers.Add(labelUpdateDate_tap);
 
             // stackLayontCurrencyOne Long tap event
             var stackLayontCurrencyOne_doubletap = new TapGestureRecognizer
@@ -229,7 +228,7 @@ namespace CurrencyCalc2
             {
                 //Debug.WriteLine(stackLayontCurrencyOne.ToString() + " Double tapped");
                 Clipboard.SetText(labelDigitsOne.Text);
-                //DisplayAlert("Cкопировано", labelDigitsOne.Text, "Ok");
+                DisplayAlert("Cкопировано", labelDigitsOne.Text, "Ok");
             };
             //stackLayontCurrencyOne.GestureRecognizers.Add(stackLayontCurrencyOne_doubletap);
             frameOne.GestureRecognizers.Add(stackLayontCurrencyOne_doubletap);
@@ -243,8 +242,9 @@ namespace CurrencyCalc2
             {
                 //Debug.WriteLine(stackLayontCurrencyOne.ToString() + " Double tapped");
                 Clipboard.SetText(labelDigitsTwo.Text);
+                DisplayAlert("Cкопировано", labelDigitsTwo.Text, "Ok");
             };
-            stackLayontCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);
+            //stackLayontCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);
             frameTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);
 
             // stackLayontCurrencyOne tap event
@@ -268,7 +268,8 @@ namespace CurrencyCalc2
 
             void UpdateLabelDate()
             {
-                labelUpdateDate.Text = "На " + DateTime.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.FullDateTimePattern);
+                //labelUpdateDate.Text = "На " + DateTime.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.SortableDateTimePattern);
+                labelUpdateDate.Text = "На " + DateTime.Now.ToString("G", DateTimeFormatInfo.InvariantInfo);
             }
 
 
@@ -293,6 +294,40 @@ namespace CurrencyCalc2
 
         }
 
+
+        private async Task OnConnect()
+        {
+            Debug.WriteLine("ONCOnnect!!!");
+            await _btnImage.RotateTo(-360);
+            await Task.Delay(100);
+            await _btnImage.RelRotateTo(-360);            
+            // animateButtonTouched(_btnStackLayout, 1500, "#d3d3d3", "#d3d3d3", 1);
+            //animateButtonTouched(_btnLabel, 1500, "#F8F8F8", "#E3E3E3", 1);
+            //  animateButtonTouched(_btnImage, 1500, "#d3d3d3", "#d3d3d3", 1); 
+            await UpdateCurrencyAsync();
+
+        }
+
+        private void animateButtonTouched(View view, uint duration, string hexColorInitial, string hexColorFinal, int repeatCountMax)
+        {
+            var repeatCount = 0;
+            view.Animate("changedBG", new Animation((val) => {
+                if (repeatCount == 0)
+                {
+                    view.BackgroundColor = Color.FromHex(hexColorInitial);
+                }
+                else
+                {
+                    view.BackgroundColor = Color.FromHex(hexColorFinal);
+                }
+            }), duration, finished: (val, b) => {
+                repeatCount++;
+            }, repeat: () => {
+                return repeatCount < repeatCountMax;
+            });
+        }
+
+
         public string GetResourceTextFile(string filename)
         {
             string result = string.Empty;
@@ -313,7 +348,7 @@ namespace CurrencyCalc2
 
             //if (!hasInternet) return; //нет инета, выходим.
             try
-            {
+            {                
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 var client = new WebClient() { Encoding = Encoding.GetEncoding(1251) };
                 int indx1 = -1;
@@ -321,10 +356,10 @@ namespace CurrencyCalc2
                 client.DownloadStringCompleted += (o, e) =>
                 {
                   
-                    Debug.WriteLine("DownloadStringCompleted");
+                    //Debug.WriteLine("DownloadStringCompleted");
                     //XMLparse(e.Result);
                     var doc = XDocument.Parse(e.Result);
-                    Debug.WriteLine(doc.Document);
+                    //Debug.WriteLine(doc.Document);
                     //labelUpdateDate.Text = "Обновлено " + doc.Root.Attribute("Date").Value + System.DateTime.Now.TimeOfDay;                    
 
                     if (_valutes != null)
@@ -338,7 +373,7 @@ namespace CurrencyCalc2
                         _valutes.Clear();
                         _valutes.Add(rub);
                     }
-                    Debug.WriteLine(_valutes.Count);
+                    //Debug.WriteLine(_valutes.Count);
                     foreach (var elem in doc.Descendants("Valute"))//doc.Elements().First().Elements())
                     {
                         //Debug.WriteLine("DownloadStringCompleted444"+elem.Value);
@@ -394,8 +429,8 @@ namespace CurrencyCalc2
                 string data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
                 if (indx1 != -1 && indx2 != -1)
                 {
-                    Debug.WriteLine("indx1 " + indx1);
-                    Debug.WriteLine("indx2 " + indx2);
+                   // Debug.WriteLine("indx1 " + indx1);
+                   // Debug.WriteLine("indx2 " + indx2);
                     pickerCurrencyOne.SelectedIndex = indx1;
                     pickerCurrencyTwo.SelectedIndex = indx2;
                 }
