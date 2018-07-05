@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
-             x:Class="CurrencyCalc2.MainPage"
+             xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+             x:Class="CurrencyCalc2.MainPage"             
              >
 
     <ContentPage.Padding>
@@ -12,169 +13,254 @@
             <On Platform="UWP" Value="0, 0, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
-    
+
     <ContentPage.Resources>
         <StyleSheet Source="MyStyle.css" />
-        
+        <xamanimation:FadeToAnimation
+            x:Key="FadeToAnimation"
+            Target="{x:Reference imageLogofull}"
+            Duration="1500"
+            Opacity="1"/>
+
+        <!--<xamanimation:RelRotateToAnimation
+        x:Key="Rotate"
+        Target="{x:Reference labelChangeStackLayont}"
+        Duration="500"
+            Rotation="300"
+           />-->
+
     </ContentPage.Resources>
 
     <StackLayout 
-        HorizontalOptions="Center" 
-        VerticalOptions="Center"
-        Margin="0,10,0,10">
-        
-        <!-- Place new controls here -->
-        <Image Source="{local:ImageResource CurrencyCalc2.logo_alta.png}" HorizontalOptions="Center"
-               VerticalOptions="Start" WidthRequest="60" HeightRequest="60"/>
-        <!-- http://www.alta-soft.spb.ru/img/logo_alta.png -->
+        HorizontalOptions="Start" 
+        VerticalOptions="Start"
+        Margin="0,0,0,0"
+        x:Name="stacklayontGlobal">
 
-        <Label Text="КAЛЬКУЛЯТОР ВАЛЮТ" 
+        <StackLayout Orientation="Horizontal" Spacing="0">
+            <Button x:Name="buttonInfo" 
+                    FontSize="Medium" 
+                    Clicked="ShowAboutClicked" 
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    >
+                <Button.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="Font Awesome 5 Free" />
+                        <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+                        <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                    </OnPlatform>
+                </Button.FontFamily>
+                <Button.Text>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="&#xf0c9;" />
+                        <On Platform="Android" Value="&#xf0c9;" />
+                        <On Platform="UWP" Value="&#xE946;" />
+                    </OnPlatform>
+                </Button.Text>
+                <Button.Triggers>
+                    <EventTrigger Event="Clicked">
+                        <xamanimation:BeginAnimation
+                      Animation="{StaticResource FadeToAnimation}" />
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Label x:Name="labelTitle" Text="КAЛЬКУЛЯТОР ВАЛЮТ" 
                StyleClass="UpadteLabel"
                HorizontalOptions="Center"
-               VerticalOptions="Start" />        
-            <Frame x:Name="frameOne" BorderColor="Accent" Padding="10" BackgroundColor="#182d54"                     
-                   HorizontalOptions="FillAndExpand">            
-                <StackLayout x:Name="stackLayontCurrencyOne" Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+               VerticalOptions="Center"
+               FontSize="Medium">
+            </Label>
+
+        </StackLayout>
+        <!-- Place new controls here -->
+        <!--<Image x:Name="imageLogo" Source="{local:ImageResource CurrencyCalc2.logo_alta.png}" HorizontalOptions="Center"
+               VerticalOptions="Start" WidthRequest="60" HeightRequest="60"/>-->
+        <Image x:Name="imageLogofull" Source="{local:ImageResource CurrencyCalc2.images.logo_alta_full.png}" HorizontalOptions="Center "
+               VerticalOptions="Start" WidthRequest="90" HeightRequest="90" IsVisible="False" Opacity="0"/>
+        <local:AboutView x:Name="overlay" VerticalOptions="Start" />
+        <StackLayout x:Name="stacklayontMain">
+            <!-- http://www.alta-soft.spb.ru/img/logo_alta.png -->
+
+
+
+            <Frame x:Name="frameOne" BorderColor="Accent" Padding="10" BackgroundColor="#182d54" HorizontalOptions="FillAndExpand">
+                <StackLayout x:Name="stackLayontCurrencyOne" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
                     <Label x:Name="labelDigitsOne"
                         Text="{Binding DigitsOne}"
                         FontSize="Large"
-                        HorizontalOptions="Start" VerticalOptions="Start">                        
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
                     </Label>
                     <Label x:Name="labelDigitsOneCurrency" FontSize="Large" Text="$" HorizontalOptions="Start"/>
                 </StackLayout>
             </Frame>
-        <Picker x:Name="pickerCurrencyOne" 
+            <StackLayout Orientation="Horizontal">
+                <!--Source="{local:ImageResource CurrencyCalc2.images.ru.png}"-->
+                <Image x:Name="imageCurrencyOne" WidthRequest="40" Margin="5,0,0,0">
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding ImageOne}"/>
+                    </Image.Source>
+                </Image>
+
+                <Picker x:Name="pickerCurrencyOne" 
                 HorizontalOptions="FillAndExpand"
                 TextColor="#4a8fff"
                 BackgroundColor="#182d54"
-                SelectedIndexChanged="PickerCurrencyOne_OnSelectedIndexChanged">            
-                <Picker.SelectedItem>1</Picker.SelectedItem>
-                <Picker.Items>
-                    <x:String>Узбекских сумов</x:String>
-                    <x:String>Новый туркменский манат</x:String>
-                </Picker.Items>
-        </Picker>
-        <Label x:Name="labelChangeStackLayont" TextColor="#d3d3d3" HorizontalOptions="Center">
-            <Label.FontSize>
-                <OnPlatform x:TypeArguments="x:Double">
-                    <On Platform="iOS">
-                        <OnIdiom x:TypeArguments="x:Double" Phone="26" Tablet="34" />
-                    </On>
-                    <On Platform="Android">
-                        <OnIdiom x:TypeArguments="x:Double" Phone="24" Tablet="32" />
-                    </On>
-                    <On Platform="UWP">
-                        <OnIdiom x:TypeArguments="x:Double" Phone="20" Tablet="32" Desktop="40"/>
-                    </On>
-                </OnPlatform>
-            </Label.FontSize>
-            <Label.Text>
-                <OnPlatform x:TypeArguments="x:String">
-                    <On Platform="iOS" Value="&#xf2f1;" />
-                    <On Platform="Android" Value="&#xf2f1;" />
-                    <On Platform="UWP" Value="&#xEDAB;" />
-                </OnPlatform>
-            </Label.Text>
-            <Label.FontFamily>
-                <OnPlatform x:TypeArguments="x:String">
-                    <On Platform="iOS" Value="Font Awesome 5 Free" />
-                    <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
-                    <On Platform="UWP" Value="Segoe MDL2 Assets" />
-                </OnPlatform>
-            </Label.FontFamily>
-        </Label>
-        <Frame x:Name="frameTwo" BorderColor="Default" BackgroundColor="#182d54" Padding="10" HasShadow="True" HorizontalOptions="FillAndExpand">            
-                <StackLayout x:Name="stackLayontCurrencyTwo" Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
-                   <Label x:Name="labelDigitsTwo" FontSize="Large" Text="{Binding DigitsTwo}" HorizontalOptions="Start"/>
-                   <Label x:Name="labelDigitsTwoCurrency" FontSize="Large" Text="&#x20BD;" HorizontalOptions="Start"/>                    
-                </StackLayout>            
-        </Frame>        
-        <Picker x:Name="pickerCurrencyTwo"
+                SelectedIndexChanged="PickerCurrencyOne_OnSelectedIndexChanged"
+                FontSize="Small"
+                >
+                    <Picker.SelectedItem>1</Picker.SelectedItem>
+                    <Picker.Items>
+                        <x:String>Узбекских сумов</x:String>
+                        <x:String>Новый туркменский манат</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>            
+            <Label x:Name="labelChangeStackLayont" TextColor="#d3d3d3" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" >
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS">
+                            <OnIdiom x:TypeArguments="x:Double" Phone="26" Tablet="34" />
+                        </On>
+                        <On Platform="Android">
+                            <OnIdiom x:TypeArguments="x:Double" Phone="24" Tablet="32" />
+                        </On>
+                        <On Platform="UWP">
+                            <OnIdiom x:TypeArguments="x:Double" Phone="20" Tablet="32" Desktop="40"/>
+                        </On>
+                    </OnPlatform>
+                </Label.FontSize>
+                <Label.Text>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="&#xf079;" />
+                        <On Platform="Android" Value="&#xf079;" />
+                        <On Platform="UWP" Value="&#xE8CB;" />
+                    </OnPlatform>
+                </Label.Text>
+                <Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="Font Awesome 5 Free" />
+                        <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+                        <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                    </OnPlatform>
+                </Label.FontFamily>
+                <!--<Label.Triggers>
+                    <EventTrigger Event="Tapped">
+                        <xamanimation:BeginAnimation
+                          Animation="{StaticResource Rotate}" />
+                    </EventTrigger>
+                </Label.Triggers>-->
+            </Label>
+
+            <StackLayout Orientation="Horizontal">
+
+                <Image x:Name="imageCurrencyTwo" WidthRequest="40" Margin="5,0,0,0">
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding ImageOne}"/>
+                    </Image.Source>
+                </Image>
+                
+                <Picker x:Name="pickerCurrencyTwo"
                 TextColor="#4a8fff"
                 BackgroundColor="#182d54"
                 HorizontalOptions="FillAndExpand"                
-                SelectedIndexChanged="PickerCurrencyTwo_OnSelectedIndexChanged">            
-                <Picker.SelectedItem>1</Picker.SelectedItem>
-                <Picker.Items>
-                    <x:String>Узбекских сумов</x:String>
-                    <x:String>Новый туркменский манат</x:String>
-                </Picker.Items>
-            </Picker>        
-        <StackLayout Orientation="Horizontal">
-                <Label x:Name ="labelCurrentCurrencyRate" TextColor="WhiteSmoke" Margin="10" FontSize="Medium" Style="{DynamicResource labelStyle}"/>
-                <Label x:Name ="labelUpdateDate" Margin="5" TextColor="WhiteSmoke" FontSize="Micro" StyleClass="UpadteLabel" VerticalOptions="Center"/>
-                <StackLayout HorizontalOptions="End" VerticalOptions="Center" Spacing="10">
-                <Image x:Name="ButtonImage" Source="{local:ImageResource CurrencyCalc2.sync24px.png}">
+                SelectedIndexChanged="PickerCurrencyTwo_OnSelectedIndexChanged"
+                FontSize="Small"                    
+                
+                    >
+                    <Picker.SelectedItem>1</Picker.SelectedItem>
+                    <Picker.Items>
+                        <x:String>Узбекских сумов</x:String>
+                        <x:String>Новый туркменский манат</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+            
+            <Frame x:Name="frameTwo" BackgroundColor="#182d54" Padding="10" HasShadow="True" HorizontalOptions="FillAndExpand">
+                <StackLayout x:Name="stackLayontCurrencyTwo" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
+                    <Label x:Name="labelDigitsTwo" FontSize="Large" Text="{Binding DigitsTwo}"  />
+                    <Label x:Name="labelDigitsTwoCurrency" FontSize="Large" Text="&#x20BD;" />
+                </StackLayout>
+            </Frame>
+            <StackLayout Orientation="Horizontal">
+                <Label x:Name ="labelCurrentCurrencyRate" TextColor="WhiteSmoke" Margin="10" FontSize="Small" Style="{DynamicResource labelStyle}" HorizontalOptions="StartAndExpand"/>
+
+                <Image x:Name="ButtonImage" Source="{local:ImageResource CurrencyCalc2.images.sync24px.png}" HorizontalOptions="CenterAndExpand" IsVisible="False">
+                    <Image.Scale>1</Image.Scale>
                     <Image.WidthRequest>
                         <OnPlatform x:TypeArguments="x:Double">
                             <On Platform="iOS">
-                                <OnIdiom x:TypeArguments="x:Double" Phone="36" Tablet="54" />
+                                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="54" />
                             </On>
                             <On Platform="Android">
-                                <OnIdiom x:TypeArguments="x:Double" Phone="40" Tablet="54" />
+                                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="64" />
                             </On>
                             <On Platform="UWP">
-                                <OnIdiom x:TypeArguments="x:Double" Phone="40" Tablet="50" Desktop="64"/>
+                                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="50" Desktop="54"/>
                             </On>
                         </OnPlatform>
                     </Image.WidthRequest>
                 </Image>
-                </StackLayout>
+
+                <Label x:Name ="labelCurrentCurrencyRate2" TextColor="WhiteSmoke" Margin="10" FontSize="Small" Style="{DynamicResource labelStyle}" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <Label x:Name ="labelUpdateDate" Margin="0,-12,0,0" TextColor="WhiteSmoke" FontSize="Micro" StyleClass="UpadteLabel" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+
+            <StackLayout x:Name ="stacklayontDigits">
+                <Grid x:Name="gridMain" VerticalOptions="Start" MinimumWidthRequest="300" MinimumHeightRequest="220" RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" />
+                    <Button x:Name="buttonDigitSeven" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="7" Grid.Column="1" Grid.Row="1"/>
+                    <Button x:Name="buttonDigitFour" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="4" Grid.Column="1" Grid.Row="2" />
+                    <Button x:Name="buttonDigitOne"  Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="1" Grid.Column="1" Grid.Row="3" />
+                    <Label  x:Name="labelTest" Grid.Column="0" Grid.Row="4" />
+
+                    <Button x:Name="buttonDigitCE" Clicked="OnClickCE" FontSize="Large" Text="C" FontAttributes="Bold" Grid.Column="2" Grid.Row="0" />
+                    <Button x:Name="buttonDigitEight" Clicked="Onclick" FontSize="Large" Text="8" FontAttributes="Bold" Grid.Column="2" Grid.Row="1"/>
+                    <Button x:Name="buttonDigitFive" Clicked="Onclick" FontSize="Large" Text="5" FontAttributes="Bold" Grid.Column="2" Grid.Row="2" />
+                    <Button x:Name="buttonDigitTwo"  Clicked="Onclick" FontSize="Large" Text="2" FontAttributes="Bold" Grid.Column="2" Grid.Row="3" />
+                    <Button x:Name="buttonDigitZero" Clicked="Onclick" FontSize="Large" Text="0" FontAttributes="Bold" Grid.Column="2" Grid.Row="4" />
+
+                    <!--Text="&#x232b;" -->
+                    <Button x:Name="buttonDigitBackspace" Clicked="OnClickBackSpace" FontSize="Large" Grid.Column="3" Grid.Row="0" >
+                        <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Font Awesome 5 Free" />
+                                <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+                                <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                            </OnPlatform>
+                        </Button.FontFamily>
+                        <Button.Text>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="&#xf55a;" />
+                                <On Platform="Android" Value="&#xf55a;" />
+                                <On Platform="UWP" Value="&#xE750;" />
+                            </OnPlatform>
+                        </Button.Text>
+                    </Button>
+                    <Button x:Name="buttonDigitNine" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="9" Grid.Column="3" Grid.Row="1" />
+                    <Button x:Name="buttonDigitSix" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="6" Grid.Column="3" Grid.Row="2" />
+                    <Button x:Name="buttonDigitThree" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="3" Grid.Column="3" Grid.Row="3" />
+                    <Button x:Name="buttonDigitComma" Clicked="OnClickComma" FontSize="Large" FontAttributes="Bold" Text="." Grid.Column="3" Grid.Row="4" />
+                </Grid>
+            </StackLayout>
+
             
-            <!--<Image x:Name ="imageUpdate" Margin="5" 
-                   Source="{local:ImageResource CurrencyCalc2.sync24px.png}" 
-                   VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="60" HeightRequest="10"/>-->
-        </StackLayout>                
-        <StackLayout x:Name ="stacklayontDigits">
-            <Grid x:Name="gridMain" VerticalOptions="Start" MinimumWidthRequest="300" MinimumHeightRequest="220" RowSpacing="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" />
-                <Button x:Name="buttonDigitSeven" Clicked="Onclick" FontSize="Large" Text="7" Grid.Column="1" Grid.Row="1"/>
-                <Button x:Name="buttonDigitFour" Clicked="Onclick" FontSize="Large" Text="4" Grid.Column="1" Grid.Row="2" />
-                <Button x:Name="buttonDigitOne"  Clicked="Onclick" FontSize="Large" Text="1" Grid.Column="1" Grid.Row="3" />
-                <Label  x:Name="labelTest" Grid.Column="0" Grid.Row="4" />
-
-                <Button x:Name="buttonDigitCE" Clicked="OnClickCE" FontSize="Large" Text="C" Grid.Column="2" Grid.Row="0" />
-                <Button x:Name="buttonDigitEight" Clicked="Onclick" FontSize="Large" Text="8" Grid.Column="2" Grid.Row="1"/>
-                <Button x:Name="buttonDigitFive" Clicked="Onclick" FontSize="Large" Text="5" Grid.Column="2" Grid.Row="2" />
-                <Button x:Name="buttonDigitTwo"  Clicked="Onclick" FontSize="Large" Text="2" Grid.Column="2" Grid.Row="3" />
-                <Button x:Name="buttonDigitZero" Clicked="Onclick" FontSize="Large" Text="0" Grid.Column="2" Grid.Row="4" />
-
-                <!--Text="&#x232b;" -->
-                <Button x:Name="buttonDigitBackspace" Clicked="OnClickBackSpace" FontSize="Large" Grid.Column="3" Grid.Row="0" >
-                    <Button.FontFamily>
-                      <OnPlatform x:TypeArguments="x:String">
-                            <On Platform="iOS" Value="Font Awesome 5 Free" />
-                            <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
-                            <On Platform="UWP" Value="Segoe MDL2 Assets" />
-                        </OnPlatform>
-                    </Button.FontFamily>
-                    <Button.Text>
-                        <OnPlatform x:TypeArguments="x:String">
-                            <On Platform="iOS" Value="&#xf55a;" />
-                            <On Platform="Android" Value="&#xf55a;" />
-                            <On Platform="UWP" Value="&#xE750;" />                           
-                        </OnPlatform>                       
-                    </Button.Text>
-                </Button>
-                <Button x:Name="buttonDigitNine" Clicked="Onclick" FontSize="Large" Text="9" Grid.Column="3" Grid.Row="1" />
-                <Button x:Name="buttonDigitSix" Clicked="Onclick" FontSize="Large" Text="6" Grid.Column="3" Grid.Row="2" />
-                <Button x:Name="buttonDigitThree" Clicked="Onclick" FontSize="Large" Text="3" Grid.Column="3" Grid.Row="3" />
-                <Button x:Name="buttonDigitComma" Clicked="OnClickComma" FontSize="Large" Text="." Grid.Column="3" Grid.Row="4" />
-            </Grid>
         </StackLayout>
     </StackLayout>
 

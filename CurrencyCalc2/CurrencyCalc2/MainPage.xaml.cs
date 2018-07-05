@@ -12,6 +12,7 @@ using System.IO;
 using Xamarin.Essentials;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamanimation;
 
 namespace CurrencyCalc2
 {
@@ -23,7 +24,7 @@ namespace CurrencyCalc2
         public string Nominal { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
-        public string ForPicker { get; set; }
+        public string ForPicker { get; set; }       
 
 
         public Currency(string charcode, string nominal, string name, string value)
@@ -32,16 +33,41 @@ namespace CurrencyCalc2
             Nominal = nominal;
             Name = name;
             Value = value;
-            ForPicker = charcode + " (" + name + ")";
+            ForPicker = name;            
         }
 
     }
-   
+
+    // пытался избавиться от моргания imageLabelTwo
+    public class ImagesLabel : INotifyPropertyChanged
+    {
+        private object img;
+
+        public object ImageOne
+        {
+            get { return img; }
+            set
+            {
+                if ( img != value )
+                {
+                    img = value;
+                    OnPropertyChanged("ImageOne");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+    }
 
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
 
         
+
         private Image _btnImage;        
 
         enum FavoritesCurrency { RUR, GBP, USD, EUR,  CNY, JPY, CHF };
@@ -61,33 +87,25 @@ namespace CurrencyCalc2
         int maxDigits = 16;
         int currDigits = 1;
         double cross_kurs = 1;
+        double cross_kurs2 = 1;
         int cross_nominal_one = 1;
         int cross_nominal_two = 1;
 
-        public ObservableCollection<Currency> _valutes = new ObservableCollection<Currency>();      
+        public ObservableCollection<Currency> _valutes = new ObservableCollection<Currency>();     
 
 
         public ObservableCollection<Currency> Valuta { get { return _valutes; } }
 
         Currency rub = new Currency("RUB", "1", "Российский Рубль", "1");
-
-       
+        
 
         public MainPage()
         {
+
+            
+
             _valutes.Add(rub);
             InitializeComponent();
-
-            //_btnLabel = this.FindByName<Label>("ButtonLabel");
-
-            //_btnLabel.GestureRecognizers.Add(new TapGestureRecognizer
-            //{
-            //    Command = new Command(async () => await OnConnect()),
-            //});
-
-                  
-
-
 
             Exrin.Common.ThreadHelper.Init(SynchronizationContext.Current);
             Exrin.Common.ThreadHelper.RunOnUIThread(async () => { await UpdateCurrencyAsync(); });
@@ -117,6 +135,46 @@ namespace CurrencyCalc2
             string charcode2 = _valutes[(int)FavoritesCurrency.GBP].CharCode; //код второй валюты 
 
             SetlabelCurrencyRate(charcode1, charcode2);
+
+            //imageCurrencyOne.SetValue(Image.SourceProperty, "images\sync24px.png");
+
+            //_labelImageOne = this.FindByName<Image>("imageCurrencyOne");            
+
+            //imageCurrencyOne.Source = new UriImageSource
+            //{
+            //    Uri = new Uri("http://xamarin.com/content/images/pages/forms/example-app.png"),
+            //    CachingEnabled = true,
+            //    CacheValidity = new TimeSpan(5, 0, 0, 0)
+            //};
+
+            imageCurrencyOne.Source = ImageSource.FromResource("CurrencyCalc2.images.ru.png");
+            imageCurrencyTwo.Source = ImageSource.FromResource("CurrencyCalc2.images.gb.png");
+
+            //this.BackgroundImage = ImageSource.FromResource("CurrencyCalc2.images.background.jpg"); //"CurrencyCalc2.images.background.jpg";
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            //buttonInfo tap
+            //var buttonInfo_tap = new TapGestureRecognizer();
+            //buttonInfo_tap.Tapped += (s, e) =>
+            //{
+            //    Debug.WriteLine("info click");
+            //    var aboutpage = new AboutView();
+            //    AboutView_Click(aboutpage);
+            //};
+            //buttonInfo.GestureRecognizers.Add(buttonInfo_tap);
+
+
+
+
+            //_btnImage = this.FindByName<Image>("ButtonImage");
+
+            //_btnImage.GestureRecognizers.Add(new TapGestureRecognizer
+            //{
+            //    Command = new Command(async () => await OnConnect()),
+            //});
 
             void tapClickLabelOne()
             {
@@ -184,19 +242,32 @@ namespace CurrencyCalc2
                 }
             }
 
+            
+            
             //labelChange tap
             var labelChangeStackLayont_tap = new TapGestureRecognizer();
             labelChangeStackLayont_tap.Tapped += (s, e) =>
             {
-                if (labelDigitsOne.FontAttributes == FontAttributes.Bold)
+                
+                labelChangeStackLayont.Rotation = 0;
+                labelChangeStackLayont.RotateTo(180, 500);
+
+                int iTmp;
+                if (labelDigitsOne.FontAttributes == FontAttributes.Bold)  //первый  активен!!
                 {
-                    tapClickLAbelTwo();
-                    labelDigitsOne.Text = CalculateItog(labelDigitsTwo.Text);                    
+                    iTmp = pickerCurrencyTwo.SelectedIndex;
+                    pickerCurrencyTwo.SelectedIndex = pickerCurrencyOne.SelectedIndex;
+                    pickerCurrencyOne.SelectedIndex = iTmp;
+                    tapClickLabelOne();
                 }
                 else
                 {
-                    tapClickLabelOne();
-                    labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); 
+                    iTmp = pickerCurrencyOne.SelectedIndex;
+                    pickerCurrencyOne.SelectedIndex = pickerCurrencyTwo.SelectedIndex;
+                    pickerCurrencyTwo.SelectedIndex = iTmp;
+                    tapClickLAbelTwo();
+
+                    //labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); 
                 };
             };
             labelChangeStackLayont.GestureRecognizers.Add(labelChangeStackLayont_tap);
@@ -211,10 +282,11 @@ namespace CurrencyCalc2
             var labelUpdateDate_tap = new TapGestureRecognizer();
             labelUpdateDate_tap.Tapped += (s, e) =>
             {
-                Debug.WriteLine("Start update currency");
+              //  Debug.WriteLine("Start update currency");
                 new Command(async () => await OnConnect());
                 Exrin.Common.ThreadHelper.RunOnUIThread(async () => { await UpdateCurrencyAsync(); });
-                UpdateLabelDate();                
+                UpdateLabelDate();
+                
             };
             //labelUpdateDate.GestureRecognizers.Add(labelUpdateDate_tap);
             ButtonImage.GestureRecognizers.Add(labelUpdateDate_tap);
@@ -269,7 +341,8 @@ namespace CurrencyCalc2
             void UpdateLabelDate()
             {
                 //labelUpdateDate.Text = "На " + DateTime.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.SortableDateTimePattern);
-                labelUpdateDate.Text = "На " + DateTime.Now.ToString("G", DateTimeFormatInfo.InvariantInfo);
+                //System.Globalization.CultureInfo.CreateSpecificCulture("en-US") DateTimeFormatInfo.InvariantInfo
+                labelUpdateDate.Text = "КУРС НА " + DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));             
             }
 
 
@@ -294,40 +367,77 @@ namespace CurrencyCalc2
 
         }
 
+        //  protected override void OnSizeAllocated(double widht, double height)
+        //  {
+        //      base.OnSizeAllocated(widht, height);
+        ////      if (isFirst)
+        //   //   {
+        //          widthAlloc = widht;
+        //          heightAlloc = height;
+        //   //   }
+        //  }
+
+        //  protected override void OnAppearing()
+        //  {
+        //      base.OnAppearing();
+        //     // if (isFirst)
+        //     // {
+        //          stacklayontGlobal.HeightRequest = heightAlloc;
+        //          stacklayontGlobal.WidthRequest = widthAlloc;
+
+        //          this.Content = stacklayontGlobal;
+
+        //          isFirst = false;
+        //     // }
+        //  }
+
+
+       
+
+        public string CurrencyImage (string CurrencyProperty)
+        {
+           // Debug.WriteLine(string.Format("CurrencyCalc2.images.{0}.png", CurrencyProperty.ToLower()));
+            return string.Format("CurrencyCalc2.images.{0}.png", CurrencyProperty.ToLower()); 
+        }
+       
+
+        private void ShowAboutClicked(object sender, EventArgs e)
+        {
+            if (this.overlay.IsVisible)
+            {
+                this.overlay.IsVisible = false;
+                this.stacklayontMain.IsVisible = true;
+                //stacklayontGlobal.HorizontalOptions = LayoutOptions.Center;
+                //stacklayontGlobal.VerticalOptions = LayoutOptions.Center;
+                imageLogofull.IsVisible = false;
+                imageLogofull.Opacity = 0;
+                //imageLogo.IsVisible = true;
+                
+            }
+            else {               
+                this.stacklayontMain.IsVisible = false;
+                //stacklayontGlobal.HorizontalOptions = LayoutOptions.StartAndExpand;
+                //stacklayontGlobal.VerticalOptions = LayoutOptions.Start;
+                this.overlay.IsVisible = true;
+                //imageLogo.IsVisible = false;
+                imageLogofull.IsVisible = true;
+                imageLogofull.Opacity = 0;
+                imageLogofull.Animate( new FadeToAnimation());
+            };
+        }      
+      
 
         private async Task OnConnect()
         {
-            Debug.WriteLine("ONCOnnect!!!");
-            await _btnImage.RotateTo(-360);
-            await Task.Delay(100);
-            await _btnImage.RelRotateTo(-360);            
-            // animateButtonTouched(_btnStackLayout, 1500, "#d3d3d3", "#d3d3d3", 1);
-            //animateButtonTouched(_btnLabel, 1500, "#F8F8F8", "#E3E3E3", 1);
-            //  animateButtonTouched(_btnImage, 1500, "#d3d3d3", "#d3d3d3", 1); 
-            await UpdateCurrencyAsync();
+            //Debug.WriteLine("ONCOnnect!!!");
+            _btnImage.Rotation = 0;
+            await _btnImage.RotateTo(-360,250);
+            //await Task.Delay(100);
+            //await _btnImage.RelRotateTo(-360,250);              
+            //await UpdateCurrencyAsync();
 
-        }
-
-        private void animateButtonTouched(View view, uint duration, string hexColorInitial, string hexColorFinal, int repeatCountMax)
-        {
-            var repeatCount = 0;
-            view.Animate("changedBG", new Animation((val) => {
-                if (repeatCount == 0)
-                {
-                    view.BackgroundColor = Color.FromHex(hexColorInitial);
-                }
-                else
-                {
-                    view.BackgroundColor = Color.FromHex(hexColorFinal);
-                }
-            }), duration, finished: (val, b) => {
-                repeatCount++;
-            }, repeat: () => {
-                return repeatCount < repeatCountMax;
-            });
-        }
-
-
+        }        
+        
         public string GetResourceTextFile(string filename)
         {
             string result = string.Empty;
@@ -433,11 +543,15 @@ namespace CurrencyCalc2
                    // Debug.WriteLine("indx2 " + indx2);
                     pickerCurrencyOne.SelectedIndex = indx1;
                     pickerCurrencyTwo.SelectedIndex = indx2;
+
+                    //pickerCurrencyTwo.SelectedIndexChanged += PickerCurrencyTwo_OnSelectedIndexChanged;
+
                 }
                 else
                 {
                     pickerCurrencyOne.SelectedIndex = (int)FavoritesCurrency.RUR;
                     pickerCurrencyTwo.SelectedIndex = (int)FavoritesCurrency.GBP;
+
                 }
             }
             catch (Exception e)
@@ -509,8 +623,7 @@ namespace CurrencyCalc2
 
             }
         }
-
-
+        
         private void PickerCurrencyOne_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             string charcode1 = "", charcode2 = "";
@@ -519,12 +632,13 @@ namespace CurrencyCalc2
             try
             {
                 
-                Debug.WriteLine("pickerCurrencyOne.SelectedIndex= "+ pickerCurrencyOne.SelectedIndex);
-                Debug.WriteLine("pickerCurrencyOne.Items.Count= " + pickerCurrencyOne.Items.Count);
-                Debug.WriteLine("pickerCurrencyTwo.SelectedIndex= " + pickerCurrencyTwo.SelectedIndex);
+                //Debug.WriteLine("pickerCurrencyOne.SelectedIndex= "+ pickerCurrencyOne.SelectedIndex);
+                //Debug.WriteLine("pickerCurrencyOne.Items.Count= " + pickerCurrencyOne.Items.Count);
+                //Debug.WriteLine("pickerCurrencyTwo.SelectedIndex= " + pickerCurrencyTwo.SelectedIndex);
                 if (pickerCurrencyOne.SelectedIndex != -1 && pickerCurrencyOne.SelectedIndex <= pickerCurrencyOne.Items.Count && pickerCurrencyTwo.SelectedIndex != -1)
                 {
                     Debug.WriteLine("pickerCurrencyTwo.SelectedIndex in");
+                    imageCurrencyOne.Source = ImageSource.FromResource(CurrencyImage(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Length - 1)));
                     //узнаем какая строчка активна, и изходя из этого делаем вычисления
                     if (labelOneActive)
                     {   //активна первая
@@ -532,7 +646,7 @@ namespace CurrencyCalc2
                         //берем значения из комбобокса активной строки и комбобокса второй строки
                         charcode1 = _valutes[pickerCurrencyOne.SelectedIndex].CharCode; //код первой валюты 
                         labelDigitsOneCurrency.Text = charcode1; //обновим знак валюты
-                        charcode2 = _valutes[pickerCurrencyTwo.SelectedIndex].CharCode; //код второй валюты                            
+                        charcode2 = _valutes[pickerCurrencyTwo.SelectedIndex].CharCode; //код второй валюты                                                    
 
                         cross_nominal_one = Int16.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Nominal); //номинал валюты активной строки                    
                         currency_one = Double.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Value); //курс к рублю первой валюты
@@ -555,6 +669,7 @@ namespace CurrencyCalc2
                         currency_one = Double.Parse(_valutes[pickerCurrencyTwo.SelectedIndex].Value);
 
                         charcode2 = _valutes[pickerCurrencyOne.SelectedIndex].CharCode;
+                        
                         labelDigitsOneCurrency.Text = charcode2; //обновим знак валюты
                         cross_nominal_two = Int16.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Nominal);
                         currency_two = Double.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Value);
@@ -585,10 +700,12 @@ namespace CurrencyCalc2
                 //if (pickerCurrencyTwo.SelectedIndex != -1) return;
                 if (pickerCurrencyTwo.SelectedIndex != -1 && pickerCurrencyTwo.SelectedIndex <= pickerCurrencyTwo.Items.Count && pickerCurrencyOne.SelectedIndex != -1)
                 {
+                    imageCurrencyTwo.Source = ImageSource.FromResource(CurrencyImage(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Length - 1)));
                     if (labelOneActive)
                     {
                         charcode1 = _valutes[pickerCurrencyOne.SelectedIndex].CharCode; //код первой валюты 
-                        charcode2 = _valutes[pickerCurrencyTwo.SelectedIndex].CharCode; //код второй валюты                            
+                        charcode2 = _valutes[pickerCurrencyTwo.SelectedIndex].CharCode; //код второй валюты
+                        
                         labelDigitsTwoCurrency.Text = charcode2; //обновим знак валюты
 
                         cross_nominal_one = Int16.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Nominal); //номинал валюты активной строки                    
@@ -603,14 +720,14 @@ namespace CurrencyCalc2
                         SetlabelCurrencyRate(charcode1, charcode2);
                         // вычисляем
                         //labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text);
-                        LabelTwoUpdate(CalculateItog(labelDigitsOne.Text));
+                        LabelTwoUpdate(CalculateItog(labelDigitsOne.Text));                        
 
                     }
                     else // активна вторая 
                     {
                         charcode1 = _valutes[pickerCurrencyTwo.SelectedIndex].CharCode; //код первой валюты 
                         charcode2 = _valutes[pickerCurrencyOne.SelectedIndex].CharCode; //код второй валюты 
-
+                        
                         labelDigitsTwoCurrency.Text = charcode1; //обновим знак валюты
 
                         cross_nominal_one = Int16.Parse(_valutes[pickerCurrencyTwo.SelectedIndex].Nominal);
@@ -623,8 +740,7 @@ namespace CurrencyCalc2
 
                         SetlabelCurrencyRate(charcode1, charcode2);
                         //labelDigitsOne.Text = CalculateItog(labelDigitsTwo.Text);
-                        LabelOneUpdate(CalculateItog(labelDigitsTwo.Text));
-
+                        LabelOneUpdate(CalculateItog(labelDigitsTwo.Text));                       
 
                     }
                 }
@@ -643,6 +759,7 @@ namespace CurrencyCalc2
             {
                 if ((nominal1 != 0) && (nominal2 != 0))
                 {
+                    cross_kurs2 = ((currency1 / nominal1) / (currency2 / nominal2));
                     return cross_kurs = ((currency2 / nominal2) / (currency1 / nominal1));
                 }
             }
@@ -659,6 +776,8 @@ namespace CurrencyCalc2
             // обновление текста с котировкой валюты
             string pSpecifier = String.Format("F4");
             labelCurrentCurrencyRate.Text = "1 " + charcode1 + " = " + cross_kurs.ToString(pSpecifier) + " " + charcode2;
+            labelCurrentCurrencyRate2.Text = "1 " + charcode2 + " = " + cross_kurs2.ToString(pSpecifier) + " " + charcode1;            
+
         }
 
         private string CalculateItog(string tmp)

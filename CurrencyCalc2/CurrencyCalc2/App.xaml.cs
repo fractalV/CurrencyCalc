@@ -12,6 +12,7 @@ namespace CurrencyCalc2
 			InitializeComponent();
 
             MainPage = new MainPage();
+            //MainPage = new NavigationPage(new MainPage());
             //MainPage = new LoadingPage();
         }
 

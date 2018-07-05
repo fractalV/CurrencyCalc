@@ -35,3 +35,8 @@ stacklayout button {
     text-decoration: none;
     text-shadow: 0px 1px 0px #263666;
 }
+
+#buttonInfo {
+    background-color: #182d54;
+    color: #d3d3d3;
+}
