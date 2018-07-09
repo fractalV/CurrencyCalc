@@ -21,6 +21,7 @@
     <None Remove="images\dk.png" />
     <None Remove="images\eu.png" />
     <None Remove="images\gb.png" />
+    <None Remove="images\hk.png" />
     <None Remove="images\hu.png" />
     <None Remove="images\in.png" />
     <None Remove="images\jp.png" />
@@ -92,6 +93,7 @@
     <EmbeddedResource Include="images\gb.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="images\hk.png" />
     <EmbeddedResource Include="images\hu.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

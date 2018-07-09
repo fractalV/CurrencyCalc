@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
-             x:Class="CurrencyCalc2.MainPage"             
+             x:Class="CurrencyCalc2.MainPage"
              >
 
     <ContentPage.Padding>
@@ -13,6 +13,18 @@
             <On Platform="UWP" Value="0, 0, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
+
+    <ContentPage.MinimumWidthRequest>
+        <OnPlatform x:TypeArguments="x:Double">            
+            <On Platform="UWP" Value="500" />
+        </OnPlatform>
+    </ContentPage.MinimumWidthRequest>
+
+    <ContentPage.HeightRequest>
+        <OnPlatform x:TypeArguments="x:Double">
+            <On Platform="UWP" Value="640" />
+        </OnPlatform>
+    </ContentPage.HeightRequest>
 
     <ContentPage.Resources>
         <StyleSheet Source="MyStyle.css" />
@@ -28,7 +40,7 @@
         Duration="500"
             Rotation="300"
            />-->
-
+        <!--http://www.color-hex.com/color-palette/62314-->
     </ContentPage.Resources>
 
     <StackLayout 
@@ -37,13 +49,8 @@
         Margin="0,0,0,0"
         x:Name="stacklayontGlobal">
 
-        <StackLayout Orientation="Horizontal" Spacing="0">
-            <Button x:Name="buttonInfo" 
-                    FontSize="Medium" 
-                    Clicked="ShowAboutClicked" 
-                    HorizontalOptions="Start"
-                    VerticalOptions="Start"
-                    >
+        <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Start" VerticalOptions="Start">
+            <Button x:Name="buttonInfo" FontSize="Medium" Clicked="ShowAboutClicked" HorizontalOptions="Start">
                 <Button.FontFamily>
                     <OnPlatform x:TypeArguments="x:String">
                         <On Platform="iOS" Value="Font Awesome 5 Free" />
@@ -55,7 +62,7 @@
                     <OnPlatform x:TypeArguments="x:String">
                         <On Platform="iOS" Value="&#xf0c9;" />
                         <On Platform="Android" Value="&#xf0c9;" />
-                        <On Platform="UWP" Value="&#xE946;" />
+                        <On Platform="UWP" Value="&#xE700;" />
                     </OnPlatform>
                 </Button.Text>
                 <Button.Triggers>
@@ -81,10 +88,6 @@
                VerticalOptions="Start" WidthRequest="90" HeightRequest="90" IsVisible="False" Opacity="0"/>
         <local:AboutView x:Name="overlay" VerticalOptions="Start" />
         <StackLayout x:Name="stacklayontMain">
-            <!-- http://www.alta-soft.spb.ru/img/logo_alta.png -->
-
-
-
             <Frame x:Name="frameOne" BorderColor="Accent" Padding="10" BackgroundColor="#182d54" HorizontalOptions="FillAndExpand">
                 <StackLayout x:Name="stackLayontCurrencyOne" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
                     <Label x:Name="labelDigitsOne"
@@ -98,7 +101,7 @@
             </Frame>
             <StackLayout Orientation="Horizontal">
                 <!--Source="{local:ImageResource CurrencyCalc2.images.ru.png}"-->
-                <Image x:Name="imageCurrencyOne" WidthRequest="40" Margin="5,0,0,0">
+                <Image x:Name="imageCurrencyOne" WidthRequest="50" Margin="5,0,0,0">
                     <Image.Source>
                         <UriImageSource Uri="{Binding ImageOne}"/>
                     </Image.Source>
@@ -156,7 +159,7 @@
 
             <StackLayout Orientation="Horizontal">
 
-                <Image x:Name="imageCurrencyTwo" WidthRequest="40" Margin="5,0,0,0">
+                <Image x:Name="imageCurrencyTwo" WidthRequest="50" Margin="5,0,0,0">
                     <Image.Source>
                         <UriImageSource Uri="{Binding ImageOne}"/>
                     </Image.Source>
@@ -167,9 +170,7 @@
                 BackgroundColor="#182d54"
                 HorizontalOptions="FillAndExpand"                
                 SelectedIndexChanged="PickerCurrencyTwo_OnSelectedIndexChanged"
-                FontSize="Small"                    
-                
-                    >
+                FontSize="Small">
                     <Picker.SelectedItem>1</Picker.SelectedItem>
                     <Picker.Items>
                         <x:String>Узбекских сумов</x:String>
@@ -178,14 +179,14 @@
                 </Picker>
             </StackLayout>
             
-            <Frame x:Name="frameTwo" BackgroundColor="#182d54" Padding="10" HasShadow="True" HorizontalOptions="FillAndExpand">
+            <!--//<Frame x:Name="frameTwo" BackgroundColor="#182d54" Padding="10" HasShadow="True" HorizontalOptions="FillAndExpand">-->
                 <StackLayout x:Name="stackLayontCurrencyTwo" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
                     <Label x:Name="labelDigitsTwo" FontSize="Large" Text="{Binding DigitsTwo}"  />
                     <Label x:Name="labelDigitsTwoCurrency" FontSize="Large" Text="&#x20BD;" />
                 </StackLayout>
-            </Frame>
+            <!--</Frame>-->
             <StackLayout Orientation="Horizontal">
-                <Label x:Name ="labelCurrentCurrencyRate" TextColor="WhiteSmoke" Margin="10" FontSize="Small" Style="{DynamicResource labelStyle}" HorizontalOptions="StartAndExpand"/>
+                <Label x:Name ="labelCurrentCurrencyRate" TextColor="WhiteSmoke" Margin="10" FontSize="Small" Style="{DynamicResource labelStyle}" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"/>
 
                 <Image x:Name="ButtonImage" Source="{local:ImageResource CurrencyCalc2.images.sync24px.png}" HorizontalOptions="CenterAndExpand" IsVisible="False">
                     <Image.Scale>1</Image.Scale>
@@ -206,10 +207,10 @@
 
                 <Label x:Name ="labelCurrentCurrencyRate2" TextColor="WhiteSmoke" Margin="10" FontSize="Small" Style="{DynamicResource labelStyle}" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <Label x:Name ="labelUpdateDate" Margin="0,-12,0,0" TextColor="WhiteSmoke" FontSize="Micro" StyleClass="UpadteLabel" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+            <Label x:Name ="labelUpdateDate" Margin="0,0,-12,0" TextColor="WhiteSmoke" FontSize="Micro" StyleClass="UpadteLabel" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
 
-            <StackLayout x:Name ="stacklayontDigits">
-                <Grid x:Name="gridMain" VerticalOptions="Start" MinimumWidthRequest="300" MinimumHeightRequest="220" RowSpacing="0">
+            <StackLayout x:Name ="stacklayontDigits" Padding="0">
+                <Grid x:Name="gridMain" VerticalOptions="Start" RowSpacing="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="3*" />
@@ -218,26 +219,26 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" />
-                    <Button x:Name="buttonDigitSeven" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="7" Grid.Column="1" Grid.Row="1"/>
-                    <Button x:Name="buttonDigitFour" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="4" Grid.Column="1" Grid.Row="2" />
-                    <Button x:Name="buttonDigitOne"  Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="1" Grid.Column="1" Grid.Row="3" />
+                    <Button x:Name="buttonDigitSeven" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="7" Grid.Column="1" Grid.Row="1"/>
+                    <Button x:Name="buttonDigitFour" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="4" Grid.Column="1" Grid.Row="2" />
+                    <Button x:Name="buttonDigitOne"  Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="1" Grid.Column="1" Grid.Row="3" />
                     <Label  x:Name="labelTest" Grid.Column="0" Grid.Row="4" />
 
-                    <Button x:Name="buttonDigitCE" Clicked="OnClickCE" FontSize="Large" Text="C" FontAttributes="Bold" Grid.Column="2" Grid.Row="0" />
-                    <Button x:Name="buttonDigitEight" Clicked="Onclick" FontSize="Large" Text="8" FontAttributes="Bold" Grid.Column="2" Grid.Row="1"/>
-                    <Button x:Name="buttonDigitFive" Clicked="Onclick" FontSize="Large" Text="5" FontAttributes="Bold" Grid.Column="2" Grid.Row="2" />
-                    <Button x:Name="buttonDigitTwo"  Clicked="Onclick" FontSize="Large" Text="2" FontAttributes="Bold" Grid.Column="2" Grid.Row="3" />
-                    <Button x:Name="buttonDigitZero" Clicked="Onclick" FontSize="Large" Text="0" FontAttributes="Bold" Grid.Column="2" Grid.Row="4" />
+                    <Button x:Name="buttonDigitCE" Clicked="OnClickCE" FontSize="Medium" Text="C" FontAttributes="Bold" Grid.Column="2" Grid.Row="0" />
+                    <Button x:Name="buttonDigitEight" Clicked="Onclick" FontSize="Medium" Text="8" FontAttributes="Bold" Grid.Column="2" Grid.Row="1"/>
+                    <Button x:Name="buttonDigitFive" Clicked="Onclick" FontSize="Medium" Text="5" FontAttributes="Bold" Grid.Column="2" Grid.Row="2" />
+                    <Button x:Name="buttonDigitTwo"  Clicked="Onclick" FontSize="Medium" Text="2" FontAttributes="Bold" Grid.Column="2" Grid.Row="3" />
+                    <Button x:Name="buttonDigitZero" Clicked="Onclick" FontSize="Medium" Text="0" FontAttributes="Bold" Grid.Column="2" Grid.Row="4" />
 
                     <!--Text="&#x232b;" -->
-                    <Button x:Name="buttonDigitBackspace" Clicked="OnClickBackSpace" FontSize="Large" Grid.Column="3" Grid.Row="0" >
+                    <Button x:Name="buttonDigitBackspace" Clicked="OnClickBackSpace" FontSize="Medium" Grid.Column="3" Grid.Row="0" >
                         <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Font Awesome 5 Free" />
@@ -253,10 +254,10 @@
                             </OnPlatform>
                         </Button.Text>
                     </Button>
-                    <Button x:Name="buttonDigitNine" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="9" Grid.Column="3" Grid.Row="1" />
-                    <Button x:Name="buttonDigitSix" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="6" Grid.Column="3" Grid.Row="2" />
-                    <Button x:Name="buttonDigitThree" Clicked="Onclick" FontSize="Large" FontAttributes="Bold" Text="3" Grid.Column="3" Grid.Row="3" />
-                    <Button x:Name="buttonDigitComma" Clicked="OnClickComma" FontSize="Large" FontAttributes="Bold" Text="." Grid.Column="3" Grid.Row="4" />
+                    <Button x:Name="buttonDigitNine" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="9" Grid.Column="3" Grid.Row="1" />
+                    <Button x:Name="buttonDigitSix" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="6" Grid.Column="3" Grid.Row="2" />
+                    <Button x:Name="buttonDigitThree" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="3" Grid.Column="3" Grid.Row="3" />
+                    <Button x:Name="buttonDigitComma" Clicked="OnClickComma" FontSize="Medium" FontAttributes="Bold" Text="." Grid.Column="3" Grid.Row="4" />
                 </Grid>
             </StackLayout>
 

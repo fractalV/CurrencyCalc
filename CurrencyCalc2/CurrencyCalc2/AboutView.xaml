@@ -9,13 +9,13 @@
         
     </ContentView.Resources>    
     <ContentView.Content>
-        <StackLayout  x:Name="overlay" Margin="10,0,0,10" VerticalOptions="Start">
+        <StackLayout  x:Name="overlay" Margin="10" VerticalOptions="StartAndExpand">
             
             <Label Text="О программе" FontSize="Medium" TextColor="#d3d3d3"/>
             <Label x:Name="labelVersion" FontSize="Default" TextColor="#d3d3d3"/>
             <Label TextColor="#d3d3d3">
                 <Label.Text>
-                    Курсы валют предоставлены Центральным Банком Российской Федерации&#10;Альта-Софт не несет ответственности за использование Вами данных, полученных при использовании данного калькулятора, а так же не гарантирует наличие, актуальность, и достоверность информации.
+                    Курсы валют предоставлены Центральным Банком Российской Федерации.&#10;Компания Альта-Софт не гарантирует точность отображаемых курсов валют. Прежде чем выполнять транзакции, связанные с конвертацией валют, проверьте текущий обменный курс.
                 </Label.Text>
             </Label>    
             <Label x:Name="labelLicenseTerms" Text="www.alta.ru" TextColor="#d3d3d3"/>

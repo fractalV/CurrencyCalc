@@ -101,17 +101,80 @@ namespace CurrencyCalc2
 
         public MainPage()
         {
-
             
-
             _valutes.Add(rub);
             InitializeComponent();
+
+            SizeChanged += (object sender, EventArgs args) =>
+            {
+                double size = 0;
+                const double k = 30;
+                if (this.Height > 0)
+                {
+                    size = this.Height / k;
+                    labelDigitsOne.FontSize = size;
+                    labelDigitsOneCurrency.FontSize = size;
+                    labelChangeStackLayont.FontSize = size * 1.6;
+                    labelDigitsTwo.FontSize = size;
+                    labelDigitsTwoCurrency.FontSize = size;
+
+                    labelCurrentCurrencyRate.FontSize = size * 0.9;
+                    labelCurrentCurrencyRate2.FontSize = size * 0.9;
+                    labelUpdateDate.FontSize = size * 0.8;
+
+                    pickerCurrencyOne.FontSize = size;
+                    pickerCurrencyTwo.FontSize = size;
+
+                    buttonDigitComma.FontSize = size;
+                    buttonDigitBackspace.FontSize = size;
+                    buttonDigitCE.FontSize = size;
+                    buttonDigitOne.FontSize = size;
+                    buttonDigitTwo.FontSize = size;
+                    buttonDigitThree.FontSize = size;
+                    buttonDigitFour.FontSize = size;
+                    buttonDigitFive.FontSize = size;
+                    buttonDigitSix.FontSize = size;
+                    buttonDigitSeven.FontSize = size;
+                    buttonDigitEight.FontSize = size;
+                    buttonDigitNine.FontSize = size;
+                    buttonDigitZero.FontSize = size;
+
+
+                    if (size<20)
+                    {
+                        frameOne.Padding = 4;
+                       // frameTwo.Padding = 4;
+                        labelCurrentCurrencyRate.Margin = 4;
+                        labelCurrentCurrencyRate2.Margin = 4;
+                        imageCurrencyOne.WidthRequest = 30;
+                        imageCurrencyTwo.WidthRequest = 30;
+
+                      
+
+                        //buttonDigitOne.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Button));
+
+                    } else if (size<30)
+                    {
+                        frameOne.Padding = 6;
+                       // frameTwo.Padding = 6;
+                        labelCurrentCurrencyRate.Margin = 6;
+                        labelCurrentCurrencyRate2.Margin = 6;
+                        imageCurrencyOne.WidthRequest = 40;
+                        imageCurrencyTwo.WidthRequest = 40;
+                        //buttonDigitOne.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Button));
+                    }
+                }
+                    
+            };
+            //Debug.WriteLine(GetSizeRequest(stacklayontGlobal));
 
             Exrin.Common.ThreadHelper.Init(SynchronizationContext.Current);
             Exrin.Common.ThreadHelper.RunOnUIThread(async () => { await UpdateCurrencyAsync(); });
             Trace.WriteLine(DateTime.Now.ToString() + " - Start of Main");
 
-            UpdateLabelDate();
+
+
+            UpdateLabelDate(); //на текущую дату
             buttonDigitComma.Text = separator.ToString();
 
             pickerCurrencyOne.ItemsSource = Valuta;
@@ -128,7 +191,7 @@ namespace CurrencyCalc2
 
             labelDigitsOne.FontAttributes = FontAttributes.Bold;
 
-            labelDigitsOne.Text = "0";
+            labelDigitsOne.Text = "100";
             labelDigitsTwo.Text = "0";
 
             string charcode1 = _valutes[(int)FavoritesCurrency.RUR].CharCode; //код первой валюты 
@@ -180,8 +243,8 @@ namespace CurrencyCalc2
             {
                 labelDigitsTwo.FontAttributes = FontAttributes.None;
                 labelDigitsOne.FontAttributes = FontAttributes.Bold;
-                frameTwo.BorderColor = Color.Default;
-                frameTwo.HasShadow = false;
+               // frameTwo.BorderColor = Color.Default;
+               // frameTwo.HasShadow = false;
                 frameOne.HasShadow = true;
                 frameOne.BorderColor = Color.Accent;
 
@@ -215,8 +278,8 @@ namespace CurrencyCalc2
                 labelDigitsTwo.FontAttributes = FontAttributes.Bold;
                 frameOne.BorderColor = Color.Default;
                 frameOne.HasShadow = false;
-                frameTwo.BorderColor = Color.Accent;
-                frameTwo.HasShadow = true;
+               // frameTwo.BorderColor = Color.Accent;
+               // frameTwo.HasShadow = true;
 
                 labelOneActive = false;
                 labelChange = true;
@@ -316,8 +379,8 @@ namespace CurrencyCalc2
                 Clipboard.SetText(labelDigitsTwo.Text);
                 DisplayAlert("Cкопировано", labelDigitsTwo.Text, "Ok");
             };
-            //stackLayontCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);
-            frameTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);
+            stackLayontCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);
+            //frameTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);
 
             // stackLayontCurrencyOne tap event
             var stackLayontCurrencyOne_tap = new TapGestureRecognizer();
@@ -334,7 +397,7 @@ namespace CurrencyCalc2
             {
                 Debug.WriteLine("Label 1 Tapped ");
 
-                tapClickLAbelTwo();
+                //tapClickLAbelTwo();  //пока отменим активацию второгоа поля, вроде как не нравиться
             };
             stackLayontCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_tap);
 
@@ -367,6 +430,8 @@ namespace CurrencyCalc2
 
         }
 
+      
+
         //  protected override void OnSizeAllocated(double widht, double height)
         //  {
         //      base.OnSizeAllocated(widht, height);
@@ -392,7 +457,7 @@ namespace CurrencyCalc2
         //  }
 
 
-       
+
 
         public string CurrencyImage (string CurrencyProperty)
         {
@@ -474,11 +539,8 @@ namespace CurrencyCalc2
 
                     if (_valutes != null)
                     {
-
-
-                       
-                            indx1 = pickerCurrencyOne.SelectedIndex;
-                            indx2 = pickerCurrencyTwo.SelectedIndex;
+                        indx1 = pickerCurrencyOne.SelectedIndex;
+                        indx2 = pickerCurrencyTwo.SelectedIndex;
                                                
                         _valutes.Clear();
                         _valutes.Add(rub);
@@ -488,13 +550,24 @@ namespace CurrencyCalc2
                     {
                         //Debug.WriteLine("DownloadStringCompleted444"+elem.Value);
                         string charcode = elem.Element("CharCode").Value;
+
+                        string name = "";
+                        if (charcode == "GBP")
+                        {
+                            name = "Фунт Соединенного Королевства";
+                        } else
+                        {
+                            name = elem.Element("Name").Value;
+                        }
+                        
+
                         string value = elem.Element("Value").Value;
 
                         value = value.Replace(",", Convert.ToString(separator)); // cbr выдает курсы с запятой
 
                         string nominal = elem.Element("Nominal").Value;
 
-                        string name = elem.Element("Name").Value;
+                        
 
                         Currency cur = new Currency(charcode, nominal, name, value);
 
@@ -513,7 +586,7 @@ namespace CurrencyCalc2
                                 _valutes.Insert((int)FavoritesCurrency.EUR, cur);
                                 break;
                             case "GBP":
-                                //_valutes.Move(i, (int)FavoritesCurrency.GBP);
+                                //_valutes.Move(i, (int)FavoritesCurrency.GBP);                               
                                 _valutes.Insert((int)FavoritesCurrency.GBP, cur);
                                 break;
                             case "CNY":
@@ -601,6 +674,7 @@ namespace CurrencyCalc2
                         break;
                     case "GBP":
                         //_valutes.Move(i, (int)FavoritesCurrency.GBP);
+                        cur.Name = "Фунт Соединенного Королевства";
                         _valutes.Insert((int)FavoritesCurrency.GBP, cur);
                         break;
                     case "CNY":
