@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
+             x:Class="CurrencyCalc2.CalculatorPage"             
+             Title="Calculator">
+
+    <!--BackgroundColor="Transparent"-->
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />            
+        </OnPlatform>
+    </ContentPage.Padding>
+    
+    
+
+    <ContentPage.Resources>
+        <!--<StyleSheet Source="MyStyle.css" />-->
+
+        <Style x:Key="CurrencyRateStyle" TargetType="StackLayout">
+            <Setter Property="VerticalOptions" Value="Center" />            
+        </Style>
+
+        <Style x:Key="PrimaryDigitsStyle" TargetType="StackLayout">
+        
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#729ff7" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="WidthRequest" Value="100" />
+            <Setter Property="HeightRequest" Value="100" />
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#c7d9fc" />                        
+            <Setter Property="TextColor" Value="White" />            
+            <Setter Property="WidthRequest" Value="100" />
+            <Setter Property="HeightRequest" Value="100" />
+        </Style>
+
+        <Style x:Key="CurrencyPickerStyle" TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="Small"/>
+            <Setter Property="Margin" Value="0,0,2,0" />
+            <Setter Property="TextColor">
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="iOS" Value="#182d54" />
+                    <On Platform="Android" Value="#51C0D4" />
+                    <On Platform="UWP" Value="#51C0D4" />
+                </OnPlatform>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ActiveFrameCurrencyStyle" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderColor">
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="iOS" Value="#182d54" />
+                    <On Platform="Android" Value="Transparent" />
+                    <On Platform="UWP" Value="Transparent" />
+                </OnPlatform>
+            </Setter>
+        </Style>
+
+        <Style x:Key="imageCurrencyStyle" TargetType="Frame">
+            <Setter Property="BorderColor" Value="LightGray"/>
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0, 0,-20, 0"/> 
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+        
+        <!-- <xamanimation:FadeToAnimation
+            x:Key="FadeToAnimation"
+            Target="{x:Reference imageLogofull}"
+            Duration="1500"
+            Opacity="1"/> 
+       
+        
+       <xamanimation:RelRotateToAnimation
+        x:Key="Rotate"
+        Target="{x:Reference labelChangeStackLayont}"
+        Duration="500"
+            Rotation="300"
+           />-->
+        <!--http://www.color-hex.com/color-palette/62314-->
+
+    </ContentPage.Resources>
+
+    <StackLayout
+      HorizontalOptions="StartAndExpand"
+      VerticalOptions="Start"
+      Margin="0,0,0,0"
+      Orientation="Vertical"
+      x:Name="stacklayontGlobal">       
+        <!--<StackLayout x:Name="stacklayoutInfo" Orientation="Horizontal" Spacing="0" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+            --><!--<Button x:Name="buttonInfo" FontSize="Medium" Clicked="ShowAboutClicked" HorizontalOptions="Start" WidthRequest="50" BackgroundColor="Transparent">--><!--
+            <Button x:Name="buttonInfo" FontSize="Medium" HorizontalOptions="Start" WidthRequest="50" BackgroundColor="Transparent">
+                <Button.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="Font Awesome 5 Free" />
+                        <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+                        <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                    </OnPlatform>
+                </Button.FontFamily>
+                <Button.Text>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="&#xf0c9;" />
+                        <On Platform="Android" Value="&#xf0c9;" />
+                        <On Platform="UWP" Value="&#xE700;" />
+                    </OnPlatform>
+                </Button.Text>
+                <Button.Triggers>
+                    --><!--EventTrigger Event="Clicked">
+                        <xamanimation:BeginAnimation
+                      Animation="{StaticResource FadeToAnimation}" />
+                    </EventTrigger> --><!--
+                </Button.Triggers>                
+            </Button>
+
+            <Frame Margin="0" Padding="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label x:Name="labelTitle" Text="Калькулятор валют" FontSize="Medium" />
+            </Frame>
+            
+
+        </StackLayout>-->
+        <!-- Place new controls here -->
+        <!--<Image x:Name="imageLogo" Source="{local:ImageResource CurrencyCalc2.logo_alta.png}" HorizontalOptions="Center"
+               VerticalOptions="Start" WidthRequest="60" HeightRequest="60"/>-->
+
+        <!--<Grid.GestureRecognizers>
+            <SwipeGestureRecognizer Direction="Left" Command="{Binding SwipeCommand}" CommandParameter="Left" />
+            <SwipeGestureRecognizer Direction="Right" Command="{Binding SwipeCommand}" CommandParameter="Right" />
+            <SwipeGestureRecognizer Direction="Up" Command="{Binding SwipeCommand}" CommandParameter="Up" />
+            <SwipeGestureRecognizer Direction="Down" Command="{Binding SwipeCommand}" CommandParameter="Down" />
+        </Grid.GestureRecognizers>-->
+
+        <Image x:Name="imageLogofull" Source="{local:ImageResource CurrencyCalc2.images.logo_alta_full.png}" HorizontalOptions="Center"
+           VerticalOptions="Start" WidthRequest="90" HeightRequest="90" IsVisible="False" Opacity="0"/>
+        <!--<local:AboutView x:Name="overlay" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>-->
+        <StackLayout x:Name="stacklayontMain" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+            <StackLayout.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Left" Command="{Binding SwipeCommand}" CommandParameter="Left" />
+                <SwipeGestureRecognizer Direction="Right" Command="{Binding SwipeCommand}" CommandParameter="Right" />
+                <!--<SwipeGestureRecognizer Direction="Up" Command="{Binding SwipeCommand}" CommandParameter="Up" />
+                <SwipeGestureRecognizer Direction="Down" Command="{Binding SwipeCommand}" CommandParameter="Down" />-->
+            </StackLayout.GestureRecognizers>
+            <Frame x:Name="frameOne" Padding="10" HorizontalOptions="FillAndExpand" Style="{StaticResource ActiveFrameCurrencyStyle}">
+                <StackLayout x:Name="stackLayontCurrencyOne" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
+                    <Label x:Name="labelDigitsOne"
+                        Text="{Binding DigitsOne}"
+                        FontSize="Large"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                    </Label>
+                    <Label x:Name="labelDigitsOneCurrency" FontSize="Large" Text="$" HorizontalOptions="Start" VerticalOptions="End"/>
+                </StackLayout>
+            </Frame>
+            <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                <!--Source="{local:ImageResource CurrencyCalc2.images.ru.png}"-->
+
+                <Picker x:Name="pickerCurrencyOne"
+                        HorizontalOptions="FillAndExpand"
+                        SelectedIndexChanged="PickerCurrencyOne_OnSelectedIndexChanged"                                            
+                        Style="{StaticResource CurrencyPickerStyle}">
+                    <Picker.SelectedItem>1</Picker.SelectedItem>
+                    <Picker.Items>
+                        <x:String>Узбекских сумов</x:String>
+                        <x:String>Новый туркменский манат</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Frame x:Name="imageCurrencyOneframe" Style="{StaticResource imageCurrencyStyle}">
+                    <Image x:Name="imageCurrencyOne" MinimumWidthRequest="50" Margin="0,0,10,0">
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding ImageOne}"/>
+                        </Image.Source>
+                    </Image>
+                </Frame>                
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label x:Name ="labelCurrentCurrencyRate" FontSize="Micro" Style="{StaticResource CurrencyRateStyle}"/>
+                <Label x:Name="labelChangeStackLayont" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">
+                                <OnIdiom x:TypeArguments="x:Double" Phone="26" Tablet="34" />
+                            </On>
+                            <On Platform="Android">
+                                <OnIdiom x:TypeArguments="x:Double" Phone="24" Tablet="32" />
+                            </On>
+                            <On Platform="UWP">
+                                <OnIdiom x:TypeArguments="x:Double" Phone="20" Tablet="32" Desktop="40"/>
+                            </On>
+                        </OnPlatform>
+                    </Label.FontSize>
+                    <Label.Text>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="&#xf079;" />
+                            <On Platform="Android" Value="&#xf079;" />
+                            <On Platform="UWP" Value="&#xE8CB;" />
+                        </OnPlatform>
+                    </Label.Text>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Font Awesome 5 Free" />
+                            <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+                            <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#182d54" />
+                            <On Platform="Android" Value="#51C0D4" />
+                            <On Platform="UWP" Value="#51C0D4" />
+                        </OnPlatform>
+                    </Label.TextColor>
+                    
+                    <!--<Label.Triggers>
+                    <EventTrigger Event="Tapped">
+                        <xamanimation:BeginAnimation
+                          Animation="{StaticResource Rotate}" />
+                    </EventTrigger>
+                </Label.Triggers>-->
+                </Label>
+                <Label x:Name ="labelCurrentCurrencyRate2" FontSize="Micro" Style="{StaticResource CurrencyRateStyle}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                <Picker x:Name="pickerCurrencyTwo"
+                        HorizontalOptions="FillAndExpand"
+                        SelectedIndexChanged="PickerCurrencyTwo_OnSelectedIndexChanged"
+                        Style="{StaticResource CurrencyPickerStyle}">
+                    <Picker.SelectedItem>1</Picker.SelectedItem>
+                    <Picker.Items>
+                        <x:String>Узбекских сумов</x:String>
+                        <x:String>Новый туркменский манат</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Frame x:Name="imageCurrencyTwoframe" Style="{StaticResource imageCurrencyStyle}">
+                    <Image x:Name="imageCurrencyTwo" MinimumWidthRequest="50" Margin="0,0,10,0">
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding ImageOne}"/>
+                        </Image.Source>
+                    </Image>
+                </Frame>
+            </StackLayout>
+
+            <!--//<Frame x:Name="frameTwo" BackgroundColor="#182d54" Padding="10" HasShadow="True" HorizontalOptions="FillAndExpand">-->
+            <StackLayout x:Name="stackLayontCurrencyTwo" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
+                <Label x:Name="labelDigitsTwo" FontSize="Large" Text="{Binding DigitsTwo}"  />
+                <Label x:Name="labelDigitsTwoCurrency" FontSize="Large" Text="&#x20BD;" VerticalOptions="End"/>
+            </StackLayout>
+            <!--</Frame>-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <!--<ColumnDefinition Width="3*"/>-->
+                    <ColumnDefinition Width="*"/>
+                    <!--<ColumnDefinition Width="3*"/>-->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--<Label x:Name ="labelCurrentCurrencyRate" FontSize="Micro" Grid.Column="0" Grid.Row="0" HorizontalOptions="StartAndExpand"/>-->
+                <Image x:Name="ButtonImage" Source="{local:ImageResource CurrencyCalc2.images.sync24px.png}" HorizontalOptions="CenterAndExpand" IsVisible="False" Grid.Column="0" Grid.Row="0">
+                    <Image.Scale>1</Image.Scale>
+                    <Image.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">
+                                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="54" />
+                            </On>
+                            <On Platform="Android">
+                                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="64" />
+                            </On>
+                            <On Platform="UWP">
+                                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="50" Desktop="54"/>
+                            </On>
+                        </OnPlatform>
+                    </Image.WidthRequest>
+                </Image>
+                <!--<Label x:Name ="labelCurrentCurrencyRate2" FontSize="Micro" HorizontalOptions="EndAndExpand" Grid.Column="2" Grid.Row="0" Style="{StaticResource CurrencyRateStyle}"/>-->
+            </Grid>
+            <Label x:Name ="labelUpdateDate" Margin="0,0,-12,0" FontSize="Micro" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+            <StackLayout x:Name ="stacklayontDigits" Padding="0"  VerticalOptions="Fill" Style="{StaticResource PrimaryDigitsStyle}">               
+                <Grid x:Name="gridMain" VerticalOptions="Start" RowSpacing="2" ColumnSpacing="2">                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--<Label Grid.Column="0" Grid.Row="0" />-->
+                    <Button x:Name="buttonDigitSeven" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="7" Grid.Column="1" Grid.Row="1" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitFour" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="4" Grid.Column="1" Grid.Row="2" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitOne"  Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="1" Grid.Column="1" Grid.Row="3" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <!--<Label  x:Name="labelTest" Grid.Column="0" Grid.Row="4" />-->
+
+                    <Button x:Name="buttonDigitCE" Clicked="OnClickCE" FontSize="Medium" Text="C" FontAttributes="Bold" Grid.Column="2" Grid.Row="0" Style="{StaticResource SecondaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitEight" Clicked="Onclick" FontSize="Medium" Text="8" FontAttributes="Bold" Grid.Column="2" Grid.Row="1" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitFive" Clicked="Onclick" FontSize="Medium" Text="5" FontAttributes="Bold" Grid.Column="2" Grid.Row="2" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitTwo"  Clicked="Onclick" FontSize="Medium" Text="2" FontAttributes="Bold" Grid.Column="2" Grid.Row="3" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitZero" Clicked="Onclick" FontSize="Medium" Text="0" FontAttributes="Bold" Grid.Column="2" Grid.Row="4" Style="{StaticResource PrimaryButtonStyle}"/>
+
+                    <!--Text="&#x232b;" -->
+                    <Button x:Name="buttonDigitBackspace" Clicked="OnClickBackSpace" FontSize="Medium" Grid.Column="3" Grid.Row="0" Style="{StaticResource SecondaryButtonStyle}">
+                        <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Font Awesome 5 Free" />
+                                <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+                                <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                            </OnPlatform>
+                        </Button.FontFamily>
+                        <Button.Text>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="&#xf55a;" />
+                                <On Platform="Android" Value="&#xf55a;" />
+                                <On Platform="UWP" Value="&#xE750;" />
+                            </OnPlatform>
+                        </Button.Text>
+                    </Button>
+                    <Button x:Name="buttonDigitNine" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="9" Grid.Column="3" Grid.Row="1" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitSix" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="6" Grid.Column="3" Grid.Row="2" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitThree" Clicked="Onclick" FontSize="Medium" FontAttributes="Bold" Text="3" Grid.Column="3" Grid.Row="3" Style="{StaticResource PrimaryButtonStyle}"/>
+                    <Button x:Name="buttonDigitComma" Clicked="OnClickComma" FontSize="Medium" FontAttributes="Bold" Text="." Grid.Column="3" Grid.Row="4" Style="{StaticResource SecondaryButtonStyle}"/>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
+

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,13 +8,21 @@ namespace CurrencyCalc2
 {
 	public partial class App : Application
 	{
-		public App ()
-		{
-			InitializeComponent();
+        public IList<string> CurrencyList { get; set; }
+        
 
-            MainPage = new MainPage();
+        public App ()
+		{
+#if DEBUG
+            //   LiveReload.Init();
+#endif
+            //InitializeComponent();
+            //CurrencyList = new List<string>();
+            //MainPage = new MainPage(); 
             //MainPage = new NavigationPage(new MainPage());
-            //MainPage = new LoadingPage();
+            //MainPage = new LoadingPage();            
+            MainPage = new Menu();
+
         }
 
 		protected override void OnStart ()

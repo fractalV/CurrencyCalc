@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyCalc2.AboutPage">
+    <ContentPage.Content>
+        <StackLayout>
+            
+                <Label Text="О программе" FontSize="Medium"/>
+                <Label x:Name="labelVersion" FontSize="Default"/>
+                <Label x:Name="labelAboutText">
+                    <Label.Text>
+                        Курсы валют предоставлены Центральным Банком Российской Федерации.&#10;Компания Альта-Софт не гарантирует точность отображаемых курсов валют. Прежде чем выполнять транзакции, связанные с конвертацией валют, проверьте текущий обменный курс.
+                    </Label.Text>                    
+                </Label>
+                <Label x:Name="labelLicenseTerms" FontSize="Small" Text="www.alta.ru" />
+                <!--<Button x:Name="buttonReview" Margin="0,20,0,0" Text="Отправть отзыв"/>-->
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

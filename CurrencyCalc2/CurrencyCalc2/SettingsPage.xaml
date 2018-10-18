@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyCalc2.SettingsPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">            
+            <Picker x:Name="ThemePicker" Title="Режим" VerticalOptions="Center">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Cветлое оформление</x:String>
+                        <x:String>Темное оформление</x:String>
+                        <x:String>Использовать системную тему</x:String>                        
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Label Text="Вы увидите изменение при следующес запуске приложения" FontSize="Small"/>
+        </StackLayout>        
+    </ContentPage.Content>
+</ContentPage>
