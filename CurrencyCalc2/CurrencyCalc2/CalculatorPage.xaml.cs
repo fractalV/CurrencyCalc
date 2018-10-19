@@ -645,6 +645,7 @@ namespace CurrencyCalc2
         {
 
             //if (!hasInternet) return; //нет инета, выходим.
+            string data = "";
             try
             {                
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);                
@@ -735,7 +736,7 @@ namespace CurrencyCalc2
                     }                    
                 };
 
-                string data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
+                data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
                 if (indx1 != -1 && indx2 != -1)
                 {
                    // Debug.WriteLine("indx1 " + indx1);
@@ -756,7 +757,8 @@ namespace CurrencyCalc2
             catch (WebException e)
             {
                 Debug.WriteLine(e.ToString());
-                await DisplayAlert("Connection error", e.Message, "Ok");
+                if (e.Message.Contains("302")) { Debug.WriteLine(e.Message); };                        
+                //await DisplayAlert("Connection error", e.Message, "Ok");
             }
             catch (Exception e)
             {

@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="default.xml" />
     <None Remove="fa-solid-900.ttf" />
+    <None Remove="hamburger.png" />
     <None Remove="images\am.png" />
     <None Remove="images\au.png" />
     <None Remove="images\az.png" />
@@ -56,6 +57,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="default.xml" />
+    <EmbeddedResource Include="hamburger.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="images\am.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

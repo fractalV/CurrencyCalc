@@ -19,7 +19,7 @@ namespace CurrencyCalc2
 
         public MenuMaster()
         {
-            InitializeComponent();
+            InitializeComponent();            
 
             BindingContext = new MenuMasterViewModel();
             ListView = MenuItemsListView;
@@ -28,7 +28,7 @@ namespace CurrencyCalc2
         class MenuMasterViewModel : INotifyPropertyChanged
         {
             public ObservableCollection<MenuMenuItem> MenuItems { get; set; }
-            
+
             public MenuMasterViewModel()
             {
                 MenuItems = new ObservableCollection<MenuMenuItem>(new[]
@@ -36,11 +36,30 @@ namespace CurrencyCalc2
                     new MenuMenuItem { Id = 0, Title = "Конвертер валют", TargetType = typeof(CalculatorPage), IconSource = "images\am.png" },
                     new MenuMenuItem { Id = 1, Title = "Курсы валют" },
                     new MenuMenuItem { Id = 2, Title = "Параметры", TargetType = typeof(SettingsPage) },
-                    new MenuMenuItem { Id = 3, Title = "О программе", TargetType = typeof(AboutPage) },
-                    new MenuMenuItem { Id = 4, Title = "Отправить отзыв" }                    
+                    new MenuMenuItem { Id = 3, Title = "О программе", TargetType = typeof(AboutPage) }
+                    //new MenuMenuItem { Id = 4, Title = "Отправить отзыв" }                    
                 });
+
+
+
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.UWP:
+                        MenuItems[0].IconSource = Char.ConvertFromUtf32(0xE75F);
+                        MenuItems[1].IconSource = Char.ConvertFromUtf32(0xE9D2);
+                        MenuItems[2].IconSource = Char.ConvertFromUtf32(0xE713);
+                        MenuItems[3].IconSource = Char.ConvertFromUtf32(0xE946);
+                        break;
+                    default:
+                        MenuItems[0].IconSource = Char.ConvertFromUtf32(0xf51e);
+                        MenuItems[1].IconSource = Char.ConvertFromUtf32(0xf201);
+                        MenuItems[2].IconSource = Char.ConvertFromUtf32(0xf013);
+                        MenuItems[3].IconSource = Char.ConvertFromUtf32(0xf05a);
+                        break;
+                }
             }
-            
+           
+
             #region INotifyPropertyChanged Implementation
             public event PropertyChangedEventHandler PropertyChanged;
             void OnPropertyChanged([CallerMemberName] string propertyName = "")

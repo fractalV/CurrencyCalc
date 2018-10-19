@@ -1,13 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.MenuMaster"             
-             Title="Master"
-             Padding="0,40,0,0"
-             Icon="hamburger.png">
-  <StackLayout>
+             Title="Menu"
+             Padding="0,40,0,0">
+    <ContentPage.Icon>
+        <!-- не работает -->
+        <OnPlatform x:TypeArguments="FileImageSource">
+            <On Platform="iOS" Value="am.png"/>
+            <On Platform="Android" Value="am.png"/>
+            <On Platform="UWP" Value="images\hamburger.png"/>
+        </OnPlatform>                                
+    </ContentPage.Icon>
+    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="Orange" >
     <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
+              VerticalOptions="FillAndExpand" 
               HasUnevenRows="false"
               BackgroundColor="Transparent" 
               ItemsSource="{Binding MenuItems}">
@@ -19,7 +28,7 @@
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
           <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>            
+            <RowDefinition Height="20"/>            
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
@@ -27,27 +36,27 @@
               Grid.Column="1"
               Grid.Row="2"
               Text="AppName"
-              Style="{DynamicResource SubtitleStyle}"/>-->
-        </Grid>
+              Style="{DynamicResource SubtitleStyle}"/>-->             
+          </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
-            <!--<StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
-              <Label VerticalOptions="FillAndExpand" 
-                    VerticalTextAlignment="Center" 
-                    Text="{Binding Title}"                     
-                    FontSize="Medium"/>
-            </StackLayout>-->
-                        <Grid Padding="5,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Source="{Binding IconSource}" />
-                            <Label Grid.Column="1" Text="{Binding Title}" />
-                        </Grid>
-
+            <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Text="{Binding IconSource}" FontSize="Micro" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS" Value="Font Awesome 5 Free" />
+                                        <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+                                        <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
+                            <Label VerticalOptions="FillAndExpand" 
+                                    VerticalTextAlignment="Center" 
+                                    Text="{Binding Title}"                     
+                                    FontSize="Micro"/>
+            </StackLayout>                    
                     </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>
