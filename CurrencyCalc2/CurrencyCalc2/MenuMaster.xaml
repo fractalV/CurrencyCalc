@@ -3,21 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.MenuMaster"             
-             Title="Menu"
-             Padding="0,40,0,0">
-    <ContentPage.Icon>
-        <!-- не работает -->
+             Title="Меню"
+             Padding="0,0,0,0">
+    <!--<ContentPage.Icon>
+        --><!-- не работает --><!--
         <OnPlatform x:TypeArguments="FileImageSource">
             <On Platform="iOS" Value="am.png"/>
             <On Platform="Android" Value="am.png"/>
             <On Platform="UWP" Value="images\hamburger.png"/>
         </OnPlatform>                                
-    </ContentPage.Icon>
-    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="Orange" >
+    </ContentPage.Icon> -->
+    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="Transparent" >
     <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               VerticalOptions="FillAndExpand" 
-              HasUnevenRows="false"
+              HasUnevenRows="False"
               BackgroundColor="Transparent" 
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
@@ -28,7 +28,7 @@
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
           <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>            
+            <RowDefinition Height="10"/>            
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>

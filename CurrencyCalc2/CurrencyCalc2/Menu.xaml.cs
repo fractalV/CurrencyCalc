@@ -15,6 +15,9 @@ namespace CurrencyCalc2
         public Menu()
         {
             InitializeComponent();
+
+            MasterBehavior = MasterBehavior.Popover;
+
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 

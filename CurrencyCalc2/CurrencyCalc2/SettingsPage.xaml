@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CurrencyCalc2.SettingsPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">            
+        <StackLayout Orientation="Vertical" Padding="10">            
             <Picker x:Name="ThemePicker" Title="Режим" VerticalOptions="Center">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
