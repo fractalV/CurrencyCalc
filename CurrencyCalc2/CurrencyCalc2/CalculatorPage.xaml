@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.CalculatorPage"             
-             Title="Конвертер валют">
+             Title="Конвертер валют"
+             Icon="hamburger.png">
 
     <!--BackgroundColor="Transparent"-->
     <ContentPage.Padding>

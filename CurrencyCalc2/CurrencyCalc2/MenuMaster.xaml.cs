@@ -23,6 +23,9 @@ namespace CurrencyCalc2
 
             BindingContext = new MenuMasterViewModel();
             ListView = MenuItemsListView;
+
+            BackgroundColor = Color.FromHex("#56198E");
+
         }
 
         class MenuMasterViewModel : INotifyPropertyChanged

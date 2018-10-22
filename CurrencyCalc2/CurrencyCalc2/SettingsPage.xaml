@@ -2,24 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CurrencyCalc2.SettingsPage">
-    <ContentPage.Resources>
-        <Style x:Name="stylePicker" TargetType="Picker">
-            <Setter Property="Title" Value ="Режим"></Setter>
-            <Setter Property="FontSize" Value="Medium"></Setter>
-        </Style>
-    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="10">
-            <Picker x:Name="ThemePicker"  SelectedIndex="{Binding Theme,Mode=TwoWay}" VerticalOptions="Center">
-                <Picker.ItemsSource>
+        <StackLayout Orientation="Vertical" Padding="10">            
+            <Picker x:Name="ThemePicker" 
+                    Title="Тема оформления" 
+                    VerticalOptions="Center"
+                    SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                <!--<Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Cветлое оформление</x:String>
                         <x:String>Темное оформление</x:String>
                         <x:String>Использовать системную тему</x:String>                        
                     </x:Array>
-                </Picker.ItemsSource>
+                </Picker.ItemsSource>-->
             </Picker>
-            <Label Text="Вы увидите изменение при следующес запуске приложения" FontSize="Small"/>
+            <!--<Label Text="Вы увидите изменение при следующес запуске приложения" FontSize="Small"/>-->
+            
+            
         </StackLayout>        
     </ContentPage.Content>
 </ContentPage>

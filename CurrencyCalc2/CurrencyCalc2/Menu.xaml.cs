@@ -18,6 +18,10 @@ namespace CurrencyCalc2
 
             MasterBehavior = MasterBehavior.Popover;
 
+            NavigationPage page = new NavigationPage(MasterPage);
+
+            page.BarBackgroundColor = Color.FromHex("#56198E");
+
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 
@@ -29,6 +33,8 @@ namespace CurrencyCalc2
 
             var page = (Page)Activator.CreateInstance(item.TargetType);
             page.Title = item.Title;
+
+            //NavigationPage.SetHasNavigationBar(page, false);  //убпарать титл меню
 
             Detail = new NavigationPage(page);
             IsPresented = false;

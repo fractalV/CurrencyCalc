@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Content;
 using Android.Content.Res;
+using Android.Graphics.Drawables;
 
 namespace CurrencyCalc2.Droid
 {
@@ -34,7 +35,7 @@ namespace CurrencyCalc2.Droid
 
             var x = typeof(Xamarin.Forms.Themes.DarkThemeResources);
             x = typeof(Xamarin.Forms.Themes.LightThemeResources);
-            x = typeof(Xamarin.Forms.Themes.Android.UnderlineEffect);
+            x = typeof(Xamarin.Forms.Themes.Android.UnderlineEffect);           
 
         }
 
