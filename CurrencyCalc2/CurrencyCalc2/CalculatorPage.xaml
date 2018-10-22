@@ -180,7 +180,7 @@
                 </Frame>                
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label x:Name ="labelCurrentCurrencyRate" FontSize="Micro" Style="{StaticResource CurrencyRateStyle}"/>
+                <Label x:Name="labelCurrentCurrencyRate" FontSize="Micro" Style="{StaticResource CurrencyRateStyle}"/>
                 <Label x:Name="labelChangeStackLayont" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
                     <Label.FontSize>
                         <OnPlatform x:TypeArguments="x:Double">

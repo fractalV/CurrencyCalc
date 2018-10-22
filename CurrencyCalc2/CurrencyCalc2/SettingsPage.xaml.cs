@@ -16,5 +16,7 @@ namespace CurrencyCalc2
 		{
 			InitializeComponent ();
 		}
-	}
+
+       
+    }
 }

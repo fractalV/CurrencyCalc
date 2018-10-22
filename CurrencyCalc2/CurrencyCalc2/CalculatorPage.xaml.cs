@@ -388,7 +388,7 @@ namespace CurrencyCalc2
                 //labelChangeStackLayont.Rotation = 0;
                 //labelChangeStackLayont.RotateTo(180, 500);
                 labelChangeStackLayont.RotationX = 0;
-                labelChangeStackLayont.RotateXTo(360, 500, Easing.CubicInOut);
+                labelChangeStackLayont.RotateXTo(360, 1000, Easing.CubicInOut);
                 
                 int iTmp;
                 if (labelDigitsOne.FontAttributes == FontAttributes.Bold)  //первый  активен!!
