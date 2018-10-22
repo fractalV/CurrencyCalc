@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.MenuMaster"             
              Title="Меню"
+             Icon="hamburger.png"
              Padding="0,0,0,0">
     <!--<ContentPage.Icon>
         --><!-- не работает --><!--
@@ -17,11 +18,10 @@
     <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               VerticalOptions="FillAndExpand" 
-              HasUnevenRows="False"
-              BackgroundColor="Transparent" 
+              HasUnevenRows="False"             
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
-        <Grid BackgroundColor="Transparent">
+                <Grid BackgroundColor="Blue">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
@@ -43,7 +43,7 @@
         <DataTemplate>
           <ViewCell>
             <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                            <Label Text="{Binding IconSource}" FontSize="Micro" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center">
+                            <Label Text="{Binding IconSource}" FontSize="Medium" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center">
                                 <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS" Value="Font Awesome 5 Free" />

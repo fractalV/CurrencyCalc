@@ -5,8 +5,8 @@
              xmlns:pages="clr-namespace:CurrencyCalc2"
                   Icon="hamburger.png"
                   Title="конвертер">
-  <MasterDetailPage.Master>
-    <pages:MenuMaster x:Name="MasterPage" />
+  <MasterDetailPage.Master>        
+    <pages:MenuMaster x:Name="MasterPage" />      
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
     <NavigationPage>

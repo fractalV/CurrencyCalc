@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using Xamarin.Forms.Themes;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
@@ -23,6 +24,7 @@ namespace CurrencyCalc2
             //MainPage = new LoadingPage();            
             MainPage = new Menu();
 
+            //Resources = new Xamarin.Forms.Themes;
         }
 
 		protected override void OnStart ()
@@ -40,5 +42,6 @@ namespace CurrencyCalc2
 		{
 			// Handle when your app resumes
 		}
-	}
+        
+    }
 }

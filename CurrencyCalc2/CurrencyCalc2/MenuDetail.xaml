@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CurrencyCalc2"
              x:Class="CurrencyCalc2.MenuDetail"
+             Icon="hamburger.png"
              Title="Detail">
   <StackLayout Padding="10">
-    <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>    
+    <Label Text="Здесь будет таблица и тенденция за год"/>    
     </StackLayout>
 </ContentPage>

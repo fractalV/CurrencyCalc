@@ -264,7 +264,7 @@ namespace CurrencyCalc2
 
             labelDigitsOne.FontAttributes = FontAttributes.Bold;
 
-            labelDigitsOne.Text = "100";
+            labelDigitsOne.Text = "0";
             labelDigitsTwo.Text = "0";
 
             string charcode1 = _valutes[(int)FavoritesCurrency.RUR].Symbol; //код первой валюты 
@@ -757,7 +757,12 @@ namespace CurrencyCalc2
             catch (WebException e)
             {
                 Debug.WriteLine(e.ToString());
-                if (e.Message.Contains("302")) { Debug.WriteLine(e.Message); };                        
+                if (e.Message.Contains("302"))
+                {
+                    Debug.WriteLine("триставторая ошибка");
+                    Debug.WriteLine(e.Message);
+
+                };                        
                 //await DisplayAlert("Connection error", e.Message, "Ok");
             }
             catch (Exception e)
@@ -1031,8 +1036,8 @@ namespace CurrencyCalc2
                 Debug.WriteLine(button.Text);
                 //button.FindByName(buttonDigitOne)
 
-                await button.ScaleTo(1.5, 250);
-                await button.ScaleTo(1, 250);
+                await button.ScaleTo(0.5, 100);
+                await button.ScaleTo(1, 100);
 
                 switch (button.Text)
                 {
