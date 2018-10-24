@@ -735,8 +735,16 @@ namespace CurrencyCalc2
 
                     }                    
                 };
-
-                data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
+                try
+                {
+                    data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
+                }
+                catch (WebException e)
+                {
+                    data = GetResourceTextFile("default.xml");
+                    //await DisplayAlert("Connection error", e.Message, "Ok");
+                }
+                
                 if (indx1 != -1 && indx2 != -1)
                 {
                    // Debug.WriteLine("indx1 " + indx1);
@@ -753,18 +761,7 @@ namespace CurrencyCalc2
                     pickerCurrencyTwo.SelectedIndex = (int)FavoritesCurrency.GBP;
 
                 }
-            }
-            catch (WebException e)
-            {
-                Debug.WriteLine(e.ToString());
-                if (e.Message.Contains("302"))
-                {
-                    Debug.WriteLine("триставторая ошибка");
-                    Debug.WriteLine(e.Message);
-
-                };                        
-                //await DisplayAlert("Connection error", e.Message, "Ok");
-            }
+            }            
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());

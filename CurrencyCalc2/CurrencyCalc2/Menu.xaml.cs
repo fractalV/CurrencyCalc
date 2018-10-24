@@ -18,9 +18,14 @@ namespace CurrencyCalc2
 
             MasterBehavior = MasterBehavior.Popover;
 
-            NavigationPage page = new NavigationPage(MasterPage);
+            //NavigationPage page = new NavigationPage(MasterPage)
+            //{
+            //    BarBackgroundColor = Color.FromHex("#56198E"),
+            //    BarTextColor = Color.White
+            //};
 
-            page.BarBackgroundColor = Color.FromHex("#56198E");
+            
+            NavigationPage.SetHasBackButton(this, true);
 
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
