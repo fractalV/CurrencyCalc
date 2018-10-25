@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.CalculatorPage"             
              Title="Конвертер валют"
-             Icon="hamburger.png">
+             Icon="hamburger">
 
     <!--BackgroundColor="Transparent"-->
     <ContentPage.Padding>
@@ -18,8 +18,15 @@
     <ContentPage.Resources>
         <!--<StyleSheet Source="MyStyle.css" />-->
 
-        <Style x:Key="CurrencyRateStyle" TargetType="StackLayout">
-            <Setter Property="VerticalOptions" Value="Center" />            
+        <Style x:Key="CurrencyRateStyle" TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{StaticResource Key=TextOnPrimary}" />
+        </Style>
+
+        <Style x:Key="CurrencyChangeRateStyle" TargetType="Label">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{StaticResource Key=TextOnPrimary}" />
         </Style>
 
         <Style x:Key="PrimaryDigitsStyle" TargetType="StackLayout">
@@ -27,15 +34,15 @@
         </Style>
 
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="BackgroundColor" Value="#729ff7" />
-            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Key=SecondaryColor}" />
+            <Setter Property="TextColor" Value="{StaticResource Key=TextOnSecondary}" />
             <Setter Property="WidthRequest" Value="100" />
             <Setter Property="HeightRequest" Value="100" />
         </Style>
 
         <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="BackgroundColor" Value="#c7d9fc" />                        
-            <Setter Property="TextColor" Value="White" />            
+            <Setter Property="BackgroundColor" Value="{StaticResource Key=PLight}" />
+            <Setter Property="TextColor" Value="{StaticResource Key=TextOnSecondary}" />            
             <Setter Property="WidthRequest" Value="100" />
             <Setter Property="HeightRequest" Value="100" />
         </Style>
@@ -65,7 +72,7 @@
         </Style>
 
         <Style x:Key="imageCurrencyStyle" TargetType="Frame">
-            <Setter Property="BorderColor" Value="LightGray"/>
+            <Setter Property="BorderColor" Value="{StaticResource Key=TextOnSecondary}"/>
             <Setter Property="Padding" Value="0" />
             <Setter Property="Margin" Value="0, 0,-20, 0"/> 
             <Setter Property="CornerRadius" Value="0" />
@@ -148,6 +155,7 @@
                 <!--<SwipeGestureRecognizer Direction="Up" Command="{Binding SwipeCommand}" CommandParameter="Up" />
                 <SwipeGestureRecognizer Direction="Down" Command="{Binding SwipeCommand}" CommandParameter="Down" />-->
             </StackLayout.GestureRecognizers>
+            
             <Frame x:Name="frameOne" Padding="10" HorizontalOptions="FillAndExpand" Style="{StaticResource ActiveFrameCurrencyStyle}">
                 <StackLayout x:Name="stackLayontCurrencyOne" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
                     <Label x:Name="labelDigitsOne"
@@ -159,9 +167,9 @@
                     <Label x:Name="labelDigitsOneCurrency" FontSize="Large" Text="$" HorizontalOptions="Start" VerticalOptions="End"/>
                 </StackLayout>
             </Frame>
+            
             <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
                 <!--Source="{local:ImageResource CurrencyCalc2.images.ru.png}"-->
-
                 <Picker x:Name="pickerCurrencyOne"
                         HorizontalOptions="FillAndExpand"
                         SelectedIndexChanged="PickerCurrencyOne_OnSelectedIndexChanged"                                            
@@ -171,7 +179,7 @@
                         <x:String>Узбекских сумов</x:String>
                         <x:String>Новый туркменский манат</x:String>
                     </Picker.Items>
-                </Picker>
+                </Picker>                
                 <Frame x:Name="imageCurrencyOneframe" Style="{StaticResource imageCurrencyStyle}">
                     <Image x:Name="imageCurrencyOne" MinimumWidthRequest="50" Margin="0,0,10,0">
                         <Image.Source>
@@ -180,9 +188,10 @@
                     </Image>
                 </Frame>                
             </StackLayout>
+            
             <StackLayout Orientation="Horizontal">
                 <Label x:Name ="labelCurrentCurrencyRate" FontSize="Micro" Style="{StaticResource CurrencyRateStyle}"/>
-                <Label x:Name="labelChangeStackLayont" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
+                <Label x:Name ="labelChangeStackLayont" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" Style="{StaticResource CurrencyChangeRateStyle}">
                     <Label.FontSize>
                         <OnPlatform x:TypeArguments="x:Double">
                             <On Platform="iOS">
@@ -209,14 +218,15 @@
                             <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
                             <On Platform="UWP" Value="Segoe MDL2 Assets" />
                         </OnPlatform>
-                    </Label.FontFamily>
-                    <Label.TextColor>
-                        <OnPlatform x:TypeArguments="Color">
+                    </Label.FontFamily>                    
+                    <!--<Label.TextColor>
+                        {StaticResource Key=TextOnPrimary}
+                        --><!--<OnPlatform x:TypeArguments="Color">
                             <On Platform="iOS" Value="#182d54" />
                             <On Platform="Android" Value="#51C0D4" />
                             <On Platform="UWP" Value="#51C0D4" />
-                        </OnPlatform>
-                    </Label.TextColor>
+                        </OnPlatform>--><!--
+                    </Label.TextColor>-->
                     
                     <!--<Label.Triggers>
                     <EventTrigger Event="Tapped">
@@ -227,6 +237,7 @@
                 </Label>
                 <Label x:Name ="labelCurrentCurrencyRate2" FontSize="Micro" Style="{StaticResource CurrencyRateStyle}"/>
             </StackLayout>
+            
             <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
                 <Picker x:Name="pickerCurrencyTwo"
                         HorizontalOptions="FillAndExpand"
@@ -281,7 +292,8 @@
                 </Image>
                 <!--<Label x:Name ="labelCurrentCurrencyRate2" FontSize="Micro" HorizontalOptions="EndAndExpand" Grid.Column="2" Grid.Row="0" Style="{StaticResource CurrencyRateStyle}"/>-->
             </Grid>
-            <Label x:Name ="labelUpdateDate" Margin="0,0,-12,0" FontSize="Micro" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+
+            <Label x:Name ="labelUpdateDate" Margin="0,0,-12,0" FontSize="Micro" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" TextColor="{StaticResource Key=TextOnPrimary}"/>
             <StackLayout x:Name ="stacklayontDigits" Padding="0"  VerticalOptions="Fill" Style="{StaticResource PrimaryDigitsStyle}">               
                 <Grid x:Name="gridMain" VerticalOptions="Start" RowSpacing="2" ColumnSpacing="2">                    
                     <Grid.ColumnDefinitions>

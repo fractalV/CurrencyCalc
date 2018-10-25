@@ -21,7 +21,7 @@
               HasUnevenRows="False"             
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
-                <Grid BackgroundColor="Blue">
+                <Grid>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>

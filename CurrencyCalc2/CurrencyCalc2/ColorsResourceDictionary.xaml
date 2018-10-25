@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyCalc2.MyResourceDictionary">
+
+
+    <Color x:Key="PageBackgroundColor">#004D40</Color>
+    <Color x:Key="HeadingTextColor">#FFFFFF</Color>
+    <Color x:Key="NormalTextColor">#000000</Color>
+
+    <Color x:Key="PrimaryColor">#004D40</Color>
+    <Color x:Key="PLight">#004D40</Color>
+    <Color x:Key="PDark">#004D40</Color>
+    <Color x:Key="SecondaryColor">#004D40</Color>
+    <Color x:Key="SLight">#004D40</Color>
+    <Color x:Key="SDark">#004D40</Color>
+    <Color x:Key="TextOnPrimary">#FFFFFF</Color>
+    <Color x:Key="TextOnSecondary">#000000</Color>
+    
+</ResourceDictionary>
