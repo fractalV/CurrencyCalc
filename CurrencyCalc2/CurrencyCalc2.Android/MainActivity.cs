@@ -20,7 +20,7 @@ namespace CurrencyCalc2.Droid
             Xamarin.Essentials.Platform.Init(this, bundle);
 
             TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
+            //ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
 

@@ -4,17 +4,35 @@
              x:Class="CurrencyCalc2.MyResourceDictionary">
 
 
-    <Color x:Key="PageBackgroundColor">#004D40</Color>
+    <Color x:Key="PageBackgroundColor">#FFFFFF</Color>
     <Color x:Key="HeadingTextColor">#FFFFFF</Color>
     <Color x:Key="NormalTextColor">#000000</Color>
 
-    <Color x:Key="PrimaryColor">#004D40</Color>
-    <Color x:Key="PLight">#004D40</Color>
-    <Color x:Key="PDark">#004D40</Color>
-    <Color x:Key="SecondaryColor">#004D40</Color>
-    <Color x:Key="SLight">#004D40</Color>
-    <Color x:Key="SDark">#004D40</Color>
-    <Color x:Key="TextOnPrimary">#FFFFFF</Color>
-    <Color x:Key="TextOnSecondary">#000000</Color>
+    <Color x:Key="PrimaryColor">#1b87e5</Color>
+    <Color x:Key="PrimaryLight">#69b6ff</Color>
+    <Color x:Key="PrimaryDark">#005bb2</Color>
     
+    <Color x:Key="SecondaryColor">Transparent</Color>
+    <Color x:Key="SecondaryLight">Transparent</Color>
+    <Color x:Key="SecondaryDark">Transparent</Color>
+    
+    <Color x:Key="TextOnPrimary">#000000</Color>
+    <Color x:Key="TextOnSecondary">#000000</Color>
+
+
+    <!-- Pallete -->
+    <Color x:Key="primary-back-title-color">#FFFFFF</Color>
+    <Color x:Key="primary-title-color">#FFFFFF</Color>
+    <!-- Pallete-end -->
+    <Style ApplyToDerivedTypes="true" TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource Key=primary-back-title-color}"/>
+        <Setter Property="BarTextColor" Value="{StaticResource Key=PrimaryColor}"/>
+    </Style>
+
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{StaticResource Key=primary-back-title-color}" />
+    </Style>
+
+
+
 </ResourceDictionary>

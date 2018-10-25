@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.CalculatorPage"             
              Title="Конвертер валют"
-             Icon="hamburger">
+             Icon="hamburger"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
 
     <!--BackgroundColor="Transparent"-->
     <ContentPage.Padding>
@@ -21,12 +22,12 @@
         <Style x:Key="CurrencyRateStyle" TargetType="Label">
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="TextColor" Value="{StaticResource Key=TextOnPrimary}" />
+            <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
         </Style>
 
         <Style x:Key="CurrencyChangeRateStyle" TargetType="Label">
             <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="TextColor" Value="{StaticResource Key=TextOnPrimary}" />
+            <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
         </Style>
 
         <Style x:Key="PrimaryDigitsStyle" TargetType="StackLayout">
@@ -34,15 +35,15 @@
         </Style>
 
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{StaticResource Key=SecondaryColor}" />
-            <Setter Property="TextColor" Value="{StaticResource Key=TextOnSecondary}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
             <Setter Property="WidthRequest" Value="100" />
             <Setter Property="HeightRequest" Value="100" />
         </Style>
 
         <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{StaticResource Key=PLight}" />
-            <Setter Property="TextColor" Value="{StaticResource Key=TextOnSecondary}" />            
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryLight}" />
+            <Setter Property="TextColor" Value="{StaticResource TextOnSecondary}" />            
             <Setter Property="WidthRequest" Value="100" />
             <Setter Property="HeightRequest" Value="100" />
         </Style>
@@ -51,28 +52,28 @@
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="FontSize" Value="Small"/>
             <Setter Property="Margin" Value="0,0,2,0" />
-            <Setter Property="TextColor">
-                <OnPlatform x:TypeArguments="Color">
+            <Setter Property="TextColor" Value="{StaticResource PrimaryDark}">
+                <!--<OnPlatform x:TypeArguments="Color">
                     <On Platform="iOS" Value="#182d54" />
                     <On Platform="Android" Value="#51C0D4" />
-                    <On Platform="UWP" Value="#51C0D4" />
-                </OnPlatform>
+                    <On Platform="UWP" Value="{StaticResource Key=PrimaryDark}" />
+                </OnPlatform>-->
             </Setter>
         </Style>
 
         <Style x:Key="ActiveFrameCurrencyStyle" TargetType="Frame">
             <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="BorderColor">
-                <OnPlatform x:TypeArguments="Color">
+            <Setter Property="BorderColor" Value="Transparent">
+                <!--<OnPlatform x:TypeArguments="Color">
                     <On Platform="iOS" Value="#182d54" />
                     <On Platform="Android" Value="Transparent" />
                     <On Platform="UWP" Value="Transparent" />
-                </OnPlatform>
+                </OnPlatform>-->
             </Setter>
         </Style>
 
-        <Style x:Key="imageCurrencyStyle" TargetType="Frame">
-            <Setter Property="BorderColor" Value="{StaticResource Key=TextOnSecondary}"/>
+        <Style x:Key="imageCurrencyStyle" TargetType="Frame">            
+            <!--<Setter Property="BorderColor" Value="{StaticResource Key=TextOnSecondary}"/>-->
             <Setter Property="Padding" Value="0" />
             <Setter Property="Margin" Value="0, 0,-20, 0"/> 
             <Setter Property="CornerRadius" Value="0" />

@@ -92,18 +92,19 @@ namespace CurrencyCalc2
             {
                 case (int)XApplicationThemes.Dark:
                     //Application.Current.Resources.MergedWith = typeof(DarkThemeResources);
-                    Resources.MergedWith= typeof(DarkThemeResources);
+                    Resources.Clear();
+                    Resources = new DarkThemeResources();                    
                     App.ThemeID = 2;
                     break;
                 case (int)XApplicationThemes.Light:
                     //Application.Current.Resources.MergedWith = typeof(LightThemeResources);
                     //Resources = typeof(LightThemeResources);
-                    Resources.MergedWith = typeof(LightThemeResources);
+                   // Resources.MergedWith = typeof(LightThemeResources);
                     App.ThemeID = 1;
                     break;
                 case (int)XApplicationThemes.Original:
                     //Application.Current.Resources.MergedWith = typeof(MyResourceDictionary);
-                    Resources.MergedWith = typeof(MyResourceDictionary);
+                   // Resources.MergedWith = typeof(MyResourceDictionary);
                     App.ThemeID = 0;
                     break;
             }

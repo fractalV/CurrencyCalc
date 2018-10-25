@@ -21,9 +21,11 @@ namespace CurrencyCalc2
 
             NavigationPage page = new NavigationPage(MasterPage);
 
-            
 
-            //page.BarBackgroundColor =   //Color.FromHex("#56198E");
+
+            //Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(MenuMaster))) { BarBackgroundColor = Color.Red };
+
+            
 
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }

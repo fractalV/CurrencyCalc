@@ -242,7 +242,13 @@ namespace CurrencyCalc2
             //Debug.WriteLine(GetSizeRequest(stacklayontGlobal));
 
             Exrin.Common.ThreadHelper.Init(SynchronizationContext.Current);
-            Exrin.Common.ThreadHelper.RunOnUIThread(async () => { await UpdateCurrencyAsync(); });
+
+            //LoadCurrencyFromFile("default.xml");
+
+            Exrin.Common.ThreadHelper.RunOnUIThread(async () => {                
+                                    await UpdateCurrencyAsync();                               
+            });
+
             Trace.WriteLine(DateTime.Now.ToString() + " - Start of Main");
 
 
@@ -641,6 +647,98 @@ namespace CurrencyCalc2
             return result;
         }
 
+        void LoadCurrencyFromFile (string filename)
+        {
+            string data = "";
+            int indx1 = -1;
+            int indx2 = -1;
+            var doc = XDocument.Parse(GetResourceTextFile(filename));
+            if (_valutes != null)
+            {
+                indx1 = pickerCurrencyOne.SelectedIndex;
+                indx2 = pickerCurrencyTwo.SelectedIndex;
+
+                _valutes.Clear();
+                _valutes.Add(rub);
+            }
+
+            foreach (var elem in doc.Descendants("Valute"))//doc.Elements().First().Elements())
+            {
+                //Debug.WriteLine("DownloadStringCompleted444"+elem.Value);
+                string charcode = elem.Element("CharCode").Value;
+
+                string name = "";
+                if (charcode == "GBP")
+                {
+                    name = "Фунт Соединенного Королевства";
+                }
+                else
+                {
+                    name = elem.Element("Name").Value;
+                }
+
+                string symbol = GetCharSymbol(charcode);
+
+                string value = elem.Element("Value").Value;
+
+                value = value.Replace(",", Convert.ToString(separator)); // cbr выдает курсы с запятой
+
+                string nominal = elem.Element("Nominal").Value;
+
+
+
+                Currency cur = new Currency(charcode, nominal, name, value, symbol);
+
+                switch (charcode)
+                {
+                    case "RUR":
+                        _valutes.Insert((int)FavoritesCurrency.RUR, cur);
+                        break;
+                    case "USD":
+                        //_valutes.Move(i, (int)FavoritesCurrency.USD);
+                        _valutes.Insert((int)FavoritesCurrency.USD, cur);
+                        //Debug.WriteLine(i);
+                        break;
+                    case "EUR":
+                        //_valutes.Move(i, (int)FavoritesCurrency.EUR);
+                        _valutes.Insert((int)FavoritesCurrency.EUR, cur);
+                        break;
+                    case "GBP":
+                        //_valutes.Move(i, (int)FavoritesCurrency.GBP);                               
+                        _valutes.Insert((int)FavoritesCurrency.GBP, cur);
+                        break;
+                    case "CNY":
+                        _valutes.Insert((int)FavoritesCurrency.CNY, cur);
+                        //_valutes.Move(i, (int)FavoritesCurrency.CNY);
+                        break;
+                    case "JPY":
+                        //_valutes.Move(i, (int)FavoritesCurrency.JPY);
+                        _valutes.Insert((int)FavoritesCurrency.JPY, cur);
+                        break;
+                    case "CHF":
+                        //_valutes.Move(i, (int)FavoritesCurrency.CHF);
+                        _valutes.Insert((int)FavoritesCurrency.CHF, cur);
+                        break;
+                    default:
+                        _valutes.Add(cur);
+                        break;
+                }
+
+            }
+
+
+            if (indx1 != -1 && indx2 != -1)
+            {             
+                pickerCurrencyOne.SelectedIndex = indx1;
+                pickerCurrencyTwo.SelectedIndex = indx2;
+            }
+            else
+            {
+                pickerCurrencyOne.SelectedIndex = (int)FavoritesCurrency.RUR;
+                pickerCurrencyTwo.SelectedIndex = (int)FavoritesCurrency.GBP;
+            }
+        }
+
         public async Task UpdateCurrencyAsync()
         {
 
@@ -656,10 +754,10 @@ namespace CurrencyCalc2
                 int indx2 = -1;
                 client.DownloadStringCompleted += (o, e) =>
                 {
-                  
+
                     //Debug.WriteLine("DownloadStringCompleted");
                     //XMLparse(e.Result);
-                    var doc = XDocument.Parse(e.Result);
+                    XDocument doc = XDocument.Parse(e.Result);
                     //Debug.WriteLine(doc.Document);
                     //labelUpdateDate.Text = "Обновлено " + doc.Root.Attribute("Date").Value + System.DateTime.Now.TimeOfDay;                    
 
@@ -735,9 +833,19 @@ namespace CurrencyCalc2
 
                     }                    
                 };
+                
+                try
+                {
+                    data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
+                }
+                catch (WebException e)
+                {
+                    Debug.WriteLine(e.Message);
+                    data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
+                }
 
-                data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
-                if (indx1 != -1 && indx2 != -1)
+
+            if (indx1 != -1 && indx2 != -1)
                 {
                    // Debug.WriteLine("indx1 " + indx1);
                    // Debug.WriteLine("indx2 " + indx2);
@@ -753,18 +861,7 @@ namespace CurrencyCalc2
                     pickerCurrencyTwo.SelectedIndex = (int)FavoritesCurrency.GBP;
 
                 }
-            }
-            catch (WebException e)
-            {
-                Debug.WriteLine(e.ToString());
-                if (e.Message.Contains("302"))
-                {
-                    Debug.WriteLine("триставторая ошибка");
-                    Debug.WriteLine(e.Message);
-
-                };                        
-                //await DisplayAlert("Connection error", e.Message, "Ok");
-            }
+            }            
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
