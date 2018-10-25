@@ -5,9 +5,10 @@
              Title="О программе"
              x:Class="CurrencyCalc2.AboutPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="10">            
-                
-                <Label x:Name="labelVersion" FontSize="Default"/>
+        <StackLayout Orientation="Vertical" Padding="10">
+            <Image x:Name="imageLogofull" Source="{local:ImageResource CurrencyCalc2.images.logo_alta_full.png}" HorizontalOptions="Center"
+           VerticalOptions="Start" WidthRequest="90" HeightRequest="90" IsVisible="False" Opacity="0"/>
+            <Label x:Name="labelVersion" FontSize="Default"/>
                 <Label x:Name="labelAboutText">
                     <Label.Text>
                         Курсы валют предоставлены Центральным Банком Российской Федерации.&#10;Компания Альта-Софт не гарантирует точность отображаемых курсов валют. Прежде чем выполнять транзакции, связанные с конвертацией валют, проверьте текущий обменный курс.

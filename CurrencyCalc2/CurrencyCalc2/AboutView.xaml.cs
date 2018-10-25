@@ -13,7 +13,10 @@ namespace CurrencyCalc2
 
         public AboutView ()
 		{
-			InitializeComponent ();
+
+
+            
+InitializeComponent ();
 
             Uri uri = new Uri("https://www.alta.ru/");
 
@@ -33,6 +36,7 @@ namespace CurrencyCalc2
         {
             await Browser.OpenAsync(uri);
         }
+
 
        
     }

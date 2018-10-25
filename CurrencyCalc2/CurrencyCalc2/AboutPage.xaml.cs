@@ -16,6 +16,8 @@ namespace CurrencyCalc2
 		{
 			InitializeComponent ();
 
+            VersionTracking.Track();
+
             Uri uri = new Uri("https://www.alta.ru/");
 
             labelLicenseTerms.GestureRecognizers.Add(new TapGestureRecognizer
@@ -23,13 +25,21 @@ namespace CurrencyCalc2
                 Command = new Command(async () => await OpenBrowser(uri)),
             });
 
-            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            string displayableVersion = $"{version}";
+            var currentVersion = VersionTracking.CurrentVersion;
 
-            labelVersion.Text = "Конвертер валют " + displayableVersion + "\r\nАльта-Софт, 2018, Все права защищены.";
+            //Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            //string displayableVersion = $"{version}";
+
+            labelVersion.Text = "Конвертер валют " + currentVersion + "\r\nАльта-Софт, 2018, Все права защищены.";
+
+            imageLogofull.IsVisible = true;
+            imageLogofull.RotationY = 0;
+            imageLogofull.RotateYTo(360, 2000, Easing.CubicInOut);
+            imageLogofull.Opacity = 0;
+            imageLogofull.FadeTo(1, 2000);
 
         }
-    
+
 
         public async Task OpenBrowser(Uri uri)
         {
