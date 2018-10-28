@@ -16,6 +16,7 @@ namespace CurrencyCalc2
         public MenuDetail()
         {
             InitializeComponent();
+            
         }
     }
 }

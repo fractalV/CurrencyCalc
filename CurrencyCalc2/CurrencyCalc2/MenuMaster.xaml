@@ -6,22 +6,15 @@
              Title="Меню"
              Icon="hamburger.png"
              Padding="0,0,0,0">
-    <!--<ContentPage.Icon>
-        --><!-- не работает --><!--
-        <OnPlatform x:TypeArguments="FileImageSource">
-            <On Platform="iOS" Value="am.png"/>
-            <On Platform="Android" Value="am.png"/>
-            <On Platform="UWP" Value="images\hamburger.png"/>
-        </OnPlatform>                                
-    </ContentPage.Icon> -->
-    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="Transparent" >
+    
+    <StackLayout VerticalOptions="FillAndExpand">
     <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               VerticalOptions="FillAndExpand" 
               HasUnevenRows="False"             
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
-                <Grid BackgroundColor="Blue">
+                <Grid>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>

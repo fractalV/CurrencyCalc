@@ -4,8 +4,9 @@
              xmlns:local="clr-namespace:CurrencyCalc2"
              x:Class="CurrencyCalc2.MenuDetail"
              Icon="hamburger.png"
-             Title="Detail">
-  <StackLayout Padding="10">
+             Title="Detail"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
+    <StackLayout Padding="10">
     <Label Text="Здесь будет таблица и тенденция за год"/>    
     </StackLayout>
 </ContentPage>

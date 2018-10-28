@@ -22,9 +22,9 @@ namespace CurrencyCalc2
             InitializeComponent();            
 
             BindingContext = new MenuMasterViewModel();
-            ListView = MenuItemsListView;
+            ListView = MenuItemsListView;            
 
-            BackgroundColor = Color.FromHex("#56198E");
+            // BackgroundColor = Color.FromHex("#56198E");
 
         }
 

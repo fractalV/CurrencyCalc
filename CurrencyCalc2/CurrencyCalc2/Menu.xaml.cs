@@ -11,21 +11,21 @@ namespace CurrencyCalc2
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Menu : MasterDetailPage
-    {
+    {        
+
         public Menu()
         {
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
 
-            //NavigationPage page = new NavigationPage(MasterPage)
-            //{
-            //    BarBackgroundColor = Color.FromHex("#56198E"),
-            //    BarTextColor = Color.White
-            //};
+            NavigationPage page = new NavigationPage(MasterPage);
+
+
+
+            //Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(MenuMaster))) { BarBackgroundColor = Color.Red };
 
             
-            NavigationPage.SetHasBackButton(this, true);
 
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }

@@ -4,7 +4,7 @@
             xmlns:light="clr-namespace:Xamarin.Forms.Themes;assembly=Xamarin.Forms.Theme.Light"
             xmlns:dark="clr-namespace:Xamarin.Forms.Themes;assembly=Xamarin.Forms.Theme.Dark"
              x:Class="CurrencyCalc2.App">
-	<Application.Resources>
+	<Application.Resources>        
         <ResourceDictionary>
             <ResourceDictionary MergedWith="light:LightThemeResources" />
             <!--<Style TargetType ="NavigationPage">
@@ -12,6 +12,7 @@
                 <Setter Property="BarTextColor" Value="{StaticResource ButtonBackGroundColor}"></Setter>
             </Style>-->
         </ResourceDictionary>
+        <ResourceDictionary Source="ColorsResourceDictionary.xaml" />
     </Application.Resources>   
     
 </Application>

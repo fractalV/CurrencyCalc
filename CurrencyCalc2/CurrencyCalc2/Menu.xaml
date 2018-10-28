@@ -9,16 +9,16 @@
     <pages:MenuMaster x:Name="MasterPage" />      
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-    <NavigationPage>
+        <NavigationPage>
             <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_feed.png"/>
-                </OnPlatform>
-            </NavigationPage.Icon>
-            <x:Arguments>
+           <OnPlatform x:TypeArguments="FileImageSource">
+              <On Platform="iOS" Value="tab_feed.png"/>
+           </OnPlatform>
+        </NavigationPage.Icon>
+        <x:Arguments>
         <!--<pages:MenuDetail />-->
-        <pages:CalculatorPage />
-      </x:Arguments>
+            <pages:CalculatorPage />
+        </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>
 </MasterDetailPage>
