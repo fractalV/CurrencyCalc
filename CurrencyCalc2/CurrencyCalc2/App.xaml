@@ -7,6 +7,10 @@
 	<Application.Resources>        
         <ResourceDictionary>
             <ResourceDictionary MergedWith="light:LightThemeResources" />
+            <!--<Style TargetType ="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource GreenColor}"></Setter>
+                <Setter Property="BarTextColor" Value="{StaticResource ButtonBackGroundColor}"></Setter>
+            </Style>-->
         </ResourceDictionary>
         <ResourceDictionary Source="ColorsResourceDictionary.xaml" />
     </Application.Resources>   
