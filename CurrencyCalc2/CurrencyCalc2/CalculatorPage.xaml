@@ -175,7 +175,7 @@
                         HorizontalOptions="FillAndExpand"
                         SelectedIndexChanged="PickerCurrencyOne_OnSelectedIndexChanged"                                            
                         Style="{StaticResource CurrencyPickerStyle}">
-                    <Picker.SelectedItem>1</Picker.SelectedItem>
+                    <!--<Picker.SelectedItem>1</Picker.SelectedItem>-->
                     <Picker.Items>
                         <x:String>Узбекских сумов</x:String>
                         <x:String>Новый туркменский манат</x:String>
@@ -244,7 +244,7 @@
                         HorizontalOptions="FillAndExpand"
                         SelectedIndexChanged="PickerCurrencyTwo_OnSelectedIndexChanged"
                         Style="{StaticResource CurrencyPickerStyle}">
-                    <Picker.SelectedItem>1</Picker.SelectedItem>
+                    <!--<Picker.SelectedItem>1</Picker.SelectedItem>-->
                     <Picker.Items>
                         <x:String>Узбекских сумов</x:String>
                         <x:String>Новый туркменский манат</x:String>

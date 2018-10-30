@@ -18,7 +18,12 @@
                 </Picker.ItemsSource>-->
             </Picker>
             <!--<Label Text="Вы увидите изменение при следующес запуске приложения" FontSize="Small"/>-->
-            
+            <Picker x:Name="SourcePicker"
+                    Title="Источник данных"
+                    VerticalOptions="Center"
+                   >
+                
+            </Picker>
             
         </StackLayout>        
     </ContentPage.Content>

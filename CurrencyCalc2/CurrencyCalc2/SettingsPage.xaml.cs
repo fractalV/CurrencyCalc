@@ -55,11 +55,18 @@ namespace CurrencyCalc2
                 Debug.WriteLine("custom");
             }
 
-            
+
 
             //ThemePicker.SetBinding(Picker.ItemsSourceProperty, "Theme");
             //ThemePicker.SetBinding(Picker.SelectedItemProperty, "Системная");
             //ThemePicker.ItemDisplayBinding = new Binding("Name");
+
+            var sourceList = new List<string>();
+            sourceList.Add ("cbr.ru"); 
+            sourceList.Add ("ecb.eu");
+            sourceList.Add ("rbc.ru");
+
+            SourcePicker.ItemsSource = sourceList;
 
         }
 

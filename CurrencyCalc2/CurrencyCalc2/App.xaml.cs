@@ -14,6 +14,12 @@ namespace CurrencyCalc2
 
         public static int ThemeID;
 
+        public enum FavoritesCurrency { RUR, GBP, USD, EUR, CNY, JPY, CHF };
+
+        public static string[] FavoritesDefault = new string[7] { "RUR", "GBP", "USD", "EUR", "CNY", "JPY", "CHF" };
+
+        public static int[] pickersID = new[] { (int)FavoritesCurrency.RUR, (int)FavoritesCurrency.USD };
+
         public App ()
 		{
 #if DEBUG
