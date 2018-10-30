@@ -141,6 +141,7 @@ namespace CurrencyCalc2
         {
             _valutes.Add(rub);
             InitializeComponent();
+            Trace.WriteLine(DateTime.Now.ToString() + " - Start of Main");
 
             BindingContext = new SwipeCommandPageViewModel();
 
@@ -242,12 +243,20 @@ namespace CurrencyCalc2
 
             //LoadCurrencyFromFile("default.xml");
 
-            Exrin.Common.ThreadHelper.RunOnUIThread(async () => {
-                await UpdateCurrencyAsync();
-            });
+            Trace.WriteLine(DateTime.Now.ToString() + "Start UpdateCurrencyAsync()");
 
-            Trace.WriteLine(DateTime.Now.ToString() + " - Start of Main");
+            
 
+            try
+            {
+                Exrin.Common.ThreadHelper.RunOnUIThread(async () => {
+                    await UpdateCurrencyAsync();
+                });
+            }
+            catch (WebException e)
+            {
+                Debug.WriteLine(e.Message);             
+            }
 
 
             UpdateLabelDate(); //на текущую дату
@@ -256,7 +265,7 @@ namespace CurrencyCalc2
             pickerCurrencyOne.ItemsSource = Valuta;
             pickerCurrencyOne.ItemDisplayBinding = new Binding("ForPicker");
             pickerCurrencyOne.SelectedIndex = pickersID[0];
-            Debug.WriteLine(pickersID[0]);
+            
             //labelDigitsOneCurrency.Text = rub.CharCode;
             //if (_valutes[(int)FavoritesCurrency.RUR].CharCode != null) labelDigitsOneCurrency.Text = _valutes[(int)FavoritesCurrency.RUR].Symbol;
             labelDigitsOneCurrency.Text = _valutes[pickersID[0]].Symbol;
@@ -264,7 +273,7 @@ namespace CurrencyCalc2
             pickerCurrencyTwo.ItemsSource = Valuta;
             pickerCurrencyTwo.ItemDisplayBinding = new Binding("ForPicker");
             pickerCurrencyTwo.SelectedIndex = pickersID[1];
-            Debug.WriteLine(pickersID[1]);
+            
             //labelDigitsTwoCurrency.Text = usd.CharCode;
             //if (_valutes[(int)FavoritesCurrency.GBP].CharCode != null) labelDigitsTwoCurrency.Text = _valutes[(int)FavoritesCurrency.GBP].Symbol;
             labelDigitsTwoCurrency.Text = _valutes[pickersID[1]].Symbol;
@@ -351,10 +360,7 @@ namespace CurrencyCalc2
                     charcode1 = _valutes[pickerCurrencyOne.SelectedIndex].Symbol; //код первой валюты 
                     charcode2 = _valutes[pickerCurrencyTwo.SelectedIndex].Symbol; //код второй валюты 
 
-                    SetlabelCurrencyRate(charcode1, charcode2);
-
-                    pickersID[0] = pickerCurrencyOne.SelectedIndex;
-                    pickersID[1] = pickerCurrencyTwo.SelectedIndex;
+                    SetlabelCurrencyRate(charcode1, charcode2);                                  
 
                     //labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); тобы не пересчитывать, а то курс "едет"
                 }
@@ -387,10 +393,7 @@ namespace CurrencyCalc2
 
                     CalculateCrossRate(currency_two, cross_nominal_two, currency_one, cross_nominal_one);
 
-                    SetlabelCurrencyRate(charcode1, charcode2);
-
-                    pickersID[0] = pickerCurrencyOne.SelectedIndex;
-                    pickersID[1] = pickerCurrencyTwo.SelectedIndex;
+                    SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
                     //labelDigitsOne.Text = CalculateItog(labelDigitsTwo.Text);
                 }
             }
@@ -424,6 +427,8 @@ namespace CurrencyCalc2
 
                     //labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); 
                 };
+
+                SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
             };
             labelChangeStackLayont.GestureRecognizers.Add(labelChangeStackLayont_tap);
 
@@ -696,8 +701,6 @@ namespace CurrencyCalc2
 
                 string nominal = elem.Element("Nominal").Value;
 
-
-
                 Currency cur = new Currency(charcode, nominal, name, value, symbol);
 
                 switch (charcode)
@@ -737,19 +740,20 @@ namespace CurrencyCalc2
 
             }
 
+            pickerCurrencyOne.SelectedIndex = pickersID[0];
+            pickerCurrencyTwo.SelectedIndex = pickersID[1];
 
-            if (indx1 != -1 && indx2 != -1)
-            {
-                pickerCurrencyOne.SelectedIndex = indx1;
-                pickerCurrencyTwo.SelectedIndex = indx2;
-                pickersID[0] = indx1;
-                pickersID[1] = indx2;
-            }
-            else
-            {
-                pickerCurrencyOne.SelectedIndex = pickersID[0];
-                pickerCurrencyTwo.SelectedIndex = pickersID[1];
-            }
+            //if (indx1 != -1 && indx2 != -1)
+            //{
+            //    pickerCurrencyOne.SelectedIndex = indx1;
+            //    pickerCurrencyTwo.SelectedIndex = indx2;
+            // //   SetPickersID(indx1, indx2);
+            //}
+            //else
+            //{
+            //    pickerCurrencyOne.SelectedIndex = pickersID[0];
+            //    pickerCurrencyTwo.SelectedIndex = pickersID[1];
+            //}
         }
 
         public async Task UpdateCurrencyAsync()
@@ -857,25 +861,26 @@ namespace CurrencyCalc2
                     data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
                 }
 
+                //pickerCurrencyOne.SelectedIndex = pickersID[0];
+                //pickerCurrencyTwo.SelectedIndex = pickersID[1];
+                //if (indx1 != -1 && indx2 != -1)
+                //{
+                //    // Debug.WriteLine("indx1 " + indx1);
+                //    // Debug.WriteLine("indx2 " + indx2);
+                //    pickerCurrencyOne.SelectedIndex = indx1;
+                //    pickerCurrencyTwo.SelectedIndex = indx2;
 
-                if (indx1 != -1 && indx2 != -1)
-                {
-                    // Debug.WriteLine("indx1 " + indx1);
-                    // Debug.WriteLine("indx2 " + indx2);
-                    pickerCurrencyOne.SelectedIndex = indx1;
-                    pickerCurrencyTwo.SelectedIndex = indx2;
+                //    pickersID[0] = indx1;
+                //    pickersID[1] = indx2;
+                //    //pickerCurrencyTwo.SelectedIndexChanged += PickerCurrencyTwo_OnSelectedIndexChanged;
 
-                    pickersID[0] = indx1;
-                    pickersID[1] = indx2;
-                    //pickerCurrencyTwo.SelectedIndexChanged += PickerCurrencyTwo_OnSelectedIndexChanged;
+                //}
+                //else
+                //{
+                //    pickerCurrencyOne.SelectedIndex = pickersID[0];
+                //    pickerCurrencyTwo.SelectedIndex = pickersID[1];
 
-                }
-                else
-                {
-                    pickerCurrencyOne.SelectedIndex = pickersID[0];
-                    pickerCurrencyTwo.SelectedIndex = pickersID[1];
-
-                }
+                //}
             }
             catch (Exception e)
             {
@@ -967,6 +972,8 @@ namespace CurrencyCalc2
                 if (pickerCurrencyOne.SelectedIndex != -1 && pickerCurrencyOne.SelectedIndex <= pickerCurrencyOne.Items.Count && pickerCurrencyTwo.SelectedIndex != -1)
                 {
                     Debug.WriteLine("pickerCurrencyTwo.SelectedIndex in");
+
+                    SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
                     imageCurrencyOne.Source = ImageSource.FromResource(CurrencyImage(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Length - 1)));
                     //узнаем какая строчка активна, и изходя из этого делаем вычисления
                     if (labelOneActive)
@@ -1011,6 +1018,8 @@ namespace CurrencyCalc2
                         LabelOneUpdate(CalculateItog(labelDigitsTwo.Text));
                     }
 
+                   
+
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1018,6 +1027,15 @@ namespace CurrencyCalc2
                 //Trace.WriteLine(ex.Source.ToString());
                 DisplayAlert("Ошибка PickerCurrencyOne_OnSelectedIndexChanged", ex.Message, "Ок");
             }
+        }
+
+        private void SetPickersID(int a, int b)
+        {
+            if ((a != -1) && (b != -1))
+            {
+                pickersID[0] = a;
+                pickersID[1] = b;
+            }            
         }
 
         private void PickerCurrencyTwo_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -1029,6 +1047,7 @@ namespace CurrencyCalc2
                 //if (pickerCurrencyTwo.SelectedIndex != -1) return;
                 if (pickerCurrencyTwo.SelectedIndex != -1 && pickerCurrencyTwo.SelectedIndex <= pickerCurrencyTwo.Items.Count && pickerCurrencyOne.SelectedIndex != -1)
                 {
+                    SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
                     imageCurrencyTwo.Source = ImageSource.FromResource(CurrencyImage(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Length - 1)));
                     if (labelOneActive)
                     {
@@ -1071,7 +1090,7 @@ namespace CurrencyCalc2
                         //labelDigitsOne.Text = CalculateItog(labelDigitsTwo.Text);
                         LabelOneUpdate(CalculateItog(labelDigitsTwo.Text));
 
-                    }
+                    }                    
                 }
             }
             catch (ArgumentOutOfRangeException ex)
