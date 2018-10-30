@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Themes;
 using Xamarin.Forms.Xaml;
@@ -19,6 +20,10 @@ namespace CurrencyCalc2
         public static string[] FavoritesDefault = new string[7] { "RUR", "GBP", "USD", "EUR", "CNY", "JPY", "CHF" };
 
         public static int[] pickersID = new[] { (int)FavoritesCurrency.RUR, (int)FavoritesCurrency.USD };
+
+        public static ObservableCollection<Currency> _valutes = new ObservableCollection<Currency>();
+
+        public static ObservableCollection<Currency> Valuta { get { return _valutes; } }
 
         public App ()
 		{

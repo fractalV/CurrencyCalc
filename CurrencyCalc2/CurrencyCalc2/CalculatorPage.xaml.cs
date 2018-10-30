@@ -128,10 +128,7 @@ namespace CurrencyCalc2
         int cross_nominal_one = 1;
         int cross_nominal_two = 1;
 
-        public ObservableCollection<Currency> _valutes = new ObservableCollection<Currency>();
-
-
-        public ObservableCollection<Currency> Valuta { get { return _valutes; } }
+       
 
         //public string symbolAbout;
 

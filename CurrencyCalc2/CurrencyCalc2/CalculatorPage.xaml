@@ -79,6 +79,7 @@
             <Setter Property="CornerRadius" Value="0" />
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="BorderColor" Value="{StaticResource Key=PrimaryDark}"/>
         </Style>
         
         <!-- <xamanimation:FadeToAnimation
@@ -180,7 +181,7 @@
                         <x:String>Узбекских сумов</x:String>
                         <x:String>Новый туркменский манат</x:String>
                     </Picker.Items>
-                </Picker>                
+                </Picker>
                 <Frame x:Name="imageCurrencyOneframe" Style="{StaticResource imageCurrencyStyle}">
                     <Image x:Name="imageCurrencyOne" MinimumWidthRequest="50" Margin="0,0,10,0">
                         <Image.Source>
@@ -251,7 +252,7 @@
                     </Picker.Items>
                 </Picker>
                 <Frame x:Name="imageCurrencyTwoframe" Style="{StaticResource imageCurrencyStyle}">
-                    <Image x:Name="imageCurrencyTwo" MinimumWidthRequest="50" Margin="0,0,10,0">
+                    <Image x:Name="imageCurrencyTwo" MinimumWidthRequest="50" Margin="0,0,10,0" >
                         <Image.Source>
                             <UriImageSource Uri="{Binding ImageOne}"/>
                         </Image.Source>

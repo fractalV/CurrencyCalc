@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
+             x:Class="CurrencyCalc2.ListViewPageRates">
+  <ListView x:Name="MyListView"            
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement">
+            
+    <!--Built in Cells-->
+        <ListView.Header>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="5">
+                        <Label Text="Валюта"></Label>
+                        <Label Text="Курс за 1"></Label>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.Header>
+    <ListView.ItemTemplate>
+        <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="5">
+                        <Image x:Name="imageCurrency" MinimumWidthRequest="20" Margin="10">
+                            <Image.Source>
+                                <UriImageSource Uri="{Binding ImageOne}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="{Binding Value}" />
+                        <Label Text="{Binding CharCode}" />                        
+                    </StackLayout>
+                </ViewCell>
+        </DataTemplate>
+    </ListView.ItemTemplate>
+       
+    
+    <!--Custom View Cells-->
+    <!--
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout>
+            <Label Text="{Binding Text}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding Detail}" 
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+    -->
+  </ListView>
+</ContentPage>
