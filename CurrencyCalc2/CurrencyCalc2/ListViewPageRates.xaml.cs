@@ -44,17 +44,21 @@ namespace CurrencyCalc2
 
             Currency y = new Currency();
 
-            Currency entry = new Currency();
-            
-            entry.CharCode = Valuta[pickersID[1]].CharCode;
-            entry.Nominal = Valuta[pickersID[1]].Nominal;
-            entry.Value = Valuta[pickersID[1]].Value;
+            Currency entry = new Currency
+            {
+                CharCode = Valuta[pickersID[1]].CharCode,
+                Nominal = Valuta[pickersID[1]].Nominal,
+                Value = Valuta[pickersID[1]].Value
+            };
 
             Debug.WriteLine("{0}, {1}",Valuta[pickersID[0]].CharCode, Valuta[pickersID[1]].CharCode);
 
             headerLabel.Text = "Курс за " + entry.Nominal + " " + entry.CharCode;
 
-            foreach (var x in Valuta)
+            int cross_nominal_one = Int16.Parse(entry.Nominal);
+            double currency_one = double.Parse(entry.Value);
+
+            foreach (Currency x in Valuta)
             {
                 
                 if (Valuta[pickersID[1]].CharCode !=  x.CharCode )
@@ -63,15 +67,15 @@ namespace CurrencyCalc2
                     y.Name = x.Name;
                     y.Nominal = x.Nominal;
                     y.Img = x.Img;
-
-                    int cross_nominal_one = Int16.Parse(entry.Nominal);
-                    int cross_nominal_two = Int16.Parse(y.Nominal);
-
-                    double currency_one = Double.Parse(entry.Value);
-                    double currency_two = Double.Parse(x.Value);
+                   
+                   // Debug.WriteLine(string.Format("CurrencyCalc2.images.{0}.png", x.CharCode.Remove(x.CharCode.Length - 1).ToLower()));
+                    
+                    int cross_nominal_two = Int16.Parse(y.Nominal);                    
+                    double currency_two = double.Parse(x.Value);
 
                     double t = CrossRate(currency_one, cross_nominal_one, currency_two, cross_nominal_two);
-                    y.Value = t.ToString("F2", CultureInfo.CurrentCulture);
+                    const string Format = "F3";
+                    y.Value = t.ToString(Format, CultureInfo.CurrentCulture);
                     val.Add(y);
                 }                
             }
@@ -85,12 +89,6 @@ namespace CurrencyCalc2
             //{ 
             //    Items.ElementAt(i).Value = CalculateItog(Items.ElementAt(i).Value);
             //}
-
-            
-
-            
-
-
         }
 
 
