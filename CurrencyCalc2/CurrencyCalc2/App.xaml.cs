@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Themes;
 using Xamarin.Forms.Xaml;
@@ -24,6 +25,18 @@ namespace CurrencyCalc2
         public static ObservableCollection<Currency> _valutes = new ObservableCollection<Currency>();
 
         public static ObservableCollection<Currency> Valuta { get { return _valutes; } }
+
+        public static double cross_kurs = 1;
+
+
+        public static string CalculateItog(string tmp)
+        {
+            if (!String.IsNullOrEmpty(tmp))
+            {
+                return ((Double.Parse(tmp) * cross_kurs)).ToString("F2", CultureInfo.CurrentCulture);
+            }
+            else return "0";
+        }
 
         public App ()
 		{
@@ -56,6 +69,6 @@ namespace CurrencyCalc2
 		{
 			// Handle when your app resumes
 		}
-        
+
     }
 }

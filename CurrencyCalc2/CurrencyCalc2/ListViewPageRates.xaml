@@ -9,14 +9,9 @@
             
     <!--Built in Cells-->
         <ListView.Header>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout Orientation="Horizontal" Padding="5">
-                        <Label Text="Валюта"></Label>
-                        <Label Text="Курс за 1"></Label>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
+            <StackLayout HorizontalOptions="Center">
+                <Label x:Name="headerLabel"></Label>
+            </StackLayout>
         </ListView.Header>
     <ListView.ItemTemplate>
         <DataTemplate>
@@ -24,7 +19,7 @@
                     <StackLayout Orientation="Horizontal" Padding="5">
                         <Image x:Name="imageCurrency" MinimumWidthRequest="20" Margin="10">
                             <Image.Source>
-                                <UriImageSource Uri="{Binding ImageOne}"/>
+                                <UriImageSource Uri="{Binding Img}"/>
                             </Image.Source>
                         </Image>
                         <Label Text="{Binding Value}" />

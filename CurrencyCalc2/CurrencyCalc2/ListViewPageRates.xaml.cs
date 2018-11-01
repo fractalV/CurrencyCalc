@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace CurrencyCalc2
         {
             InitializeComponent();
 
-            Items = Valuta;
+            Items = _valutes;
            
             //Items = new ObservableCollection<string>
             //{
@@ -30,10 +31,19 @@ namespace CurrencyCalc2
             //    "Item 5"
             //};
 
+
+
             MyListView.ItemsSource = Items;
             MyListView.BindingContext = new Binding("MyListView");
+            
+            //for (int i = 0; i <= Items.Count; i++)
+            //{ 
+            //    Items.ElementAt(i).Value = CalculateItog(Items.ElementAt(i).Value);
+            //}
 
-          
+            
+
+            headerLabel.Text = "Курс за " + Items[pickersID[0]].Nominal + " " + Items[pickersID[0]].CharCode;
 
 
         }
@@ -45,8 +55,12 @@ namespace CurrencyCalc2
 
             await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
+            Debug.WriteLine(sender.ToString());
+
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
+
+
         }
     }
 }

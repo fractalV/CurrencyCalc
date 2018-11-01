@@ -20,53 +20,7 @@ namespace CurrencyCalc2
 {
 
     
-    public struct Currency
-    {
-
-        public string CharCode { get; set; }
-        public string Nominal { get; set; }
-        public string Name { get; set; }
-        public string Value { get; set; }
-        public string ForPicker { get; set; }
-        public string Symbol { get; set; }
-
-
-        public Currency(string charcode, string nominal, string name, string value, string symbol)
-        {
-            CharCode = charcode;
-            Nominal = nominal;
-            Name = name;
-            Value = value;
-            ForPicker = name;
-            Symbol = symbol;
-        }
-        
-    }
-
-    // пытался избавиться от моргания imageLabelTwo
-    public class ImagesLabel : INotifyPropertyChanged
-    {
-        private object img;
-
-        public object ImageOne
-        {
-            get { return img; }
-            set
-            {
-                if ( img != value )
-                {
-                    img = value;
-                    OnPropertyChanged("ImageOne");
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-    }
+      
 
     public class SwipeCommandPageViewModel : INotifyPropertyChanged
     {
@@ -123,7 +77,7 @@ namespace CurrencyCalc2
 
         int maxDigits = 16;
         int currDigits = 1;
-        double cross_kurs = 1;
+        
         double cross_kurs2 = 1;
         int cross_nominal_one = 1;
         int cross_nominal_two = 1;
@@ -299,11 +253,15 @@ namespace CurrencyCalc2
             //imageCurrencyOne.Source = ImageSource.FromResource("CurrencyCalc2.images.ru.png");
             //imageCurrencyTwo.Source = ImageSource.FromResource("CurrencyCalc2.images.gb.png");
 
-            imageCurrencyOne.Source = ImageSource.FromResource(
-                CurrencyImage(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Length - 1)));
+            //imageCurrencyOne.Source = ImageSource.FromResource(
+            //    CurrencyImage(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyOne.SelectedIndex].CharCode.Length - 1)));
 
-            imageCurrencyTwo.Source = ImageSource.FromResource(
-                CurrencyImage(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Length - 1)));
+            imageCurrencyOne.Source = _valutes[pickerCurrencyOne.SelectedIndex].GetImg(_valutes[pickerCurrencyOne.SelectedIndex].CharCode);
+
+            //imageCurrencyTwo.Source = ImageSource.FromResource(
+            //    CurrencyImage(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Length - 1)));
+            imageCurrencyTwo.Source = _valutes[pickerCurrencyTwo.SelectedIndex].GetImg(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode);
+
             //this.BackgroundImage = ImageSource.FromResource("CurrencyCalc2.images.background.jpg"); //"CurrencyCalc2.images.background.jpg";
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -761,8 +719,8 @@ namespace CurrencyCalc2
             try
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                var client = new WebClient() { Encoding = Encoding.GetEncoding(1251) };
-
+                var client = new WebClient() { Encoding = Encoding.GetEncoding(1251)};
+                client.Credentials = CredentialCache.DefaultCredentials;
 
                 int indx1 = -1;
                 int indx2 = -1;
@@ -848,43 +806,18 @@ namespace CurrencyCalc2
                     }
                 };
 
-                try
-                {
+              
                     data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
-                }
-                catch (WebException e)
-                {
-                    Debug.WriteLine(e.Message);
-                    data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
-                }
-
-                //pickerCurrencyOne.SelectedIndex = pickersID[0];
-                //pickerCurrencyTwo.SelectedIndex = pickersID[1];
-                //if (indx1 != -1 && indx2 != -1)
-                //{
-                //    // Debug.WriteLine("indx1 " + indx1);
-                //    // Debug.WriteLine("indx2 " + indx2);
-                //    pickerCurrencyOne.SelectedIndex = indx1;
-                //    pickerCurrencyTwo.SelectedIndex = indx2;
-
-                //    pickersID[0] = indx1;
-                //    pickersID[1] = indx2;
-                //    //pickerCurrencyTwo.SelectedIndexChanged += PickerCurrencyTwo_OnSelectedIndexChanged;
-
-                //}
-                //else
-                //{
-                //    pickerCurrencyOne.SelectedIndex = pickersID[0];
-                //    pickerCurrencyTwo.SelectedIndex = pickersID[1];
-
-                //}
+               
+                   // data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
+            
+                
             }
-            catch (Exception e)
+            catch (WebException webEx)
             {
-                Debug.WriteLine(e.ToString());
-                await DisplayAlert("Error", e.Message, "Ok");
-
+                Debug.Write(webEx.ToString());
             }
+
         }
 
         public void XMLparse(string tmp)
@@ -1125,14 +1058,7 @@ namespace CurrencyCalc2
 
         }
 
-        private string CalculateItog(string tmp)
-        {
-            if (!String.IsNullOrEmpty(tmp))
-            {
-                return ((Double.Parse(tmp) * cross_kurs)).ToString("F2", CultureInfo.CurrentCulture);
-            }
-            else return "0";
-        }
+        
 
         void LabelOneUpdate(string tmp)
         {
