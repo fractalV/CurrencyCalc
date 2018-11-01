@@ -16,15 +16,35 @@
     <ListView.ItemTemplate>
         <DataTemplate>
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" Padding="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Image x:Name="imageCurrency" MinimumWidthRequest="20" Margin="10" Grid.Column="0">
+                            <Image.Source>
+                                <UriImageSource Uri="{Binding Path=Img}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Grid.Column="1" HorizontalOptions="End" Text="{Binding Value}" />
+                        <Label Grid.Column="2" HorizontalOptions="Center" Text="{Binding CharCode}" />
+                    </Grid>
+                    
+                    <!--<StackLayout Orientation="Horizontal" Padding="5">
                         <Image x:Name="imageCurrency" MinimumWidthRequest="20" Margin="10">
                             <Image.Source>
-                                <UriImageSource Uri="{Binding Img}"/>
+                                <UriImageSource Uri="{Binding Path=Img}"/>
                             </Image.Source>
                         </Image>
                         <Label Text="{Binding Value}" />
                         <Label Text="{Binding CharCode}" />                        
-                    </StackLayout>
+                    </StackLayout>-->
                 </ViewCell>
         </DataTemplate>
     </ListView.ItemTemplate>

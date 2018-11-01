@@ -27,7 +27,7 @@ namespace CurrencyCalc2
         public static ObservableCollection<Currency> Valuta { get { return _valutes; } }
 
         public static double cross_kurs = 1;
-
+        public static double cross_kurs2 = 1;
 
         public static string CalculateItog(string tmp)
         {
@@ -37,6 +37,7 @@ namespace CurrencyCalc2
             }
             else return "0";
         }
+      
 
         public App ()
 		{

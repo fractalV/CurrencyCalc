@@ -13,7 +13,7 @@ namespace CurrencyCalc2
         public string Value { get; set; }
         public string ForPicker { get; set; }
         public string Symbol { get; set; }
-        public ImageSource Img { get; }
+        public ImageSource Img { get; set; }
         
 
         public Currency(string chcode, string nominal, string name, string value, string symbol)

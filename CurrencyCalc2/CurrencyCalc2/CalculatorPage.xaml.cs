@@ -76,9 +76,8 @@ namespace CurrencyCalc2
         char separator = Convert.ToChar(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator);
 
         int maxDigits = 16;
-        int currDigits = 1;
+        int currDigits = 1;        
         
-        double cross_kurs2 = 1;
         int cross_nominal_one = 1;
         int cross_nominal_two = 1;
 
@@ -224,6 +223,8 @@ namespace CurrencyCalc2
             pickerCurrencyTwo.ItemsSource = Valuta;
             pickerCurrencyTwo.ItemDisplayBinding = new Binding("ForPicker");
             pickerCurrencyTwo.SelectedIndex = pickersID[1];
+
+            
             
             //labelDigitsTwoCurrency.Text = usd.CharCode;
             //if (_valutes[(int)FavoritesCurrency.GBP].CharCode != null) labelDigitsTwoCurrency.Text = _valutes[(int)FavoritesCurrency.GBP].Symbol;
