@@ -296,7 +296,7 @@
             </Grid>
 
             <Label x:Name ="labelUpdateDate" Margin="0,0,-12,0" FontSize="Micro" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" TextColor="{StaticResource Key=TextOnPrimary}"/>
-            <StackLayout x:Name ="stacklayontDigits" Padding="0"  VerticalOptions="Fill" Style="{StaticResource PrimaryDigitsStyle}">               
+            <StackLayout x:Name ="stacklayontDigits" Padding="0"  VerticalOptions="Fill" Style="{StaticResource PrimaryDigitsStyle}" BackgroundColor="{StaticResource SecondaryColor}">
                 <Grid x:Name="gridMain" VerticalOptions="Start" RowSpacing="2" ColumnSpacing="2">                    
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

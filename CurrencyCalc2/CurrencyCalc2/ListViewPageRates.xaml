@@ -3,11 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.ListViewPageRates">
-  <ListView x:Name="MyListView"            
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#E1E1E1</Color>
+
+            <Style x:Key="InternalViewStyle" TargetType="ContentView">
+                <Setter Property="BackgroundColor" 
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="1"></Setter>
+            </Style>
+
+            <Style x:Key="BorderStyle" TargetType="ContentView">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ListView x:Name="MyListView"            
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
-            
-    <!--Built in Cells-->
+        
+        <!--<ListView.RowHeight>
+            <OnPlatform x:TypeArguments="x:Int32">
+                <On Platform="iOS, Android" Value="80" />
+                <On Platform="UWP" Value="90" />
+            </OnPlatform>
+        </ListView.RowHeight>-->
+
+        <!--Built in Cells-->
         <ListView.Header>
             <StackLayout HorizontalOptions="Center">
                 <Label x:Name="headerLabel"></Label>
@@ -21,18 +48,27 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="4*" />
                             <ColumnDefinition Width="2*" />
-                            <!--<ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />-->
+                            <ColumnDefinition Width="*" />
+                            <!--<ColumnDefinition Width="*" />-->
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Image x:Name="imageCurrency" Margin="5" WidthRequest="30" HeightRequest="30" Grid.Column="0" Source="{Binding Img}" />
-                        <StackLayout Orientation="Vertical" Grid.Column="1" Spacing="0">
+
+                        <Frame Grid.Column="0" BorderColor="LightGray" BackgroundColor="WhiteSmoke" Padding="0" CornerRadius="25" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Image x:Name="imageCurrency"  WidthRequest="40" HeightRequest="40"  Source="{Binding Img}" />
+                        </Frame>
+                        
+                        <!--<StackLayout Orientation="Vertical" Grid.Column="1" Spacing="0">
                             <Label FontAttributes="Bold" Text="{Binding Name}"/>
                             <Label Text="{Binding CharCode}" />                            
-                        </StackLayout>                        
-                        <Label Grid.Column="2" Margin="0,0,5,0" HorizontalOptions="End" VerticalOptions="Center" Text="{Binding Value}" />
+                        </StackLayout>-->
+
+                        <Label Grid.Column="1" VerticalOptions="Center" Text="{Binding Name}"/>
+
+                        <Label Grid.Column="2" FontAttributes="Bold" Margin="0,0,5,0" HorizontalOptions="End" VerticalOptions="Center" Text="{Binding Value}" />
+
+                        <Label Grid.Column="3" VerticalOptions="Center"  HorizontalOptions="Start" Text="{Binding CharCode}" />
                     </Grid>
                     
                     <!--<StackLayout Orientation="Horizontal" Padding="5">

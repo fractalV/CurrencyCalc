@@ -97,10 +97,9 @@ namespace CurrencyCalc2
         {
             if (e.Item == null)
                 return;
-
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            Debug.WriteLine(sender.ToString());
+            
+            await DisplayAlert("Валюта", "Здесь будет график изменения курса", "OK");
+            
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

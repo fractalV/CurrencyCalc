@@ -205,7 +205,7 @@ namespace CurrencyCalc2
             }
             catch (WebException e)
             {
-                Debug.WriteLine(e.Message);             
+                Debug.WriteLine("208 строка " + e.Message);             
             }
 
 
@@ -698,129 +698,123 @@ namespace CurrencyCalc2
 
             pickerCurrencyOne.SelectedIndex = pickersID[0];
             pickerCurrencyTwo.SelectedIndex = pickersID[1];
-
-            //if (indx1 != -1 && indx2 != -1)
-            //{
-            //    pickerCurrencyOne.SelectedIndex = indx1;
-            //    pickerCurrencyTwo.SelectedIndex = indx2;
-            // //   SetPickersID(indx1, indx2);
-            //}
-            //else
-            //{
-            //    pickerCurrencyOne.SelectedIndex = pickersID[0];
-            //    pickerCurrencyTwo.SelectedIndex = pickersID[1];
-            //}
+          
         }
 
         public async Task UpdateCurrencyAsync()
         {
 
             //if (!hasInternet) return; //нет инета, выходим.
-            string data = "";
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var client = new WebClient() { Encoding = Encoding.GetEncoding(1251) };
+
+            client.Credentials = CredentialCache.DefaultCredentials;            
+
+            string data = string.Empty;
+
             try
             {
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                var client = new WebClient() { Encoding = Encoding.GetEncoding(1251)};
-                client.Credentials = CredentialCache.DefaultCredentials;
-
-                int indx1 = -1;
-                int indx2 = -1;
                 client.DownloadStringCompleted += (o, e) =>
                 {
+                    if (e.Error != null) throw e.Error;
+                    if (e.Result == null) return;
 
-                    //Debug.WriteLine("DownloadStringCompleted");
-                    //XMLparse(e.Result);
-                    XDocument doc = XDocument.Parse(e.Result);
-                    //Debug.WriteLine(doc.Document);
-                    //labelUpdateDate.Text = "Обновлено " + doc.Root.Attribute("Date").Value + System.DateTime.Now.TimeOfDay;                    
-
-                    if (_valutes != null)
-                    {
-                        indx1 = pickerCurrencyOne.SelectedIndex;
-                        indx2 = pickerCurrencyTwo.SelectedIndex;
-
-                        _valutes.Clear();
-                        _valutes.Add(rub);
-                    }
-                    //Debug.WriteLine(_valutes.Count);
-                    foreach (var elem in doc.Descendants("Valute"))//doc.Elements().First().Elements())
-                    {
-                        //Debug.WriteLine("DownloadStringCompleted444"+elem.Value);
-                        string charcode = elem.Element("CharCode").Value;
-
-                        string name = "";
-                        if (charcode == "GBP")
-                        {
-                            name = "Фунт Соединенного Королевства";
-                        } else
-                        {
-                            name = elem.Element("Name").Value;
-                        }
-
-                        string symbol = GetCharSymbol(charcode);
-
-                        string value = elem.Element("Value").Value;
-
-                        value = value.Replace(",", Convert.ToString(separator)); // cbr выдает курсы с запятой
-
-                        string nominal = elem.Element("Nominal").Value;
-
-
-
-                        Currency cur = new Currency(charcode, nominal, name, value, symbol);
-
-                        switch (charcode)
-                        {
-                            case "RUR":
-                                _valutes.Insert((int)FavoritesCurrency.RUR, cur);
-                                break;
-                            case "USD":
-                                //_valutes.Move(i, (int)FavoritesCurrency.USD);
-                                _valutes.Insert((int)FavoritesCurrency.USD, cur);
-                                //Debug.WriteLine(i);
-                                break;
-                            case "EUR":
-                                //_valutes.Move(i, (int)FavoritesCurrency.EUR);
-                                _valutes.Insert((int)FavoritesCurrency.EUR, cur);
-                                break;
-                            case "GBP":
-                                //_valutes.Move(i, (int)FavoritesCurrency.GBP);                               
-                                _valutes.Insert((int)FavoritesCurrency.GBP, cur);
-                                break;
-                            case "CNY":
-                                _valutes.Insert((int)FavoritesCurrency.CNY, cur);
-                                //_valutes.Move(i, (int)FavoritesCurrency.CNY);
-                                break;
-                            case "JPY":
-                                //_valutes.Move(i, (int)FavoritesCurrency.JPY);
-                                _valutes.Insert((int)FavoritesCurrency.JPY, cur);
-                                break;
-                            case "CHF":
-                                //_valutes.Move(i, (int)FavoritesCurrency.CHF);
-                                _valutes.Insert((int)FavoritesCurrency.CHF, cur);
-                                break;
-                            default:
-                                _valutes.Add(cur);
-                                break;
-                        }
-
-                    }
+                    ParseResultCbr(e);
                 };
 
-              
-                    data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
-               
-                   // data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
-            
-                
+                data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
+                // data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
             }
-            catch (WebException webEx)
+            catch (Exception)
             {
-                Debug.Write(webEx.ToString());
+                //await DisplayAlert("Ошибка", webEx.Message, "OK");
+                throw;
             }
 
-        }
+        }       
 
+
+        private void ParseResultCbr(DownloadStringCompletedEventArgs e )
+        {
+            int indx1, indx2 = -1;            
+
+            XDocument doc = XDocument.Parse(e.Result);
+
+            if (_valutes != null)
+            {
+                indx1 = pickerCurrencyOne.SelectedIndex;
+                indx2 = pickerCurrencyTwo.SelectedIndex;
+
+                _valutes.Clear();
+                _valutes.Add(rub);
+            }
+
+            foreach (var elem in doc.Descendants("Valute"))//doc.Elements().First().Elements())
+            {
+                //Debug.WriteLine("DownloadStringCompleted444"+elem.Value);
+                string charcode = elem.Element("CharCode").Value;
+
+                string name = "";
+                if (charcode == "GBP")
+                {
+                    name = "Фунт Соединенного Королевства";
+                }
+                else
+                {
+                    name = elem.Element("Name").Value;
+                }
+
+                string symbol = GetCharSymbol(charcode);
+
+                string value = elem.Element("Value").Value;
+
+                value = value.Replace(",", Convert.ToString(separator)); // cbr выдает курсы с запятой
+
+                string nominal = elem.Element("Nominal").Value;
+
+
+
+                Currency cur = new Currency(charcode, nominal, name, value, symbol);
+
+                switch (charcode)
+                {
+                    case "RUR":
+                        _valutes.Insert((int)FavoritesCurrency.RUR, cur);
+                        break;
+                    case "USD":
+                        //_valutes.Move(i, (int)FavoritesCurrency.USD);
+                        _valutes.Insert((int)FavoritesCurrency.USD, cur);
+                        //Debug.WriteLine(i);
+                        break;
+                    case "EUR":
+                        //_valutes.Move(i, (int)FavoritesCurrency.EUR);
+                        _valutes.Insert((int)FavoritesCurrency.EUR, cur);
+                        break;
+                    case "GBP":
+                        //_valutes.Move(i, (int)FavoritesCurrency.GBP);                               
+                        _valutes.Insert((int)FavoritesCurrency.GBP, cur);
+                        break;
+                    case "CNY":
+                        _valutes.Insert((int)FavoritesCurrency.CNY, cur);
+                        //_valutes.Move(i, (int)FavoritesCurrency.CNY);
+                        break;
+                    case "JPY":
+                        //_valutes.Move(i, (int)FavoritesCurrency.JPY);
+                        _valutes.Insert((int)FavoritesCurrency.JPY, cur);
+                        break;
+                    case "CHF":
+                        //_valutes.Move(i, (int)FavoritesCurrency.CHF);
+                        _valutes.Insert((int)FavoritesCurrency.CHF, cur);
+                        break;
+                    default:
+                        _valutes.Add(cur);
+                        break;
+                }
+
+            }
+        }
+     
         public void XMLparse(string tmp)
         {
             var doc = XDocument.Parse(tmp);
