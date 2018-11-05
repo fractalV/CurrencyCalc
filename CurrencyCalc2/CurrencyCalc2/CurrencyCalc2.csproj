@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>1.0.4.5</AssemblyVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AssemblyName>CurrencyCalc2</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

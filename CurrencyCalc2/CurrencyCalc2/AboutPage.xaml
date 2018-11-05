@@ -11,14 +11,14 @@
             <Label x:Name="labelVersion" FontSize="Default"/>
                 <Label x:Name="labelAboutText">
                     <Label.Text>
-                        Курсы валют предоставлены Центральным Банком Российской Федерации.&#10;Компания Альта-Софт не гарантирует точность отображаемых курсов валют. Прежде чем выполнять транзакции, связанные с конвертацией валют, проверьте текущий обменный курс.
+                        Компания Альта-Софт не гарантирует точность отображаемых курсов валют. Прежде чем выполнять транзакции, связанные с конвертацией валют, проверьте текущий обменный курс.
                     </Label.Text>                    
                 </Label>
             <Label x:Name="labelLicenseTerms" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
-                            <Span Text="alta.ru" TextColor="BlueViolet" TextDecorations="Underline"></Span>
+                            <Span Text="alta.ru" TextColor="Blue" TextDecorations="Underline"></Span>
                         </FormattedString.Spans>
                     </FormattedString>
                 </Label.FormattedText>

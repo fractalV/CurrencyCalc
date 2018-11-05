@@ -14,6 +14,8 @@ namespace CurrencyCalc2
     {
         public IList<string> CurrencyList { get; set; }
 
+        public static string MySumString = "100";  //TODO: ѕеееееренести в загрузку из состо€ний приложени€
+
         public static int ThemeID;
 
         public enum FavoritesCurrency { RUR, GBP, USD, EUR, CNY, JPY, CHF };

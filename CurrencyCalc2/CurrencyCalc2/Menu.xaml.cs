@@ -32,10 +32,9 @@ namespace CurrencyCalc2
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            
 
-            var item = e.SelectedItem as MenuMenuItem;
-            if (item == null)
+
+            if (!(e.SelectedItem is MenuMenuItem item))
                 return;
 
             var page = (Page)Activator.CreateInstance(item.TargetType);

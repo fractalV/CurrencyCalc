@@ -17,14 +17,17 @@
                     </x:Array>
                 </Picker.ItemsSource>-->
             </Picker>
-            <!--<Label Text="Вы увидите изменение при следующес запуске приложения" FontSize="Small"/>-->
+            
             <Picker x:Name="SourcePicker"
                     Title="Источник данных"
                     VerticalOptions="Center"
+                    SelectedIndexChanged="OnSourcePickerSelectedIndexChanged"
                    >
                 
             </Picker>
-            
+
+            <Label x:Name="LabelMessage" FontSize="Micro"/>
+
         </StackLayout>        
     </ContentPage.Content>
 </ContentPage>

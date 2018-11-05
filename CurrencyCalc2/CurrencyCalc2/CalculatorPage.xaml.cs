@@ -205,7 +205,8 @@ namespace CurrencyCalc2
             }
             catch (WebException e)
             {
-                Debug.WriteLine("208 строка " + e.Message);             
+               // Debug.WriteLine("208 строка " + e.Message);  //TODO: Обработать таймаут!                
+                DisplayAlert("Internet", e.Message, "OK");              
             }
 
 
@@ -230,10 +231,11 @@ namespace CurrencyCalc2
             //if (_valutes[(int)FavoritesCurrency.GBP].CharCode != null) labelDigitsTwoCurrency.Text = _valutes[(int)FavoritesCurrency.GBP].Symbol;
             labelDigitsTwoCurrency.Text = _valutes[pickersID[1]].Symbol;
 
-            labelDigitsOne.FontAttributes = FontAttributes.Bold;
+            //labelDigitsOne.FontAttributes = FontAttributes.Bold;
 
-            labelDigitsOne.Text = "0";
+            labelDigitsOne.Text = MySumString;
             labelDigitsTwo.Text = "0";
+
 
             string charcode1 = _valutes[pickersID[0]].Symbol; //код первой валюты 
             string charcode2 = _valutes[pickersID[1]].Symbol; //код второй валюты 
@@ -260,10 +262,12 @@ namespace CurrencyCalc2
             imageCurrencyOne.Source = _valutes[pickerCurrencyOne.SelectedIndex].GetImg(_valutes[pickerCurrencyOne.SelectedIndex].CharCode);
 
             //imageCurrencyTwo.Source = ImageSource.FromResource(
-            //    CurrencyImage(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Length - 1)));
+            //    CurrencyImage(_valutes[pickerCurrencyTwo.  SelectedIndex].CharCode.Remove(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode.Length - 1)));
             imageCurrencyTwo.Source = _valutes[pickerCurrencyTwo.SelectedIndex].GetImg(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode);
 
             //this.BackgroundImage = ImageSource.FromResource("CurrencyCalc2.images.background.jpg"); //"CurrencyCalc2.images.background.jpg";
+
+            LabelTwoUpdate(CalculateItog(labelDigitsOne.Text));
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -291,8 +295,8 @@ namespace CurrencyCalc2
 
             void tapClickLabelOne()
             {
-                labelDigitsTwo.FontAttributes = FontAttributes.None;
-                labelDigitsOne.FontAttributes = FontAttributes.Bold;
+                //labelDigitsTwo.FontAttributes = FontAttributes.None;
+                //labelDigitsOne.FontAttributes = FontAttributes.Bold;
                 // frameTwo.BorderColor = Color.Default;
                 // frameTwo.HasShadow = false;
                 frameOne.HasShadow = true;
@@ -324,8 +328,8 @@ namespace CurrencyCalc2
 
             void tapClickLAbelTwo()
             {
-                labelDigitsOne.FontAttributes = FontAttributes.None;
-                labelDigitsTwo.FontAttributes = FontAttributes.Bold;
+                //labelDigitsOne.FontAttributes = FontAttributes.None;
+                //labelDigitsTwo.FontAttributes = FontAttributes.Bold;
                 frameOne.BorderColor = Color.Default;
                 frameOne.HasShadow = false;
                 // frameTwo.BorderColor = Color.Accent;
@@ -367,22 +371,22 @@ namespace CurrencyCalc2
                 labelChangeStackLayont.RotateXTo(360, 500, Easing.CubicInOut);
 
                 int iTmp;
-                if (labelDigitsOne.FontAttributes == FontAttributes.Bold)  //первый  активен!!
-                {
+                //if (labelDigitsOne.FontAttributes == FontAttributes.Bold)  //первый  активен!!
+                //{
                     iTmp = pickerCurrencyTwo.SelectedIndex;
                     pickerCurrencyTwo.SelectedIndex = pickerCurrencyOne.SelectedIndex;
                     pickerCurrencyOne.SelectedIndex = iTmp;
                     tapClickLabelOne();
-                }
-                else
-                {
-                    iTmp = pickerCurrencyOne.SelectedIndex;
-                    pickerCurrencyOne.SelectedIndex = pickerCurrencyTwo.SelectedIndex;
-                    pickerCurrencyTwo.SelectedIndex = iTmp;
-                    tapClickLAbelTwo();
+                //}
+                //else
+                //{
+                //    iTmp = pickerCurrencyOne.SelectedIndex;
+                //    pickerCurrencyOne.SelectedIndex = pickerCurrencyTwo.SelectedIndex;
+                //    pickerCurrencyTwo.SelectedIndex = iTmp;
+                //    tapClickLAbelTwo();
 
-                    //labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); 
-                };
+                //    //labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); 
+                //};
 
                 SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
             };
@@ -621,7 +625,7 @@ namespace CurrencyCalc2
 
         void LoadCurrencyFromFile(string filename)
         {
-            string data = "";
+            string data = String.Empty;
             int indx1 = -1;
             int indx2 = -1;
             var doc = XDocument.Parse(GetResourceTextFile(filename));
@@ -1059,6 +1063,7 @@ namespace CurrencyCalc2
         {
             //labelDigitsOne.RotationX = 0;
             labelDigitsOne.Text = tmp;
+            MySumString = tmp;
             labelDigitsOne.SetBinding(Label.TextProperty, "DigitsOne");
             labelDigitsOne.BindingContext = new { DigitsOne = tmp };
             // labelDigitsOne.RotateXTo(360, 500, Easing.CubicIn);
@@ -1073,6 +1078,7 @@ namespace CurrencyCalc2
             labelDigitsTwo.BindingContext = new { DigitsTwo = tmp };
             labelDigitsTwo.RotateXTo(360, 750, Easing.CubicInOut);
             //Debug.WriteLine("Label2=" + tmp);
+            
         }
 
         private async void Onclick(object sender, EventArgs args)

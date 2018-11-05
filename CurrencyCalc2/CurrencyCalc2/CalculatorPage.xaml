@@ -163,6 +163,8 @@
                     <Label x:Name="labelDigitsOne"
                         Text="{Binding DigitsOne}"
                         FontSize="Large"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextOnPrimary}"
                         HorizontalTextAlignment="Center"
                         HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
                     </Label>
@@ -182,8 +184,8 @@
                         <x:String>Новый туркменский манат</x:String>
                     </Picker.Items>
                 </Picker>
-                <Frame x:Name="imageCurrencyOneframe" Style="{StaticResource imageCurrencyStyle}">
-                    <Image x:Name="imageCurrencyOne" MinimumWidthRequest="50" Margin="0,0,10,0">
+                <Frame x:Name="imageCurrencyOneframe" Style="{StaticResource imageCurrencyStyle}" Margin="0,0,2,0">
+                    <Image x:Name="imageCurrencyOne" MinimumWidthRequest="50" Margin="1">
                         <Image.Source>
                             <UriImageSource Uri="{Binding ImageOne}"/>
                         </Image.Source>
@@ -251,8 +253,8 @@
                         <x:String>Новый туркменский манат</x:String>
                     </Picker.Items>
                 </Picker>
-                <Frame x:Name="imageCurrencyTwoframe" Style="{StaticResource imageCurrencyStyle}">
-                    <Image x:Name="imageCurrencyTwo" MinimumWidthRequest="50" Margin="0,0,10,0" >
+                <Frame x:Name="imageCurrencyTwoframe" Style="{StaticResource imageCurrencyStyle}" Margin="0,0,2,0">
+                    <Image x:Name="imageCurrencyTwo" MinimumWidthRequest="50" Margin="1">
                         <Image.Source>
                             <UriImageSource Uri="{Binding ImageOne}"/>
                         </Image.Source>
@@ -262,7 +264,10 @@
 
             <!--//<Frame x:Name="frameTwo" BackgroundColor="#182d54" Padding="10" HasShadow="True" HorizontalOptions="FillAndExpand">-->
             <StackLayout x:Name="stackLayontCurrencyTwo" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand">
-                <Label x:Name="labelDigitsTwo" FontSize="Large" Text="{Binding DigitsTwo}"  />
+                <Label x:Name="labelDigitsTwo" FontSize="Large" 
+                       TextColor="{StaticResource TextOnPrimary}"
+                       FontAttributes="Bold"
+                       Text="{Binding DigitsTwo}"  />
                 <Label x:Name="labelDigitsTwoCurrency" FontSize="Large" Text="&#x20BD;" VerticalOptions="End"/>
             </StackLayout>
             <!--</Frame>-->

@@ -18,19 +18,18 @@ namespace CurrencyCalc2
             Original,
             Light,
             Dark
-        }        
+        }
+
+        public string[] addresses = { "http://www.cbr.ru/scripts/XML_daily.asp", "http://www.cbr.ru/scripts/XML_daily.asp",
+                                 "http://www.cbr.ru/scripts/XML_daily.asp" };
 
         public SettingsPage()
         {
-
-
+            
             InitializeComponent();
 
-            var themeList = new List<string>();
-            themeList.Add("Оригинальная");
-            themeList.Add("Светлая");
-            themeList.Add("Темная");
-
+            var themeList = new List<string> { "Оригинальная", "Светлая", "Темная" };
+          
 
             ThemePicker.ItemsSource = themeList;
 
@@ -61,13 +60,29 @@ namespace CurrencyCalc2
             //ThemePicker.SetBinding(Picker.SelectedItemProperty, "Системная");
             //ThemePicker.ItemDisplayBinding = new Binding("Name");
 
-            var sourceList = new List<string>();
-            sourceList.Add ("cbr.ru"); 
-            sourceList.Add ("ecb.eu");
-            sourceList.Add ("rbc.ru");
+            var sourceList = new List<string>
+            {
+                "Центральный банк РФ",
+                "Европейский центральный банк"
+            };
+            //sourceList.Add ("");
 
             SourcePicker.ItemsSource = sourceList;
+            SourcePicker.SelectedIndex = 0;
 
+        }
+
+        void OnSourcePickerSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            int selectedIndex = picker.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                Debug.WriteLine((string)picker.ItemsSource[selectedIndex]);
+                if (selectedIndex == 1) {
+                    LabelMessage.Text = "Загрузка из этого источника пока невозможна"; LabelMessage.TextColor = Color.Violet;
+                } else { LabelMessage.Text = String.Empty; }
+            }
         }
 
         void OnPickerSelectedIndexChanged(object sender, EventArgs e)

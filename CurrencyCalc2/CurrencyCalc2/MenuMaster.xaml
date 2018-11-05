@@ -36,7 +36,7 @@
         <DataTemplate>
           <ViewCell>
             <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                            <Label Text="{Binding IconSource}" FontSize="Medium" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center">
+                            <Label Text="{Binding IconSource}" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center">
                                 <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS" Value="Font Awesome 5 Free" />
@@ -47,8 +47,7 @@
                             </Label>
                             <Label VerticalOptions="FillAndExpand" 
                                     VerticalTextAlignment="Center" 
-                                    Text="{Binding Title}"                     
-                                    FontSize="Micro"/>
+                                    Text="{Binding Title}"/>
             </StackLayout>                    
                     </ViewCell>
         </DataTemplate>
