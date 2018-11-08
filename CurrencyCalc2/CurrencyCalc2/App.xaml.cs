@@ -18,6 +18,8 @@ namespace CurrencyCalc2
 
         public static int ThemeID;
 
+        public static string SourceUrl = "http://www.cbr.ru/scripts/XML_daily.asp";
+
         public enum FavoritesCurrency { RUR, GBP, USD, EUR, CNY, JPY, CHF };
 
         public static string[] FavoritesDefault = new string[7] { "RUR", "GBP", "USD", "EUR", "CNY", "JPY", "CHF" };

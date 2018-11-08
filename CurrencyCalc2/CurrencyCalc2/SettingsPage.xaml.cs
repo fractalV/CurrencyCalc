@@ -20,8 +20,7 @@ namespace CurrencyCalc2
             Dark
         }
 
-        public string[] addresses = { "http://www.cbr.ru/scripts/XML_daily.asp", "http://www.cbr.ru/scripts/XML_daily.asp",
-                                 "http://www.cbr.ru/scripts/XML_daily.asp" };
+        public static string[] addresses = { "http://www.cbr.ru/scripts/XML_daily.asp", "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" };
 
         public SettingsPage()
         {
@@ -80,8 +79,12 @@ namespace CurrencyCalc2
             {
                 Debug.WriteLine((string)picker.ItemsSource[selectedIndex]);
                 if (selectedIndex == 1) {
-                    LabelMessage.Text = "Загрузка из этого источника пока невозможна"; LabelMessage.TextColor = Color.Violet;
-                } else { LabelMessage.Text = String.Empty; }
+                    //LabelMessage.Text = "Загрузка из этого источника пока невозможна"; LabelMessage.TextColor = Color.Violet;
+                    App.SourceUrl = addresses[1];
+                } else {
+                    //LabelMessage.Text = String.Empty; 
+                    App.SourceUrl = addresses[0];
+                }
             }
         }
 

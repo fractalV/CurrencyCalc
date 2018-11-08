@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Runtime.CompilerServices;
 using static CurrencyCalc2.App;
+using System.Collections.Generic;
+using System.Xml;
 
 namespace CurrencyCalc2
 {
@@ -86,10 +88,15 @@ namespace CurrencyCalc2
         //public string symbolAbout;
 
         Currency rub = new Currency("RUR", "1", "Российский Рубль", "1", "\U000020BD");
+        Currency eur = new Currency("EUR", "1", "Евро", "1", "\U000020AC");
 
         public CalculatorPage()
         {
-            _valutes.Add(rub);
+
+            if (SourceUrl == SettingsPage.addresses[1])
+            {             
+              _valutes.Add(eur);    //из ecb
+            } else _valutes.Add(rub);
             InitializeComponent();
             Trace.WriteLine(DateTime.Now.ToString() + " - Start of Main");
 
@@ -326,37 +333,37 @@ namespace CurrencyCalc2
                 }
             }
 
-            void tapClickLAbelTwo()
-            {
-                //labelDigitsOne.FontAttributes = FontAttributes.None;
-                //labelDigitsTwo.FontAttributes = FontAttributes.Bold;
-                frameOne.BorderColor = Color.Default;
-                frameOne.HasShadow = false;
-                // frameTwo.BorderColor = Color.Accent;
-                // frameTwo.HasShadow = true;
+            //void tapClickLAbelTwo()
+            //{
+            //    //labelDigitsOne.FontAttributes = FontAttributes.None;
+            //    //labelDigitsTwo.FontAttributes = FontAttributes.Bold;
+            //    frameOne.BorderColor = Color.Default;
+            //    frameOne.HasShadow = false;
+            //    // frameTwo.BorderColor = Color.Accent;
+            //    // frameTwo.HasShadow = true;
 
-                labelOneActive = false;
-                labelChange = true;
-                firstnumber = false;
-                lastnumber = false;
+            //    labelOneActive = false;
+            //    labelChange = true;
+            //    firstnumber = false;
+            //    lastnumber = false;
 
-                if ((pickerCurrencyTwo.SelectedIndex != -1) && (pickerCurrencyOne.SelectedIndex != -1))
-                {
-                    cross_nominal_one = Int16.Parse(_valutes[pickerCurrencyTwo.SelectedIndex].Nominal);
-                    cross_nominal_two = Int16.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Nominal);
+            //    if ((pickerCurrencyTwo.SelectedIndex != -1) && (pickerCurrencyOne.SelectedIndex != -1))
+            //    {
+            //        cross_nominal_one = Int16.Parse(_valutes[pickerCurrencyTwo.SelectedIndex].Nominal);
+            //        cross_nominal_two = Int16.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Nominal);
 
-                    charcode1 = _valutes[pickerCurrencyTwo.SelectedIndex].Symbol; //код первой валюты 
-                    charcode2 = _valutes[pickerCurrencyOne.SelectedIndex].Symbol; //код второй валюты 
+            //        charcode1 = _valutes[pickerCurrencyTwo.SelectedIndex].Symbol; //код первой валюты 
+            //        charcode2 = _valutes[pickerCurrencyOne.SelectedIndex].Symbol; //код второй валюты 
 
-                    double currency_one = Double.Parse(_valutes[pickerCurrencyTwo.SelectedIndex].Value);
-                    double currency_two = Double.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Value);
+            //        double currency_one = Double.Parse(_valutes[pickerCurrencyTwo.SelectedIndex].Value);
+            //        double currency_two = Double.Parse(_valutes[pickerCurrencyOne.SelectedIndex].Value);
 
-                    CalculateCrossRate(currency_two, cross_nominal_two, currency_one, cross_nominal_one);
+            //        CalculateCrossRate(currency_two, cross_nominal_two, currency_one, cross_nominal_one);
 
-                    SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
-                    //labelDigitsOne.Text = CalculateItog(labelDigitsTwo.Text);
-                }
-            }
+            //        SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
+            //        //labelDigitsOne.Text = CalculateItog(labelDigitsTwo.Text);
+            //    }
+            //}
 
 
 
@@ -724,10 +731,18 @@ namespace CurrencyCalc2
                     if (e.Error != null) throw e.Error;
                     if (e.Result == null) return;
 
-                    ParseResultCbr(e);
+
+                    if (SourceUrl == SettingsPage.addresses[0])
+                    {
+                        ParseResultCbr(e);
+                    } else
+                    {
+                        ParseResultECB(e);
+                    }
+                    
                 };
 
-                data = await client.DownloadStringTaskAsync("http://www.cbr.ru/scripts/XML_daily.asp");
+                data = await client.DownloadStringTaskAsync(SourceUrl);
                 // data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
             }
             catch (Exception)
@@ -778,8 +793,9 @@ namespace CurrencyCalc2
                 string nominal = elem.Element("Nominal").Value;
 
 
-
                 Currency cur = new Currency(charcode, nominal, name, value, symbol);
+
+                Debug.WriteLine($"{charcode}, {nominal}, {name}, {value}, {symbol}");
 
                 switch (charcode)
                 {
@@ -818,73 +834,187 @@ namespace CurrencyCalc2
 
             }
         }
-     
-        public void XMLparse(string tmp)
+
+        public void ParseResultECB(DownloadStringCompletedEventArgs e)
         {
-            var doc = XDocument.Parse(tmp);
+            int indx1, indx2 = -1;          
 
-            if (doc == null) return;
+            XmlDocument xDoc = new XmlDocument();
 
-            UnicodeEncoding unicode = new UnicodeEncoding();
-            //labelUpdateDate.Text = "На " + doc.Root.Attribute("Date").Value;
+            xDoc.LoadXml(e.Result);
 
-
-            foreach (var elem in doc.Descendants("Valute"))//doc.Elements().First().Elements())
+            if (_valutes != null)
             {
+                indx1 = pickerCurrencyOne.SelectedIndex;
+                indx2 = pickerCurrencyTwo.SelectedIndex;
 
-                string symbol = "";
-                string charcode = elem.Element("CharCode").Value;
-
-                symbol = GetCharSymbol(charcode);
-
-                string value = elem.Element("Value").Value;
-
-                value = value.Replace(",", Convert.ToString(separator)); // cbr выдает курсы с запятой
-
-                string nominal = elem.Element("Nominal").Value;
-
-                string name = elem.Element("Name").Value;
-
-                Currency cur = new Currency(charcode, nominal, name, value, symbol);
-
-                switch (charcode)
-                {
-                    case "RUR":
-                        _valutes.Insert((int)FavoritesCurrency.RUR, cur);
-                        break;
-                    case "USD":
-                        //_valutes.Move(i, (int)FavoritesCurrency.USD);
-                        _valutes.Insert((int)FavoritesCurrency.USD, cur);
-                        //Debug.WriteLine(i);
-                        break;
-                    case "EUR":
-                        //_valutes.Move(i, (int)FavoritesCurrency.EUR);
-                        _valutes.Insert((int)FavoritesCurrency.EUR, cur);
-                        break;
-                    case "GBP":
-                        //_valutes.Move(i, (int)FavoritesCurrency.GBP);
-                        cur.Name = "Фунт Соединенного Королевства";
-                        _valutes.Insert((int)FavoritesCurrency.GBP, cur);
-                        break;
-                    case "CNY":
-                        _valutes.Insert((int)FavoritesCurrency.CNY, cur);
-                        //_valutes.Move(i, (int)FavoritesCurrency.CNY);
-                        break;
-                    case "JPY":
-                        //_valutes.Move(i, (int)FavoritesCurrency.JPY);
-                        _valutes.Insert((int)FavoritesCurrency.JPY, cur);
-                        break;
-                    case "CHF":
-                        //_valutes.Move(i, (int)FavoritesCurrency.CHF);
-                        _valutes.Insert((int)FavoritesCurrency.CHF, cur);
-                        break;
-                    default:
-                        _valutes.Add(cur);
-                        break;
-                }
-
-
+                _valutes.Clear();
+                _valutes.Add(eur);
             }
+
+            string symbol, charcode, value, nominal, name = String.Empty;         
+
+            foreach (XmlNode node in xDoc.DocumentElement.ChildNodes)
+            {
+                foreach (XmlNode locNode in node)
+                {
+                    if (locNode.Name == "Cube")
+                    {
+                        foreach (XmlNode cubeNode in locNode)
+                        {
+                            
+                            bool bOneNode = false;
+                            charcode = ""; value = "1";
+                            foreach (XmlAttribute atr in cubeNode.Attributes)
+                            {                                
+                                //Debug.WriteLine("name --- >" + atr.Name);                                                                
+                                if (atr.Name == "currency")
+                                {
+                                    charcode = atr.Value;
+                                  //  Debug.WriteLine(charcode);
+                                }
+                                if (atr.Name == "rate")
+                                {
+                                    value = atr.Value;
+                                    //Debug.WriteLine(value);
+                                    bOneNode = true;
+                                }
+                                
+                                if (bOneNode)
+                                {
+                                    nominal = "1";              
+
+                                    symbol = GetCharSymbol(charcode);
+                                    value = value.Replace(".", Convert.ToString(separator));
+
+
+
+                                    name = GetCurrencyName(charcode);
+                                    
+                                    Currency cur = new Currency(charcode, nominal, name, value, symbol);
+                                    Debug.WriteLine($"{charcode}, {nominal}, {name}, {value}, {symbol}");
+                                    _valutes.Add(cur);
+                                    
+                                    bOneNode = false;
+                                }
+                            }                           
+                        }
+                    }
+                }
+            }   
+        }
+
+        private string GetCurrencyName(string charcode)
+        {
+            string result;
+           
+            switch (charcode)
+            {
+                case "RUR":
+                case "RUB":
+                    result = "Российский рубль";
+                    break;
+                case "EUR":
+                    result = "Евро";
+                    break;
+                case "AUD":
+                    result = "Австралийский доллар";
+                    break;
+                case "USD":
+                    result = "Доллар США";
+                    break;
+                case "JPY":
+                    result = "Японская иена";
+                    break;
+                case "BGN":
+                    result = "Болгарский лев";
+                    break;
+                case "CZK":
+                    result = "Чешская крона";
+                    break;
+                case "DKK":
+                    result = "Датская крона";
+                    break;
+                case "GBP":
+                    result = "Фунт Соединенного Королевства";
+                    break;
+                case "HUF":
+                    result = "Венгерский форинт";
+                    break;
+                case "PLN":
+                    result = "Польский злотый";
+                    break;
+                case "RON":
+                    result = "Румынский лей";
+                    break;
+                case "SEK":
+                    result = "Шведская крона";
+                    break;
+                case "ISK":
+                    result = "Исландская крона";
+                    break;
+                case "NOK":
+                    result = "Норвежская крона";
+                    break;
+                case "HRK":
+                    result = "Хорватская куна";
+                    break;
+                case "TRY":
+                    result = "Турецкая лира";
+                    break;
+                case "BRL":
+                    result = "Бразильский реал";
+                    break;
+                case "CAD":
+                    result = "Канадский доллар";
+                    break;
+                case "CNY":
+                    result = "Китайский юань";
+                    break;
+                case "HKD":
+                    result = "Гонконгский доллар";
+                    break;
+                case "IDR":
+                    result = "Индонезийская рупия";
+                    break;
+                case "ILS":
+                    result = "Новый израильский шекель";
+                    break;
+                case "INR":
+                    result = "Индийская рупия";
+                    break;
+                case "KRW":
+                    result = "Вон Республики Корея";
+                    break;
+                case "MXN":
+                    result = "Мексиканское песо";
+                    break;
+                case "MYR":
+                    result = "Малайский ринггит";
+                    break;
+                case "NZD":
+                    result = "Новозеландский доллар";
+                    break;
+                case "PHP":
+                    result = "Филиппинское песо";
+                    break;
+                case "SGD":
+                    result = "Сингапурский доллар";
+                    break;
+                case "THB":
+                    result = "Тайский бат";
+                    break;
+                case "ZAR":
+                    result = "Южноафриканский рэнд";
+                    break;
+                case "CHF":
+                    result = "Швейцарский франк";
+                    break;
+                default:
+                    result = charcode;
+                    break;
+            }
+            return result;
         }
 
         private void PickerCurrencyOne_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -1036,8 +1166,16 @@ namespace CurrencyCalc2
             {
                 if ((nominal1 != 0) && (nominal2 != 0))
                 {
-                    cross_kurs2 = ((currency1 / nominal1) / (currency2 / nominal2));
-                    return cross_kurs = ((currency2 / nominal2) / (currency1 / nominal1));
+
+                    if (SourceUrl == SettingsPage.addresses[1])
+                    {
+                        cross_kurs2 = ((currency2 / nominal2) / (currency1 / nominal1));
+                        return cross_kurs = ((currency1 / nominal1) / (currency2 / nominal2)); 
+                    }
+                    else {
+                        cross_kurs2 = ((currency1 / nominal1) / (currency2 / nominal2));
+                        return cross_kurs = ((currency2 / nominal2) / (currency1 / nominal1));
+                    }
                 }
             }
             catch (Exception ex)

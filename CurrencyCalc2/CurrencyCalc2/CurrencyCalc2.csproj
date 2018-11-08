@@ -7,6 +7,10 @@
     <AssemblyName>CurrencyCalc2</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="default.xml" />
     <None Remove="fa-solid-900.ttf" />
@@ -27,19 +31,28 @@
     <None Remove="images\gb.png" />
     <None Remove="images\hamburger.png" />
     <None Remove="images\hk.png" />
+    <None Remove="images\hr.png" />
     <None Remove="images\hu.png" />
+    <None Remove="images\id.png" />
+    <None Remove="images\il.png" />
     <None Remove="images\in.png" />
+    <None Remove="images\is.png" />
     <None Remove="images\jp.png" />
     <None Remove="images\kg.png" />
     <None Remove="images\kr.png" />
     <None Remove="images\kz.png" />
     <None Remove="images\md.png" />
+    <None Remove="images\mx.png" />
+    <None Remove="images\my.png" />
     <None Remove="images\no.png" />
+    <None Remove="images\nz.png" />
+    <None Remove="images\ph.png" />
     <None Remove="images\pl.png" />
     <None Remove="images\ro.png" />
     <None Remove="images\ru.png" />
     <None Remove="images\se.png" />
     <None Remove="images\sg.png" />
+    <None Remove="images\th.png" />
     <None Remove="images\tj.png" />
     <None Remove="images\tm.png" />
     <None Remove="images\tr.png" />
@@ -105,12 +118,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="images\hamburger.png" />
     <EmbeddedResource Include="images\hk.png" />
+    <EmbeddedResource Include="images\hr.png" />
     <EmbeddedResource Include="images\hu.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="images\id.png" />
+    <EmbeddedResource Include="images\il.png" />
     <EmbeddedResource Include="images\in.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="images\is.png" />
     <EmbeddedResource Include="images\jp.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -132,9 +149,13 @@
     <EmbeddedResource Include="images\md.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="images\mx.png" />
+    <EmbeddedResource Include="images\my.png" />
     <EmbeddedResource Include="images\no.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="images\nz.png" />
+    <EmbeddedResource Include="images\ph.png" />
     <EmbeddedResource Include="images\pl.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -153,6 +174,7 @@
     <EmbeddedResource Include="images\sync24px.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="images\th.png" />
     <EmbeddedResource Include="images\tj.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
