@@ -67,7 +67,15 @@ namespace CurrencyCalc2
             //sourceList.Add ("");
 
             SourcePicker.ItemsSource = sourceList;
-            SourcePicker.SelectedIndex = 0;
+
+            if (App.SourceUrl == addresses[0])
+            {
+                SourcePicker.SelectedIndex = 0;
+            } else
+            {
+                SourcePicker.SelectedIndex = 1;
+            }
+            
 
         }
 

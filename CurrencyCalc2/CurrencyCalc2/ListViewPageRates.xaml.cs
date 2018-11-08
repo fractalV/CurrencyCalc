@@ -26,9 +26,25 @@ namespace CurrencyCalc2
 
             try
             {
+
                 if ((nominal1 != 0) && (nominal2 != 0))
                 {
-                    return (currency1 / nominal1 / (currency2 / nominal2));
+
+                    double tmp = (currency1 / nominal1) / (currency2 / nominal2);
+
+
+                    if (SourceUrl == SettingsPage.addresses[1])
+                    {
+                        tmp = (currency2 / nominal2) / (currency1 / nominal1);
+                    } else
+                    {
+                        tmp = (currency1 / nominal1) / (currency2 / nominal2);
+                    }
+
+
+                    return tmp;
+                    
+                    
                 }
             }
             catch (Exception ex)
@@ -53,7 +69,9 @@ namespace CurrencyCalc2
 
             Debug.WriteLine("{0}, {1}",Valuta[pickersID[0]].CharCode, Valuta[pickersID[1]].CharCode);
 
-            headerLabel.Text = "Курс за " + entry.Nominal + " " + entry.CharCode;
+            dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
+
+            headerLabel.Text = $"Курс за {entry.Nominal} {entry.CharCode} на {dateTime}";
 
             int cross_nominal_one = Int16.Parse(entry.Nominal);
             double currency_one = double.Parse(entry.Value);
@@ -74,7 +92,8 @@ namespace CurrencyCalc2
                     double currency_two = double.Parse(x.Value);
 
                     double t = CrossRate(currency_one, cross_nominal_one, currency_two, cross_nominal_two);
-                    const string Format = "F3";
+                    string Format = "F4";
+                    if (y.CharCode == "IDR") { Format = "F2"; } //индонезийская рупия
                     y.Value = t.ToString(Format, CultureInfo.CurrentCulture);
                     val.Add(y);
                 }                

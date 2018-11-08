@@ -486,7 +486,8 @@ namespace CurrencyCalc2
             {
                 //labelUpdateDate.Text = "На " + DateTime.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.SortableDateTimePattern);
                 //System.Globalization.CultureInfo.CreateSpecificCulture("en-US") DateTimeFormatInfo.InvariantInfo
-                labelUpdateDate.Text = "КУРС НА " + DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
+                dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
+                labelUpdateDate.Text = $"КУРС НА {dateTime}";
             }
 
 
@@ -1596,6 +1597,7 @@ namespace CurrencyCalc2
             switch (s)
             {
                 case "RUR":
+                case "RUB":
                     result = "\U000020BD";
                     break;
                 case "AUD":

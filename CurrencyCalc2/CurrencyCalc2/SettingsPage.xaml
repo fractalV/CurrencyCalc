@@ -8,16 +8,18 @@
             <Picker x:Name="ThemePicker" 
                     Title="Тема оформления" 
                     VerticalOptions="Center"
-                    SelectedIndexChanged="OnPickerSelectedIndexChanged">
-                <!--<Picker.ItemsSource>
+                    SelectedIndexChanged="OnPickerSelectedIndexChanged"
+                    IsVisible="False"
+                    >
+                <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Cветлое оформление</x:String>
                         <x:String>Темное оформление</x:String>
                         <x:String>Использовать системную тему</x:String>                        
                     </x:Array>
-                </Picker.ItemsSource>-->
+                </Picker.ItemsSource>
             </Picker>
-            
+            <Label Text="Использовать данные с"/>
             <Picker x:Name="SourcePicker"
                     Title="Источник данных"
                     VerticalOptions="Center"

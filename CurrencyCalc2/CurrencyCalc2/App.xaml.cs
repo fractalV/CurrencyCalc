@@ -41,7 +41,10 @@ namespace CurrencyCalc2
             }
             else return "0";
         }
-      
+
+        public static string dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
+
+
 
         public App ()
 		{
