@@ -22,56 +22,59 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <ListView x:Name="MyListView"            
+
+    <StackLayout Orientation="Vertical">
+        <Label x:Name="headerLabel" HorizontalOptions="Center" FontSize="Micro"/>
+        <ListView x:Name="MyListView"            
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
-        
-        <!--<ListView.RowHeight>
+
+            <!--<ListView.RowHeight>
             <OnPlatform x:TypeArguments="x:Int32">
                 <On Platform="iOS, Android" Value="80" />
                 <On Platform="UWP" Value="90" />
             </OnPlatform>
         </ListView.RowHeight>-->
 
-        <!--Built in Cells-->
-        <ListView.Header>
-            <StackLayout HorizontalOptions="Center">
-                <Label x:Name="headerLabel"></Label>
-            </StackLayout>
-        </ListView.Header>
-    <ListView.ItemTemplate>
-        <DataTemplate>
-                <ViewCell>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <!--<ColumnDefinition Width="*" />-->
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+            <!--Built in Cells-->
 
-                        <Frame Grid.Column="0" BorderColor="LightGray" BackgroundColor="WhiteSmoke" Padding="0" CornerRadius="25" VerticalOptions="Center" HorizontalOptions="Center">
-                            <Image x:Name="imageCurrency"  WidthRequest="40" HeightRequest="40"  Source="{Binding Img}" />
-                        </Frame>
-                        
-                        <!--<StackLayout Orientation="Vertical" Grid.Column="1" Spacing="0">
+            <!--<ListView.Header>
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="headerLabel"/>
+                </StackLayout>
+            </ListView.Header>-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <!--<ColumnDefinition Width="*" />-->
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Frame Grid.Column="0" BorderColor="LightGray" BackgroundColor="WhiteSmoke" Padding="0" CornerRadius="25" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Image x:Name="imageCurrency"  WidthRequest="40" HeightRequest="40"  Source="{Binding Img}" />
+                            </Frame>
+
+                            <!--<StackLayout Orientation="Vertical" Grid.Column="1" Spacing="0">
                             <Label FontAttributes="Bold" Text="{Binding Name}"/>
                             <Label Text="{Binding CharCode}" />                            
                         </StackLayout>-->
 
-                        <Label Grid.Column="1" VerticalOptions="Center" Text="{Binding Name}"/>
+                            <Label Grid.Column="1" VerticalOptions="Center" Text="{Binding Name}"/>
 
-                        <Label Grid.Column="2" FontAttributes="Bold" Margin="0,0,5,0" HorizontalOptions="End" VerticalOptions="Center" Text="{Binding Value}" />
+                            <Label Grid.Column="2" FontAttributes="Bold" Margin="0,0,5,0" HorizontalOptions="End" VerticalOptions="Center" Text="{Binding Value}" />
 
-                        <Label Grid.Column="3" VerticalOptions="Center"  HorizontalOptions="Start" Text="{Binding CharCode}" />
-                    </Grid>
-                    
-                    <!--<StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Grid.Column="3" VerticalOptions="Center"  HorizontalOptions="Start" Text="{Binding CharCode}" />
+                        </Grid>
+
+                        <!--<StackLayout Orientation="Horizontal" Padding="5">
                         <Image x:Name="imageCurrency" MinimumWidthRequest="20" Margin="10">
                             <Image.Source>
                                 <UriImageSource Uri="{Binding Path=Img}"/>
@@ -80,13 +83,13 @@
                         <Label Text="{Binding Value}" />
                         <Label Text="{Binding CharCode}" />                        
                     </StackLayout>-->
-                </ViewCell>
-        </DataTemplate>
-    </ListView.ItemTemplate>
-       
-    
-    <!--Custom View Cells-->
-    <!--
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+            <!--Custom View Cells-->
+            <!--
     <ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
@@ -100,5 +103,8 @@
       </DataTemplate>
     </ListView.ItemTemplate>
     -->
-  </ListView>
+        </ListView>
+    </StackLayout>
+    
+    
 </ContentPage>

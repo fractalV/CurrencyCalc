@@ -18,9 +18,7 @@ namespace CurrencyCalc2
             Original,
             Light,
             Dark
-        }
-
-        public static string[] addresses = { "http://www.cbr.ru/scripts/XML_daily.asp", "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" };
+        }      
 
         public SettingsPage()
         {
@@ -68,7 +66,7 @@ namespace CurrencyCalc2
 
             SourcePicker.ItemsSource = sourceList;
 
-            if (App.SourceUrl == addresses[0])
+            if (App.SourceUrl == App.cbr)
             {
                 SourcePicker.SelectedIndex = 0;
             } else
@@ -88,10 +86,10 @@ namespace CurrencyCalc2
                 Debug.WriteLine((string)picker.ItemsSource[selectedIndex]);
                 if (selectedIndex == 1) {
                     //LabelMessage.Text = "Загрузка из этого источника пока невозможна"; LabelMessage.TextColor = Color.Violet;
-                    App.SourceUrl = addresses[1];
+                    App.SourceUrl = App.ecb;
                 } else {
                     //LabelMessage.Text = String.Empty; 
-                    App.SourceUrl = addresses[0];
+                    App.SourceUrl = App.cbr;
                 }
             }
         }

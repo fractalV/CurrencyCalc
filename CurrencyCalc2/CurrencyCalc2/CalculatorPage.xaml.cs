@@ -93,10 +93,11 @@ namespace CurrencyCalc2
         public CalculatorPage()
         {
 
-            if (SourceUrl == SettingsPage.addresses[1])
+            if (SourceUrl == App.ecb)
             {             
               _valutes.Add(eur);    //из ecb
             } else _valutes.Add(rub);
+
             InitializeComponent();
             Trace.WriteLine(DateTime.Now.ToString() + " - Start of Main");
 
@@ -213,11 +214,12 @@ namespace CurrencyCalc2
             catch (WebException e)
             {
                // Debug.WriteLine("208 строка " + e.Message);  //TODO: Обработать таймаут!                
-                DisplayAlert("Internet", e.Message, "OK");              
+                DisplayAlert("Internet", e.Message, "OK");
+                UpdateLabelDate("Ошибка загрузки курсов");
             }
 
 
-            UpdateLabelDate(); //на текущую дату
+            UpdateLabelDate(""); //на текущую дату
             buttonDigitComma.Text = separator.ToString();
 
             pickerCurrencyOne.ItemsSource = Valuta;
@@ -428,7 +430,7 @@ namespace CurrencyCalc2
                 //  Debug.WriteLine("Start update currency");
                 new Command(async () => await OnConnect());
                 Exrin.Common.ThreadHelper.RunOnUIThread(async () => { await UpdateCurrencyAsync(); });
-                UpdateLabelDate();
+                UpdateLabelDate("");
 
             };
             //labelUpdateDate.GestureRecognizers.Add(labelUpdateDate_tap);
@@ -482,12 +484,22 @@ namespace CurrencyCalc2
             stackLayontCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_tap);
             //imageCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_tap);
 
-            void UpdateLabelDate()
+            void UpdateLabelDate(string msg)
             {
                 //labelUpdateDate.Text = "На " + DateTime.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.SortableDateTimePattern);
                 //System.Globalization.CultureInfo.CreateSpecificCulture("en-US") DateTimeFormatInfo.InvariantInfo
-                dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
-                labelUpdateDate.Text = $"КУРС НА {dateTime}";
+
+                if (String.IsNullOrEmpty(msg))
+                {
+                    dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
+                    labelUpdateDate.Text = $"КУРС НА {dateTime}";
+                } else
+                {
+                    labelUpdateDate.TextColor = Color.Yellow;
+                    labelUpdateDate.Text = msg;
+                }
+
+                
             }
 
 
@@ -732,12 +744,15 @@ namespace CurrencyCalc2
                     if (e.Error != null) throw e.Error;
                     if (e.Result == null) return;
 
-
-                    if (SourceUrl == SettingsPage.addresses[0])
+                    if (SourceUrl == App.cbr)
                     {
+                        _valutes.Clear();
+                        _valutes.Add(rub);
                         ParseResultCbr(e);
                     } else
                     {
+                        _valutes.Clear();
+                        _valutes.Add(eur);
                         ParseResultECB(e);
                     }
                     
@@ -766,13 +781,10 @@ namespace CurrencyCalc2
                 indx1 = pickerCurrencyOne.SelectedIndex;
                 indx2 = pickerCurrencyTwo.SelectedIndex;
 
-                _valutes.Clear();
-                _valutes.Add(rub);
             }
 
             foreach (var elem in doc.Descendants("Valute"))//doc.Elements().First().Elements())
-            {
-                //Debug.WriteLine("DownloadStringCompleted444"+elem.Value);
+            {               
                 string charcode = elem.Element("CharCode").Value;
 
                 string name = "";
@@ -792,7 +804,6 @@ namespace CurrencyCalc2
                 value = value.Replace(",", Convert.ToString(separator)); // cbr выдает курсы с запятой
 
                 string nominal = elem.Element("Nominal").Value;
-
 
                 Currency cur = new Currency(charcode, nominal, name, value, symbol);
 
@@ -829,29 +840,38 @@ namespace CurrencyCalc2
                         _valutes.Insert((int)FavoritesCurrency.CHF, cur);
                         break;
                     default:
-                        _valutes.Add(cur);
+                        //_valutes.Add(cur);
+                        SetValutes(cur);
                         break;
                 }
 
             }
         }
 
-        public void ParseResultECB(DownloadStringCompletedEventArgs e)
-        {
-            int indx1, indx2 = -1;          
+        //Заполняем коллекцию валют
+        private void SetValutes (Currency currency)
+        {          
 
-            XmlDocument xDoc = new XmlDocument();
-
-            xDoc.LoadXml(e.Result);
+            int indx1, indx2 = -1;
 
             if (_valutes != null)
             {
-                indx1 = pickerCurrencyOne.SelectedIndex;
+                indx1 = pickerCurrencyOne.SelectedIndex;   
                 indx2 = pickerCurrencyTwo.SelectedIndex;
 
-                _valutes.Clear();
-                _valutes.Add(eur);
+                //TODO: сортировать по частоте испольования.
             }
+
+            _valutes.Add(currency);
+
+        }
+
+        //Разбор ответа с ЕЦБ
+        public void ParseResultECB(DownloadStringCompletedEventArgs e)
+        {   
+            XmlDocument xDoc = new XmlDocument();
+
+            xDoc.LoadXml(e.Result);           
 
             string symbol, charcode, value, nominal, name = String.Empty;         
 
@@ -862,40 +882,29 @@ namespace CurrencyCalc2
                     if (locNode.Name == "Cube")
                     {
                         foreach (XmlNode cubeNode in locNode)
-                        {
-                            
+                        {                            
                             bool bOneNode = false;
                             charcode = ""; value = "1";
                             foreach (XmlAttribute atr in cubeNode.Attributes)
-                            {                                
-                                //Debug.WriteLine("name --- >" + atr.Name);                                                                
-                                if (atr.Name == "currency")
-                                {
-                                    charcode = atr.Value;
-                                  //  Debug.WriteLine(charcode);
-                                }
+                            {   
+                                if (atr.Name == "currency") charcode = atr.Value;
+                                
                                 if (atr.Name == "rate")
                                 {
-                                    value = atr.Value;
-                                    //Debug.WriteLine(value);
+                                    value = atr.Value;                                    
                                     bOneNode = true;
                                 }
                                 
                                 if (bOneNode)
                                 {
-                                    nominal = "1";              
-
+                                    nominal = "1";
                                     symbol = GetCharSymbol(charcode);
                                     value = value.Replace(".", Convert.ToString(separator));
-
-
-
                                     name = GetCurrencyName(charcode);
-                                    
                                     Currency cur = new Currency(charcode, nominal, name, value, symbol);
                                     Debug.WriteLine($"{charcode}, {nominal}, {name}, {value}, {symbol}");
-                                    _valutes.Add(cur);
-                                    
+                                    //_valutes.Add(cur);
+                                    SetValutes(cur);
                                     bOneNode = false;
                                 }
                             }                           
@@ -1168,7 +1177,7 @@ namespace CurrencyCalc2
                 if ((nominal1 != 0) && (nominal2 != 0))
                 {
 
-                    if (SourceUrl == SettingsPage.addresses[1])
+                    if (SourceUrl == App.ecb)
                     {
                         cross_kurs2 = ((currency2 / nominal2) / (currency1 / nominal1));
                         return cross_kurs = ((currency1 / nominal1) / (currency2 / nominal2)); 

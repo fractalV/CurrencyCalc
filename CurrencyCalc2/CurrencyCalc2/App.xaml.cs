@@ -12,13 +12,16 @@ namespace CurrencyCalc2
 
     public partial class App : Application
     {
-        public IList<string> CurrencyList { get; set; }
+        public const string cbr = "http://www.cbr.ru/scripts/XML_daily.asp";
+        public const string ecb = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+
+        public static string SourceUrl = cbr;
 
         public static string MySumString = "100";  //TODO: ѕеееееренести в загрузку из состо€ний приложени€
 
-        public static int ThemeID;
+        public IList<string> CurrencyList { get; set; }     
 
-        public static string SourceUrl = "http://www.cbr.ru/scripts/XML_daily.asp";
+        public static int ThemeID;        
 
         public enum FavoritesCurrency { RUR, GBP, USD, EUR, CNY, JPY, CHF };
 

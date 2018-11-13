@@ -33,7 +33,7 @@ namespace CurrencyCalc2
                     double tmp = (currency1 / nominal1) / (currency2 / nominal2);
 
 
-                    if (SourceUrl == SettingsPage.addresses[1])
+                    if (SourceUrl == App.ecb)
                     {
                         tmp = (currency2 / nominal2) / (currency1 / nominal1);
                     } else
@@ -84,10 +84,10 @@ namespace CurrencyCalc2
                     y.CharCode = x.CharCode;
                     y.Name = x.Name;
                     y.Nominal = x.Nominal;
-                    y.Img = x.Img;
-                   
-                   // Debug.WriteLine(string.Format("CurrencyCalc2.images.{0}.png", x.CharCode.Remove(x.CharCode.Length - 1).ToLower()));
-                    
+                    //y.Img = x.Img;
+                    y.Img = x.GetImg(x.CharCode);
+                    // Debug.WriteLine(string.Format("CurrencyCalc2.images.{0}.png", x.CharCode.Remove(x.CharCode.Length - 1).ToLower()));
+
                     int cross_nominal_two = Int16.Parse(y.Nominal);                    
                     double currency_two = double.Parse(x.Value);
 
@@ -116,12 +116,13 @@ namespace CurrencyCalc2
         {
             if (e.Item == null)
                 return;
-            
+
             await DisplayAlert("Валюта", "Здесь будет график изменения курса", "OK");
-            
+
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
+        
 
 
         }
