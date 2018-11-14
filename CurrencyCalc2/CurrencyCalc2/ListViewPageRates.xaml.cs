@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 using static CurrencyCalc2.App;
 
@@ -19,6 +16,7 @@ namespace CurrencyCalc2
         public ObservableCollection<Currency> Items { get; set; }
         public ObservableCollection<Currency> val = new ObservableCollection<Currency>();
 
+        private int idxCurrency;
 
         private double CrossRate(double currency1, int nominal1, double currency2, int nominal2)
         {
@@ -71,24 +69,26 @@ namespace CurrencyCalc2
 
             dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
 
-            headerLabel.Text = $"Курс за {entry.Nominal} {entry.CharCode} на {dateTime}";
+            headerLabel.Text = $"За {entry.Nominal} {entry.CharCode} на {dateTime}";
 
             int cross_nominal_one = Int16.Parse(entry.Nominal);
             double currency_one = double.Parse(entry.Value);
 
+            int i = -1;
             foreach (Currency x in Valuta)
             {
-                
-                if (Valuta[pickersID[1]].CharCode !=  x.CharCode )
+                i = i + 1;
+
+                if (Valuta[pickersID[1]].CharCode != x.CharCode)
                 {
                     y.CharCode = x.CharCode;
                     y.Name = x.Name;
                     y.Nominal = x.Nominal;
-                    //y.Img = x.Img;
-                    y.Img = x.GetImg(x.CharCode);
+                    y.Img = x.Img;
+
                     // Debug.WriteLine(string.Format("CurrencyCalc2.images.{0}.png", x.CharCode.Remove(x.CharCode.Length - 1).ToLower()));
 
-                    int cross_nominal_two = Int16.Parse(y.Nominal);                    
+                    int cross_nominal_two = short.Parse(y.Nominal);
                     double currency_two = double.Parse(x.Value);
 
                     double t = CrossRate(currency_one, cross_nominal_one, currency_two, cross_nominal_two);
@@ -96,18 +96,14 @@ namespace CurrencyCalc2
                     if (y.CharCode == "IDR") { Format = "F2"; } //индонезийская рупия
                     y.Value = t.ToString(Format, CultureInfo.CurrentCulture);
                     val.Add(y);
-                }                
+                }
+                else idxCurrency = i;
             }
 
             Items = val;        
 
             MyListView.ItemsSource = Items;
             MyListView.BindingContext = new Binding("MyListView");
-            
-            //for (int i = 0; i <= Items.Count; i++)
-            //{ 
-            //    Items.ElementAt(i).Value = CalculateItog(Items.ElementAt(i).Value);
-            //}
         }
 
 
@@ -117,14 +113,24 @@ namespace CurrencyCalc2
             if (e.Item == null)
                 return;
 
-            await DisplayAlert("Валюта", "Здесь будет график изменения курса", "OK");
+            Currency tappedCurrency = (Currency)((ListView)sender).SelectedItem; //Ура!!! Оказалось так просто... 
 
-
+            //await DisplayAlert("Валюта", $"{tappedCurrency.CharCode}", "OK");          
+            int i = -1;
+            foreach (Currency x in Valuta)
+            {
+                i = i + 1;
+                if (x.CharCode == tappedCurrency.CharCode)
+                {
+                    pickersID[0] = i;  //установим первый пикер
+                    break;
+                }
+            }
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
-        
-
-
+            var page = (Page)Activator.CreateInstance(typeof(CalculatorPage));
+            await Navigation.PushAsync(page);
+            //((MasterDetailPage)Application.Current.MainPage).IsPresented = true; //покажет меню
         }
     }
 }

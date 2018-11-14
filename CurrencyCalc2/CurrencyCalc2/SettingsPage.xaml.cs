@@ -99,8 +99,7 @@ namespace CurrencyCalc2
             var picker = (Picker)sender;
             int selectedIndex = picker.SelectedIndex;
             
-            //App.Current.Resources = new Xamarin.Forms.Themes.LightThemeResources();
-            
+            //App.Current.Resources = new Xamarin.Forms.Themes.LightThemeResources();            
 
 
             if (selectedIndex != -1)

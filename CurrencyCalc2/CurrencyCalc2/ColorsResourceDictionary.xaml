@@ -17,7 +17,7 @@
     <Color x:Key="SecondaryDark">Transparent</Color>
     
     <Color x:Key="TextOnPrimary">#000000</Color>
-    <Color x:Key="TextOnSecondary">#000000</Color>
+    <Color x:Key="TextOnSecondary">#FFFFFF</Color>
 
 
     <!-- Pallete -->

@@ -495,7 +495,7 @@ namespace CurrencyCalc2
                     labelUpdateDate.Text = $"КУРС НА {dateTime}";
                 } else
                 {
-                    labelUpdateDate.TextColor = Color.Yellow;
+                    labelUpdateDate.TextColor = Color.Plum;
                     labelUpdateDate.Text = msg;
                 }
 

@@ -85,8 +85,7 @@
                     </StackLayout>-->
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-
+            </ListView.ItemTemplate>           
 
             <!--Custom View Cells-->
             <!--

@@ -30,8 +30,9 @@
             <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
         </Style>
 
+        <!-- Фон цифровой панельки -->        
         <Style x:Key="PrimaryDigitsStyle" TargetType="StackLayout">
-            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryLight}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
         </Style>
 
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
@@ -42,7 +43,7 @@
         </Style>
 
         <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryLight}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
             <Setter Property="TextColor" Value="{StaticResource TextOnSecondary}" />            
             <Setter Property="WidthRequest" Value="100" />
             <Setter Property="HeightRequest" Value="100" />
