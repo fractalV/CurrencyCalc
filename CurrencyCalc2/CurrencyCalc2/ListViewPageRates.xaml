@@ -24,7 +24,10 @@
     </ContentPage.Resources>
 
     <StackLayout Orientation="Vertical">
-        <Label x:Name="headerLabel" HorizontalOptions="Center" FontSize="Micro"/>
+        <StackLayout Orientation="Horizontal">
+            <Label x:Name="headerLabelCenter" HorizontalOptions="Center" FontSize="Small"/>
+            <Label x:Name="headerLabelEnd" HorizontalOptions="End" FontSize="Small"/>
+        </StackLayout>        
         <ListView x:Name="MyListView"            
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:CurrencyCalc2"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              Title="О программе"
              x:Class="CurrencyCalc2.AboutPage">   
@@ -9,11 +10,7 @@
             <Image x:Name="imageLogofull" Source="{local:ImageResource CurrencyCalc2.images.logo_alta_full.png}" HorizontalOptions="Center"
            VerticalOptions="Start" WidthRequest="90" HeightRequest="90" IsVisible="False" Opacity="0"/>
             <Label x:Name="labelVersion" FontSize="Default"/>
-                <Label x:Name="labelAboutText">
-                    <Label.Text>
-                        Компания Альта-Софт не гарантирует точность отображаемых курсов валют. Прежде чем выполнять транзакции, связанные с конвертацией валют, проверьте текущий обменный курс.
-                    </Label.Text>                    
-                </Label>
+            <Label x:Name="labelAboutText" Text="{i18n:Translate AboutText}"/>
             <Label x:Name="labelLicenseTerms" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>

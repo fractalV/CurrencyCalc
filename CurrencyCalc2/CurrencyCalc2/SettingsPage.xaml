@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CurrencyCalc2.SettingsPage"
+             xmlns:i18n="clr-namespace:CurrencyCalc2"
              BackgroundColor="{StaticResource PageBackgroundColor}">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="10">            
@@ -19,13 +20,12 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Label Text="Использовать данные с"/>
+            <Label Text="{i18n:Translate TextSourceLabel}"/>
             <Picker x:Name="SourcePicker"
-                    Title="Источник данных"
+                    Title=""
                     VerticalOptions="Center"
                     SelectedIndexChanged="OnSourcePickerSelectedIndexChanged"
-                   >
-                
+                   >                
             </Picker>
 
             <Label x:Name="LabelMessage" FontSize="Micro"/>

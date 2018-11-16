@@ -2,9 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-
+using CurrencyCalc2.Resx;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 using static CurrencyCalc2.App;
 
@@ -69,9 +68,10 @@ namespace CurrencyCalc2
 
             dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
 
-            headerLabel.Text = $"За {entry.Nominal} {entry.CharCode} на {dateTime}";
+            headerLabelCenter.Text = $"{dateTime}";
+            headerLabelEnd.Text = AppResources.ExchangeRateFor + $" { entry.Nominal} { entry.CharCode}";
 
-            int cross_nominal_one = Int16.Parse(entry.Nominal);
+            int cross_nominal_one = short.Parse(entry.Nominal);
             double currency_one = double.Parse(entry.Value);
 
             int i = -1;

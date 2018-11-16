@@ -145,7 +145,7 @@ namespace CurrencyCalc2
                         pickerCurrencyTwo.FontSize = size * 0.7;
                         labelCurrentCurrencyRate.FontSize = size * 0.6;
                         labelCurrentCurrencyRate2.FontSize = size * 0.6;
-                        labelUpdateDate.FontSize = size * 0.5;
+                        labelUpdateDate.FontSize = size * 0.5;                        
                     }
                     else if (sizeX >= 12 && sizeX <= 15)
                     {
@@ -922,103 +922,103 @@ namespace CurrencyCalc2
             {
                 case "RUR":
                 case "RUB":
-                    result = "Российский рубль";
+                    result = Resx.AppResources.RUB;
                     break;
                 case "EUR":
-                    result = "Евро";
+                    result = Resx.AppResources.EUR;
                     break;
                 case "AUD":
-                    result = "Австралийский доллар";
+                    result = Resx.AppResources.AUD;
                     break;
                 case "USD":
-                    result = "Доллар США";
+                    result = Resx.AppResources.USD;
                     break;
                 case "JPY":
-                    result = "Японская иена";
+                    result = Resx.AppResources.JPY;
                     break;
                 case "BGN":
-                    result = "Болгарский лев";
+                    result = Resx.AppResources.BGN;
                     break;
                 case "CZK":
-                    result = "Чешская крона";
+                    result = Resx.AppResources.CZK;
                     break;
                 case "DKK":
-                    result = "Датская крона";
+                    result = Resx.AppResources.DKK;
                     break;
                 case "GBP":
-                    result = "Фунт Соединенного Королевства";
+                    result = Resx.AppResources.GBP;
                     break;
                 case "HUF":
-                    result = "Венгерский форинт";
+                    result = Resx.AppResources.HUF;
                     break;
                 case "PLN":
-                    result = "Польский злотый";
+                    result = Resx.AppResources.PLN;
                     break;
                 case "RON":
-                    result = "Румынский лей";
+                    result = Resx.AppResources.RON;
                     break;
                 case "SEK":
-                    result = "Шведская крона";
+                    result = Resx.AppResources.SEK;
                     break;
                 case "ISK":
-                    result = "Исландская крона";
+                    result = Resx.AppResources.ISK;
                     break;
                 case "NOK":
-                    result = "Норвежская крона";
+                    result = Resx.AppResources.NOK;
                     break;
                 case "HRK":
-                    result = "Хорватская куна";
+                    result = Resx.AppResources.HRK;
                     break;
                 case "TRY":
-                    result = "Турецкая лира";
+                    result = Resx.AppResources.TRY;
                     break;
                 case "BRL":
-                    result = "Бразильский реал";
+                    result = Resx.AppResources.BRL;
                     break;
                 case "CAD":
-                    result = "Канадский доллар";
+                    result = Resx.AppResources.CAD;
                     break;
                 case "CNY":
-                    result = "Китайский юань";
+                    result = Resx.AppResources.CNY;
                     break;
                 case "HKD":
-                    result = "Гонконгский доллар";
+                    result = Resx.AppResources.HKD;
                     break;
                 case "IDR":
-                    result = "Индонезийская рупия";
+                    result = Resx.AppResources.IDR;
                     break;
                 case "ILS":
-                    result = "Новый израильский шекель";
+                    result = Resx.AppResources.ILS;
                     break;
                 case "INR":
-                    result = "Индийская рупия";
+                    result = Resx.AppResources.INR;
                     break;
                 case "KRW":
-                    result = "Вон Республики Корея";
+                    result = Resx.AppResources.KRW;
                     break;
                 case "MXN":
-                    result = "Мексиканское песо";
+                    result = Resx.AppResources.MXN;
                     break;
                 case "MYR":
-                    result = "Малайский ринггит";
+                    result = Resx.AppResources.MYR;
                     break;
                 case "NZD":
-                    result = "Новозеландский доллар";
+                    result = Resx.AppResources.NZD;
                     break;
                 case "PHP":
-                    result = "Филиппинское песо";
+                    result = Resx.AppResources.PHP;
                     break;
                 case "SGD":
-                    result = "Сингапурский доллар";
+                    result = Resx.AppResources.SGD;
                     break;
                 case "THB":
-                    result = "Тайский бат";
+                    result = Resx.AppResources.THB;
                     break;
                 case "ZAR":
-                    result = "Южноафриканский рэнд";
+                    result = Resx.AppResources.ZAR;
                     break;
                 case "CHF":
-                    result = "Швейцарский франк";
+                    result = Resx.AppResources.CHF;
                     break;
                 default:
                     result = charcode;

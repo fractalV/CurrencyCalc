@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Reflection;
 using Xamarin.Forms;
-using Xamarin.Forms.Themes;
 using Xamarin.Forms.Xaml;
+
+
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace CurrencyCalc2
@@ -54,12 +56,35 @@ namespace CurrencyCalc2
 #if DEBUG
             //   LiveReload.Init();
 #endif
+            System.Diagnostics.Debug.WriteLine("====== resource debug info =========");
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+            foreach (var res in assembly.GetManifestResourceNames())
+                System.Diagnostics.Debug.WriteLine("found resource: " + res);
+            System.Diagnostics.Debug.WriteLine("====================================");
+
+
+            // This lookup NOT required for Windows platforms - the Culture will be automatically set
+            if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
+            {
+                CultureInfo ci ;
+               // if (DependencyService.Get<ILocalize>().GetCurrentCultureInfo() == null)
+              // {
+                    ci = CultureInfo.CreateSpecificCulture("en-GB");
+              //  }
+             //  else
+              //  {
+              //      // determine the correct, supported .NET culture
+             //       ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+             //   }
+
+                System.Diagnostics.Debug.WriteLine(ci.EnglishName);
+                Resx.AppResources.Culture = ci; // set the RESX for resource localization
+               // DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
+            }
+
             //Если не проинициализировать то получим ошибку StaticResource not found for key
             InitializeComponent();
-            //CurrencyList = new List<string>();
-            //MainPage = new MainPage(); 
-            //MainPage = new NavigationPage(new MainPage());
-            //MainPage = new LoadingPage();  
+           
             MainPage = new Menu();
 
             //Resources = new Xamarin.Forms.Themes;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CurrencyCalc2.Resx;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -36,10 +37,10 @@ namespace CurrencyCalc2
             {
                 MenuItems = new ObservableCollection<MenuMenuItem>(new[]
                 {
-                    new MenuMenuItem { Id = 0, Title = "Конвертер валют", TargetType = typeof(CalculatorPage) },
-                    new MenuMenuItem { Id = 1, Title = "Курсы валют", TargetType = typeof(ListViewPageRates) },
-                    new MenuMenuItem { Id = 2, Title = "Параметры", TargetType = typeof(SettingsPage) },
-                    new MenuMenuItem { Id = 3, Title = "О программе", TargetType = typeof(AboutPage) }
+                    new MenuMenuItem { Id = 0, Title = AppResources.MenuTitle0, TargetType = typeof(CalculatorPage) },
+                    new MenuMenuItem { Id = 1, Title = AppResources.MenuTitle1, TargetType = typeof(ListViewPageRates) },
+                    new MenuMenuItem { Id = 2, Title = AppResources.MenuTitle2, TargetType = typeof(SettingsPage) },
+                    new MenuMenuItem { Id = 3, Title = AppResources.MenuTitle3, TargetType = typeof(AboutPage) }
                     //new MenuMenuItem { Id = 4, Title = "Отправить отзыв" }                    
                 });
 

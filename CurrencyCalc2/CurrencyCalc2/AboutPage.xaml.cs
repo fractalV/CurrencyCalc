@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CurrencyCalc2.Resx;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,12 +26,12 @@ namespace CurrencyCalc2
                 Command = new Command(async () => await OpenBrowser(uri)),
             });
 
-            var currentVersion = VersionTracking.CurrentVersion;
+            var currentVersion = VersionTracking.CurrentBuild;
 
             //Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             //string displayableVersion = $"{version}";
 
-            labelVersion.Text = "Конвертер валют " + currentVersion + "\r\nАльта-Софт, 2018, Все права защищены.";
+            labelVersion.Text = AppResources.NameApp + " " + currentVersion + "\r\n"+AppResources.CopyRightApp;
 
             imageLogofull.IsVisible = true;
             imageLogofull.RotationY = 0;

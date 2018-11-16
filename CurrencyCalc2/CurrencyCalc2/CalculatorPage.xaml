@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:CurrencyCalc2"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.CalculatorPage"             
-             Title="Конвертер валют"
+             Title="{i18n:Translate MenuTitle0}"
              Icon="hamburger"
              BackgroundColor="{StaticResource PageBackgroundColor}">
 
@@ -40,6 +41,7 @@
             <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
             <Setter Property="WidthRequest" Value="100" />
             <Setter Property="HeightRequest" Value="100" />
+            <Setter Property="FontSize" Value="Medium" />
         </Style>
 
         <Style x:Key="SecondaryButtonStyle" TargetType="Button">

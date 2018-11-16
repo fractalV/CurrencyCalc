@@ -1,11 +1,13 @@
-﻿using System;
+﻿using CurrencyCalc2.Resx;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Themes;
 using Xamarin.Forms.Xaml;
-using CurrencyCalc2;
+
+
 
 namespace CurrencyCalc2
 {
@@ -59,8 +61,10 @@ namespace CurrencyCalc2
 
             var sourceList = new List<string>
             {
-                "Центральный банк РФ",
-                "Европейский центральный банк"
+            //    "Центральный банк РФ",
+            //    "Европейский центральный банк"                
+                AppResources.NameSource1,
+                AppResources.NameSource2
             };
             //sourceList.Add ("");
 
