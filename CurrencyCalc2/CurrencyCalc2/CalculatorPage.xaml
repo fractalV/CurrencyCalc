@@ -4,7 +4,7 @@
              xmlns:i18n="clr-namespace:CurrencyCalc2"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
              x:Class="CurrencyCalc2.CalculatorPage"             
-             Title="{i18n:Translate MenuTitle0}"
+             Title="Конвертер валют"
              Icon="hamburger"
              BackgroundColor="{StaticResource PageBackgroundColor}">
 

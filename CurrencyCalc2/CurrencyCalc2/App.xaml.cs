@@ -61,15 +61,15 @@ namespace CurrencyCalc2
             foreach (var res in assembly.GetManifestResourceNames())
                 System.Diagnostics.Debug.WriteLine("found resource: " + res);
             System.Diagnostics.Debug.WriteLine("====================================");
-
-
+            CultureInfo ci;
+            ci = CultureInfo.CreateSpecificCulture("en-GB");
             // This lookup NOT required for Windows platforms - the Culture will be automatically set
-            if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
-            {
-                CultureInfo ci ;
+            //if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
+            //{
+                
                // if (DependencyService.Get<ILocalize>().GetCurrentCultureInfo() == null)
               // {
-                    ci = CultureInfo.CreateSpecificCulture("en-GB");
+                    
               //  }
              //  else
               //  {
@@ -80,7 +80,7 @@ namespace CurrencyCalc2
                 System.Diagnostics.Debug.WriteLine(ci.EnglishName);
                 Resx.AppResources.Culture = ci; // set the RESX for resource localization
                // DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
-            }
+           // }
 
             //Если не проинициализировать то получим ошибку StaticResource not found for key
             InitializeComponent();

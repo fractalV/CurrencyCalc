@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:i18n="clr-namespace:CurrencyCalc2"
              xmlns:local="clr-namespace:CurrencyCalc2;assembly=CurrencyCalc2"
-             Title="О программе"
+             Title="About"
              x:Class="CurrencyCalc2.AboutPage">   
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="10">

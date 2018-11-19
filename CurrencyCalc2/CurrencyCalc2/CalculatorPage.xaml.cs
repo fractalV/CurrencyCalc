@@ -83,12 +83,12 @@ namespace CurrencyCalc2
         int cross_nominal_one = 1;
         int cross_nominal_two = 1;
 
-       
+        
 
         //public string symbolAbout;
 
-        Currency rub = new Currency("RUR", "1", "Российский Рубль", "1", "\U000020BD");
-        Currency eur = new Currency("EUR", "1", "Евро", "1", "\U000020AC");
+        Currency rub = new Currency("RUR", "1", Resx.AppResources.RUB, "1", "\U000020BD");
+        Currency eur = new Currency("EUR", "1", Resx.AppResources.EUR, "1", "\U000020AC");
 
         public CalculatorPage()
         {
@@ -145,7 +145,18 @@ namespace CurrencyCalc2
                         pickerCurrencyTwo.FontSize = size * 0.7;
                         labelCurrentCurrencyRate.FontSize = size * 0.6;
                         labelCurrentCurrencyRate2.FontSize = size * 0.6;
-                        labelUpdateDate.FontSize = size * 0.5;                        
+                        labelUpdateDate.FontSize = size * 0.5;
+
+                        buttonDigitOne.FontSize = size * 1.3;
+                        buttonDigitTwo.FontSize = size * 1.3;
+                        buttonDigitThree.FontSize = size * 1.3;
+                        buttonDigitFour.FontSize = size * 1.3;
+                        buttonDigitFive.FontSize = size * 1.3;
+                        buttonDigitSix.FontSize = size * 1.3;
+                        buttonDigitSeven.FontSize = size * 1.3;
+                        buttonDigitEight.FontSize = size * 1.3;
+                        buttonDigitNine.FontSize = size * 1.3;
+                        buttonDigitZero.FontSize = size * 1.3;
                     }
                     else if (sizeX >= 12 && sizeX <= 15)
                     {
@@ -158,6 +169,18 @@ namespace CurrencyCalc2
                         labelCurrentCurrencyRate.FontSize = size * 0.7;
                         labelCurrentCurrencyRate2.FontSize = size * 0.7;
                         labelUpdateDate.FontSize = size * 0.5;
+
+                        buttonDigitOne.FontSize = size * 1.4;
+                        buttonDigitTwo.FontSize = size * 1.4;
+                        buttonDigitThree.FontSize = size * 1.4;
+                        buttonDigitFour.FontSize = size * 1.4;
+                        buttonDigitFive.FontSize = size * 1.4;
+                        buttonDigitSix.FontSize = size * 1.4;
+                        buttonDigitSeven.FontSize = size * 1.4;
+                        buttonDigitEight.FontSize = size * 1.4;
+                        buttonDigitNine.FontSize = size * 1.4;
+                        buttonDigitZero.FontSize = size * 1.4;
+
                     } else
                     {
                         labelDigitsOne.FontSize = size * 1.5;
@@ -169,6 +192,17 @@ namespace CurrencyCalc2
                         labelCurrentCurrencyRate.FontSize = size * 0.9;
                         labelCurrentCurrencyRate2.FontSize = size * 0.9;
                         labelUpdateDate.FontSize = size * 0.5;
+
+                        buttonDigitOne.FontSize = size * 1.5;
+                        buttonDigitTwo.FontSize = size * 1.5;
+                        buttonDigitThree.FontSize = size * 1.5;
+                        buttonDigitFour.FontSize = size * 1.5;
+                        buttonDigitFive.FontSize = size * 1.5;
+                        buttonDigitSix.FontSize = size * 1.5;
+                        buttonDigitSeven.FontSize = size * 1.5;
+                        buttonDigitEight.FontSize = size * 1.5;
+                        buttonDigitNine.FontSize = size * 1.5;
+                        buttonDigitZero.FontSize = size * 1.5;
                     }
 
                     if (size < 20)
@@ -664,15 +698,15 @@ namespace CurrencyCalc2
                 string charcode = elem.Element("CharCode").Value;
 
                 string name = "";
-                if (charcode == "GBP")
-                {
-                    name = "Фунт Соединенного Королевства";
-                }
-                else
-                {
-                    name = elem.Element("Name").Value;
-                }
-
+                //if (charcode == "GBP")
+                //{
+                //    name = "Фунт Соединенного Королевства";
+                //}
+                //else
+                //{
+                //    name = elem.Element("Name").Value;
+                //}
+                name = GetCurrencyName(charcode);
                 string symbol = GetCharSymbol(charcode);
 
                 string value = elem.Element("Value").Value;
@@ -788,14 +822,15 @@ namespace CurrencyCalc2
                 string charcode = elem.Element("CharCode").Value;
 
                 string name = "";
-                if (charcode == "GBP")
-                {
-                    name = "Фунт Соединенного Королевства";
-                }
-                else
-                {
-                    name = elem.Element("Name").Value;
-                }
+                name = GetCurrencyName(charcode);
+                //if (charcode == "GBP")
+                //{
+                //    name = "Фунт Соединенного Королевства";
+                //}
+                //else
+                //{
+                //    name = elem.Element("Name").Value;
+                //}
 
                 string symbol = GetCharSymbol(charcode);
 
