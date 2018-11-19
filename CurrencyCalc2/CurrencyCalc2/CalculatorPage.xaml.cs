@@ -235,9 +235,7 @@ namespace CurrencyCalc2
 
             //LoadCurrencyFromFile("default.xml");
 
-            Trace.WriteLine(DateTime.Now.ToString() + "Start UpdateCurrencyAsync()");
-
-            
+            Trace.WriteLine(DateTime.Now.ToString() + "Start UpdateCurrencyAsync()");            
 
             try
             {
@@ -698,14 +696,7 @@ namespace CurrencyCalc2
                 string charcode = elem.Element("CharCode").Value;
 
                 string name = "";
-                //if (charcode == "GBP")
-                //{
-                //    name = "Фунт Соединенного Королевства";
-                //}
-                //else
-                //{
-                //    name = elem.Element("Name").Value;
-                //}
+               
                 name = GetCurrencyName(charcode);
                 string symbol = GetCharSymbol(charcode);
 
@@ -793,7 +784,9 @@ namespace CurrencyCalc2
                 };
 
                 data = await client.DownloadStringTaskAsync(SourceUrl);
+
                 // data = GetResourceTextFile("default.xml"); //TODO сделать сохранение в этот файл успешно загруженного xml
+                //Debug.WriteLine(data);
             }
             catch (Exception)
             {

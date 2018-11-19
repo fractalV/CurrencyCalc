@@ -23,7 +23,9 @@ namespace CurrencyCalc2
 
         public IList<string> CurrencyList { get; set; }     
 
-        public static int ThemeID;        
+        public static int ThemeID;       
+        
+        public static CultureInfo ci;
 
         public enum FavoritesCurrency { RUR, GBP, USD, EUR, CNY, JPY, CHF };
 
@@ -61,8 +63,9 @@ namespace CurrencyCalc2
             foreach (var res in assembly.GetManifestResourceNames())
                 System.Diagnostics.Debug.WriteLine("found resource: " + res);
             System.Diagnostics.Debug.WriteLine("====================================");
-            CultureInfo ci;
-            ci = CultureInfo.CreateSpecificCulture("en-GB");
+            
+            ci = CultureInfo.CreateSpecificCulture("ru");
+
             // This lookup NOT required for Windows platforms - the Culture will be automatically set
             //if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
             //{

@@ -117,22 +117,140 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NotesLabel" xml:space="preserve">
-    <value>数据来源</value>
+  <data name="TextSourceLabel" xml:space="preserve">
+    <value>数据源</value>
     <comment>label for input field</comment>
+  </data>  
+  <data name="AboutText" xml:space="preserve">
+    <value>Alta-Soft不保证显示汇率的准确性。 在执行货币换算交易之前，请检查当前汇率。</value>
   </data>
-  <data name="NotesPlaceholder" xml:space="preserve">
-    <value>例如。買奶粉</value>
-    <comment>example input for notes field</comment>
+  <data name="CopyRightApp" xml:space="preserve">
+    <value>Alta-Soft，2018，保留所有权利。</value>
   </data>
-  <data name="AddButton" xml:space="preserve">
-    <value>添加新項</value>
-    <comment>this string appears on a button to add a new item to the list</comment>
+  <data name="ExchangeRateFor" xml:space="preserve">
+    <value>汇率为</value>
+  </data>
+  <data name="NameApp" xml:space="preserve">
+    <value>货币换算</value>
   </data>
   <data name="NameSource1" xml:space="preserve">
-    <value />
+    <value>俄罗斯联邦中央银行</value>
   </data>
   <data name="NameSource2" xml:space="preserve">
-    <value />
+    <value>欧洲中央银行</value>
+  </data>
+  <data name="OnLower" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="AUD" xml:space="preserve">
+    <value>澳元</value>
+  </data>
+  <data name="BGN" xml:space="preserve">
+    <value>保加利亚列弗</value>
+  </data>
+  <data name="BRL" xml:space="preserve">
+    <value>巴西真实</value>
+  </data>
+  <data name="CAD" xml:space="preserve">
+    <value>加元</value>
+  </data>
+  <data name="CHF" xml:space="preserve">
+    <value>瑞士法郎</value>
+  </data>
+  <data name="CNY" xml:space="preserve">
+    <value>人民币</value>
+  </data>
+  <data name="CZK" xml:space="preserve">
+    <value>捷克克朗</value>
+  </data>
+  <data name="DKK" xml:space="preserve">
+    <value>丹麦克朗</value>
+  </data>
+  <data name="EUR" xml:space="preserve">
+    <value>欧元</value>
+  </data>
+  <data name="GBP" xml:space="preserve">
+    <value>英镑</value>
+  </data>
+  <data name="HKD" xml:space="preserve">
+    <value>港元</value>
+  </data>
+  <data name="HRK" xml:space="preserve">
+    <value>克罗地亚库纳</value>
+  </data>
+  <data name="HUF" xml:space="preserve">
+    <value>匈牙利福林</value>
+  </data>
+  <data name="IDR" xml:space="preserve">
+    <value>印尼盾</value>
+  </data>
+  <data name="ILS" xml:space="preserve">
+    <value>以色列谢克尔</value>
+  </data>
+  <data name="INR" xml:space="preserve">
+    <value>印度卢比</value>
+  </data>
+  <data name="ISK" xml:space="preserve">
+    <value>冰岛克朗</value>
+  </data>
+  <data name="JPY" xml:space="preserve">
+    <value>日圆</value>
+  </data>
+  <data name="KRW" xml:space="preserve">
+    <value>韩国人赢了</value>
+  </data>
+  <data name="MenuTitle0" xml:space="preserve">
+    <value>货币换算</value>
+  </data>
+  <data name="MenuTitle1" xml:space="preserve">
+    <value>汇率</value>
+  </data>
+  <data name="MenuTitle2" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="MenuTitle3" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="MXN" xml:space="preserve">
+    <value>墨西哥比索</value>
+  </data>
+  <data name="MYR" xml:space="preserve">
+    <value>马来西亚林吉特</value>
+  </data>
+  <data name="NOK" xml:space="preserve">
+    <value>挪威克朗</value>
+  </data>
+  <data name="NZD" xml:space="preserve">
+    <value>新西兰元</value>
+  </data>
+  <data name="PHP" xml:space="preserve">
+    <value>菲律宾比索</value>
+  </data>
+  <data name="PLN" xml:space="preserve">
+    <value>波兰兹罗提</value>
+  </data>
+  <data name="RON" xml:space="preserve">
+    <value>罗马尼亚列伊</value>
+  </data>
+  <data name="RUB" xml:space="preserve">
+    <value>俄罗斯卢布</value>
+  </data>
+  <data name="SEK" xml:space="preserve">
+    <value>瑞典克朗</value>
+  </data>
+  <data name="SGD" xml:space="preserve">
+    <value>新加坡元</value>
+  </data>
+  <data name="THB" xml:space="preserve">
+    <value>泰铢</value>
+  </data>
+  <data name="TRY" xml:space="preserve">
+    <value>土耳其里拉</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>美元</value>
+  </data>
+  <data name="ZAR" xml:space="preserve">
+    <value>南非兰特</value>
   </data>
 </root>

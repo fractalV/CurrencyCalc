@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -43,6 +44,8 @@ namespace CurrencyCalc2
             //эт я добавил
             ResourceManager ResMgr = new ResourceManager(ResourceId, typeof(TranslateExtension).GetTypeInfo().Assembly);
 
+            Debug.WriteLine("Provide: " + Text);
+
             //var translation = ResMgr.Value.GetString(Text, ci);
             var translation = ResMgr.GetString(Text, ci);
             if (translation == null)
@@ -50,8 +53,7 @@ namespace CurrencyCalc2
 #if DEBUG
                 throw new ArgumentException(
                     string.Format("Key '{0}' was not found in resources '{1}' for culture '{2}'.", Text, ResourceId, ci.Name),
-                    "Text");
-                translation = Text;
+                    "Text");              
 #else
                 translation = Text; // HACK: returns the key, which GETS DISPLAYED TO THE USER
 #endif

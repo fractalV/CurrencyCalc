@@ -28,6 +28,14 @@
                    >                
             </Picker>
 
+            <Label Text="Язык интерфейса"/>
+            <Picker x:Name="LngPicker"
+                    Title=""
+                    VerticalOptions="Center"
+                    SelectedIndexChanged="LngPicker_SelectedIndexChanged"
+                   >
+            </Picker>
+
             <Label x:Name="LabelMessage" FontSize="Micro"/>
 
         </StackLayout>        
