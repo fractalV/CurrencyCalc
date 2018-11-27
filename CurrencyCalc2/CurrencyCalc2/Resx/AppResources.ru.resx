@@ -127,7 +127,7 @@
   <data name="CopyRightApp" xml:space="preserve">
     <value>Альта-Софт, 2018, Все права защищены.</value>
   </data>
-  <data name="ExchangeRate" xml:space="preserve">
+  <data name="ExchangeRateFor" xml:space="preserve">
     <value>Курс за</value>
   </data>
   <data name="NameApp" xml:space="preserve">
@@ -213,7 +213,7 @@
   </data>
   <data name="KRW" xml:space="preserve">
     <value>Вон Республики Корея</value>
-  </data>  
+  </data>
   <data name="MXN" xml:space="preserve">
     <value>Мексиканское песо</value>
   </data>
@@ -235,9 +235,6 @@
   <data name="RON" xml:space="preserve">
     <value>Румынский лей</value>
   </data>
-  <data name="RUB" xml:space="preserve">
-    <value>Российский рубль</value>
-  </data>
   <data name="SEK" xml:space="preserve">
     <value>Шведская крона</value>
   </data>
@@ -255,5 +252,41 @@
   </data>
   <data name="ZAR" xml:space="preserve">
     <value>Южноафриканский рэнд</value>
+  </data>
+  <data name="AMD" xml:space="preserve">
+    <value>Армянский драм</value>
+  </data>
+  <data name="AZN" xml:space="preserve">
+    <value>Азербайджанский манат</value>
+  </data>
+  <data name="BYN" xml:space="preserve">
+    <value>Белорусский рубль</value>
+  </data>
+  <data name="KGS" xml:space="preserve">
+    <value>Киргизский сом</value>
+  </data>
+  <data name="KZT" xml:space="preserve">
+    <value>Казахстанский тенге</value>
+  </data>
+  <data name="MDL" xml:space="preserve">
+    <value>Молдавский лей</value>
+  </data>
+  <data name="TextLngInterface" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="TJS" xml:space="preserve">
+    <value>Таджикский сомони</value>
+  </data>
+  <data name="TMT" xml:space="preserve">
+    <value>Новый туркменский манат</value>
+  </data>
+  <data name="UAH" xml:space="preserve">
+    <value>Украинская гривен</value>
+  </data>
+  <data name="UZS" xml:space="preserve">
+    <value>Узбекский сум</value>
+  </data>
+  <data name="XDR" xml:space="preserve">
+    <value>СДР (специальные права заимствования)</value>
   </data>
 </root>

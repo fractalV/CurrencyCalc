@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,20 +17,20 @@ namespace CurrencyCalc2
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuMaster : ContentPage
     {
-        public ListView ListView;
+        public ListView ListView;       
 
         public MenuMaster()
         {
             InitializeComponent();            
 
             BindingContext = new MenuMasterViewModel();
-            ListView = MenuItemsListView;            
+            ListView = MenuItemsListView;
 
             // BackgroundColor = Color.FromHex("#56198E");
+        
+        }        
 
-        }
-
-        class MenuMasterViewModel : INotifyPropertyChanged
+        public class MenuMasterViewModel : INotifyPropertyChanged
         {
             public ObservableCollection<MenuMenuItem> MenuItems { get; set; }
 
@@ -42,8 +43,46 @@ namespace CurrencyCalc2
                     new MenuMenuItem { Id = 2, Title = AppResources.MenuTitle2, TargetType = typeof(SettingsPage) },
                     new MenuMenuItem { Id = 3, Title = AppResources.MenuTitle3, TargetType = typeof(AboutPage) }
                     //new MenuMenuItem { Id = 4, Title = "Отправить отзыв" }                    
-                });
+                });                
 
+
+                MessagingCenter.Subscribe<SettingsPage, string>(this, "UpdateLang", (sender, args) =>
+                {
+                    System.Diagnostics.Debug.WriteLine($"вызов UpdateLang {AppResources.MenuTitle0}" );
+               
+                    MenuItems.ElementAt(0).Title = AppResources.MenuTitle0;
+                    MenuItems.ElementAt(1).Title = AppResources.MenuTitle1;
+                    MenuItems.ElementAt(2).Title = AppResources.MenuTitle2;
+                    MenuItems.ElementAt(3).Title = AppResources.MenuTitle3;
+
+
+                    
+
+                    //MenuMenuItem test = new MenuMenuItem();
+                    //MenuItems.Add(test);
+
+                    //foreach (var menuMenuItem in MenuItems)
+                    //{
+                    //    switch (menuMenuItem.Id)
+                    //    {
+                    //        case 0:
+                    //            menuMenuItem.Title = AppResources.MenuTitle0;
+                    //            break;
+                    //        case 1:
+                    //            menuMenuItem.Title = AppResources.MenuTitle1;
+                    //            break;
+                    //        case 2:
+                    //            menuMenuItem.Title = AppResources.MenuTitle2;
+                    //            break;
+                    //        case 3:
+                    //            menuMenuItem.Title = AppResources.MenuTitle3;
+                    //            break;
+                    //    };
+                    //}
+
+
+
+                });
 
 
                 switch (Device.RuntimePlatform)
@@ -61,8 +100,8 @@ namespace CurrencyCalc2
                         MenuItems[3].IconSource = Char.ConvertFromUtf32(0xf05a);
                         break;
                 }
-            }
-           
+            }          
+
 
             #region INotifyPropertyChanged Implementation
             public event PropertyChangedEventHandler PropertyChanged;
@@ -71,9 +110,14 @@ namespace CurrencyCalc2
                 if (PropertyChanged == null)
                     return;
 
+                System.Diagnostics.Debug.WriteLine(PropertyChanged.ToString());
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
             #endregion
+
+
+            
         }
     }
+
 }

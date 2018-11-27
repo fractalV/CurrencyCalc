@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.Themes;
 using Xamarin.Forms.Xaml;
@@ -89,7 +90,7 @@ namespace CurrencyCalc2
                 "Melayu",
                 "Português",
                 "Русский",
-                "中文（繁體)",
+               // "中文（繁體)",
                 "中文（简体)",
             };
 
@@ -133,18 +134,18 @@ namespace CurrencyCalc2
             {
                 LngPicker.SelectedIndex = 8;
             }
-            else if (cultureName.Contains("Chinese (Simplified"))
-            {
-                LngPicker.SelectedIndex = 9;
-            }
+            //else if (cultureName.Contains("Chinese (Simplified"))
+            //{
+            //    LngPicker.SelectedIndex = 9;
+            //}
             else if (cultureName.Contains("Chinese (Traditional"))
             {
-                LngPicker.SelectedIndex = 10;
+                LngPicker.SelectedIndex = 9;
             } 
             
             else LngPicker.SelectedIndex = 1; //Engl
-
-            Debug.WriteLine("App.ci.EnglishName - " + cultureName);
+            
+            // Debug.WriteLine("App.ci.EnglishName - " + cultureName);
         }
 
         void OnSourcePickerSelectedIndexChanged(object sender, EventArgs e)
@@ -188,7 +189,7 @@ namespace CurrencyCalc2
             //}
             //Resources = new DarkThemeResources();
 
-                switch (themeId)
+            switch (themeId)
             {
                 case (int)XApplicationThemes.Dark:
                     //Application.Current.Resources.MergedWith = typeof(DarkThemeResources);
@@ -208,8 +209,7 @@ namespace CurrencyCalc2
                     App.ThemeID = 0;
                     break;
             }
-        }
-        
+        }        
 
         private void LngPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -249,9 +249,9 @@ namespace CurrencyCalc2
                     case 8:
                         App.ci = CultureInfo.CreateSpecificCulture("ru");
                         break;
-                    case 9:
-                        App.ci = CultureInfo.CreateSpecificCulture("zh-Hans");
-                        break;
+                   // case 9:
+                   //     App.ci = CultureInfo.CreateSpecificCulture("zh-Hans");
+                   //     break;
                     case 10:
                         App.ci = CultureInfo.CreateSpecificCulture("zh-Hant");
                         break;
@@ -259,11 +259,43 @@ namespace CurrencyCalc2
                         App.ci = CultureInfo.CreateSpecificCulture("en");
                         break;
                 }
-                Debug.WriteLine("Установлено App.ci.EnglishName - " + App.ci.EnglishName);
+                //Debug.WriteLine("Установлено App.ci.EnglishName - " + App.ci.EnglishName);
                 //System.Diagnostics.Debug.WriteLine(ci.EnglishName);
 
-                Resx.AppResources.Culture = App.ci;
-                LabelMessage.Text = App.ci.EnglishName; 
+                Resx.AppResources.Culture = App.ci;                
+                LabelMessage.Text = App.ci.EnglishName;
+
+                Thread.CurrentThread.CurrentCulture = App.ci;
+                Thread.CurrentThread.CurrentUICulture = App.ci;
+
+                Application.Current.Properties["culture"] = App.ci.Name;
+
+
+                MessagingCenter.Send(this, "UpdateLang", "");
+
+                //MenuMaster.MenuMasterViewModel collection = new MenuMaster.MenuMasterViewModel();
+
+                //foreach (var elem in collection.MenuItems) {
+                //    switch (elem.Id)
+                //    {
+                //        case 0:
+                //            Title = AppResources.MenuTitle0;
+                //            break;
+                //        case 1:
+                //            Title = AppResources.MenuTitle1;
+                //            break;
+                //        case 2:
+                //            Title = AppResources.MenuTitle2;
+                //            break;
+                //        case 3:
+                //            Title = AppResources.MenuTitle3;
+                //            break;
+
+                //    }
+                //}
+
+
+
             }
         }
     }

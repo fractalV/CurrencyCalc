@@ -9,6 +9,7 @@ namespace CurrencyCalc2
 
     public class MenuMenuItem
     {
+        
         public MenuMenuItem()
         {
             TargetType = typeof(MenuDetail);

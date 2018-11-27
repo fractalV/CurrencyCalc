@@ -19,20 +19,19 @@ namespace CurrencyCalc2
 
             MasterBehavior = MasterBehavior.Popover;
 
-            
-
-            NavigationPage page = new NavigationPage(MasterPage);
-
-            page.Title = Resx.AppResources.MenuTitle0;
-
-
+            NavigationPage page = new NavigationPage(MasterPage)
+            {
+               // Title = Resx.AppResources.MenuTitle0
+            };
 
             //Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(MenuMaster))) { BarBackgroundColor = Color.Red };
 
-
-
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
+           
+
         }
+
+        
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -51,5 +50,7 @@ namespace CurrencyCalc2
 
             MasterPage.ListView.SelectedItem = null;
         }
+
+        
     }
 }

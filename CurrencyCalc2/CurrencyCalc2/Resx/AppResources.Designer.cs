@@ -70,11 +70,29 @@ namespace CurrencyCalc2.Resx {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Armenia Dram.
+        /// </summary>
+        public static string AMD {
+            get {
+                return ResourceManager.GetString("AMD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Australian dollar.
         /// </summary>
         public static string AUD {
             get {
                 return ResourceManager.GetString("AUD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Azerbaijan Manat.
+        /// </summary>
+        public static string AZN {
+            get {
+                return ResourceManager.GetString("AZN", resourceCulture);
             }
         }
         
@@ -93,6 +111,15 @@ namespace CurrencyCalc2.Resx {
         public static string BRL {
             get {
                 return ResourceManager.GetString("BRL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Belarussian Ruble.
+        /// </summary>
+        public static string BYN {
+            get {
+                return ResourceManager.GetString("BYN", resourceCulture);
             }
         }
         
@@ -250,11 +277,38 @@ namespace CurrencyCalc2.Resx {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Kyrgyzstan Som.
+        /// </summary>
+        public static string KGS {
+            get {
+                return ResourceManager.GetString("KGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на South Korean won.
         /// </summary>
         public static string KRW {
             get {
                 return ResourceManager.GetString("KRW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Kazakhstan Tenge.
+        /// </summary>
+        public static string KZT {
+            get {
+                return ResourceManager.GetString("KZT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Moldova Lei.
+        /// </summary>
+        public static string MDL {
+            get {
+                return ResourceManager.GetString("MDL", resourceCulture);
             }
         }
         
@@ -430,6 +484,15 @@ namespace CurrencyCalc2.Resx {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Language.
+        /// </summary>
+        public static string TextLngInterface {
+            get {
+                return ResourceManager.GetString("TextLngInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Data source.
         /// </summary>
         public static string TextSourceLabel {
@@ -448,6 +511,24 @@ namespace CurrencyCalc2.Resx {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Tajikistan Ruble.
+        /// </summary>
+        public static string TJS {
+            get {
+                return ResourceManager.GetString("TJS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на New Turkmenistan Manat.
+        /// </summary>
+        public static string TMT {
+            get {
+                return ResourceManager.GetString("TMT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Turkish lira.
         /// </summary>
         public static string TRY {
@@ -457,11 +538,38 @@ namespace CurrencyCalc2.Resx {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ukrainian Hryvnia.
+        /// </summary>
+        public static string UAH {
+            get {
+                return ResourceManager.GetString("UAH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на US dollar.
         /// </summary>
         public static string USD {
             get {
                 return ResourceManager.GetString("USD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Uzbekistan Sum.
+        /// </summary>
+        public static string UZS {
+            get {
+                return ResourceManager.GetString("UZS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на SDR.
+        /// </summary>
+        public static string XDR {
+            get {
+                return ResourceManager.GetString("XDR", resourceCulture);
             }
         }
         

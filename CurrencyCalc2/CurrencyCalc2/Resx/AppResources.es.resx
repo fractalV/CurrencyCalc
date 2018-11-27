@@ -253,4 +253,40 @@
   <data name="ZAR" xml:space="preserve">
     <value>Rand sudafricano</value>
   </data>
+  <data name="AMD" xml:space="preserve">
+    <value>Dram Armenia</value>
+  </data>
+  <data name="AZN" xml:space="preserve">
+    <value>Manat de Azerbaiyán</value>
+  </data>
+  <data name="BYN" xml:space="preserve">
+    <value>Rublo bielorruso</value>
+  </data>
+  <data name="KGS" xml:space="preserve">
+    <value>Kirguistán Som</value>
+  </data>
+  <data name="KZT" xml:space="preserve">
+    <value>Kazajstán Tenge</value>
+  </data>
+  <data name="MDL" xml:space="preserve">
+    <value>Moldavia Lei</value>
+  </data>
+  <data name="TextLngInterface" xml:space="preserve">
+    <value>Lenguaje</value>
+  </data>
+  <data name="TJS" xml:space="preserve">
+    <value>Rublo de Tayikistán</value>
+  </data>
+  <data name="TMT" xml:space="preserve">
+    <value>Nuevo Turkmenistán Manat</value>
+  </data>
+  <data name="UAH" xml:space="preserve">
+    <value>Grivnia ucraniana</value>
+  </data>
+  <data name="UZS" xml:space="preserve">
+    <value>Suma de Uzbekistán</value>
+  </data>
+  <data name="XDR" xml:space="preserve">
+    <value>Derechos especiales de dibujo</value>
+  </data>
 </root>

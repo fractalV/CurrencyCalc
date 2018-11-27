@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Reflection;
+using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,6 +19,7 @@ namespace CurrencyCalc2
         public const string ecb = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
 
         public static string SourceUrl = cbr;
+        public static string cultureName = "";
 
         public static string MySumString = "100";  //TODO: Пеееееренести в загрузку из состояний приложения
 
@@ -49,7 +51,7 @@ namespace CurrencyCalc2
             else return "0";
         }
 
-        public static string dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
+        public static string dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture(Thread.CurrentThread.CurrentUICulture.Name));
 
 
 
@@ -63,51 +65,81 @@ namespace CurrencyCalc2
             foreach (var res in assembly.GetManifestResourceNames())
                 System.Diagnostics.Debug.WriteLine("found resource: " + res);
             System.Diagnostics.Debug.WriteLine("====================================");
+
+            if (cultureName == "") cultureName = Thread.CurrentThread.CurrentUICulture.Name;            
+
+            ci = CultureInfo.CreateSpecificCulture(cultureName);
+
+            //System.Diagnostics.Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name);
+
+            //System.Diagnostics.Debug.WriteLine(Thread.CurrentThread.CurrentCulture.Name);            
+
+                //System.Diagnostics.Debug.WriteLine(ci.EnglishName);
+            Resx.AppResources.Culture = ci; // set the RESX for resource localization
             
-            ci = CultureInfo.CreateSpecificCulture("ru");
-
-            // This lookup NOT required for Windows platforms - the Culture will be automatically set
-            //if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
-            //{
-                
-               // if (DependencyService.Get<ILocalize>().GetCurrentCultureInfo() == null)
-              // {
-                    
-              //  }
-             //  else
-              //  {
-              //      // determine the correct, supported .NET culture
-             //       ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
-             //   }
-
-                System.Diagnostics.Debug.WriteLine(ci.EnglishName);
-                Resx.AppResources.Culture = ci; // set the RESX for resource localization
-               // DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
-           // }
 
             //Если не проинициализировать то получим ошибку StaticResource not found for key
             InitializeComponent();
            
-            MainPage = new Menu();
+            MainPage = new Menu();            
 
             //Resources = new Xamarin.Forms.Themes;
         }
 
-		protected override void OnStart ()
+       
+
+        protected override void OnStart ()
 		{
-            // Handle when your app starts
+            // Handle when your app starts           
+            System.Diagnostics.Debug.WriteLine("OnStart");
+            IDictionary<string, object> properties = Application.Current.Properties;
+            if (properties.ContainsKey("source"))
+            {
+                SourceUrl = (string)properties["source"];
+            }
+            if (properties.ContainsKey("culture"))
+            {
+                cultureName = (string)properties["culture"];
+            }
             
         }
 
         protected override void OnSleep ()
 		{
-			// Handle when your app sleeps
-		}
+            // Handle when your app sleeps
+            System.Diagnostics.Debug.WriteLine("OnSleep");
+            Application.Current.Properties["source"] = SourceUrl;
+            Application.Current.Properties["culture"] = cultureName;
+            Application.Current.Properties["pickersID0"] = pickersID[0];
+            Application.Current.Properties["pickersID1"] = pickersID[1];
+        }
 
 		protected override void OnResume ()
 		{
-			// Handle when your app resumes
-		}
+            // Handle when your app resumes   
+            //Task<bool> task = DisplayAlert("Simple Alert", "Decide on an option",
+
+            //                                "yes or ok", "no or cancel");
+
+            //task.ContinueWith((Task<bool> taskResult) =>
+
+            //{
+
+            //    Device.BeginInvokeOnMainThread(() =>
+
+            //    {
+
+            //        label.Text = String.Format("Alert {0} button was pressed",
+
+            //                                   taskResult.Result ? "OK" : "Cancel");
+
+            //    });
+
+            //});
+
+            //label.Text = "Alert is currently displayed";
+
+        }
 
     }
 }

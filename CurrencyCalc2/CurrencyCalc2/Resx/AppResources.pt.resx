@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
- <data name="TextSourceLabel" xml:space="preserve">
+  <data name="TextSourceLabel" xml:space="preserve">
     <value>Fonte de dados</value>
     <comment>label for input field</comment>
-  </data>  
+  </data>
   <data name="AboutText" xml:space="preserve">
     <value>A Alta-Soft não garante a precisão das taxas de câmbio exibidas. Antes de realizar transações de conversão de moeda, verifique a taxa de câmbio atual.</value>
   </data>
@@ -252,5 +252,8 @@
   </data>
   <data name="ZAR" xml:space="preserve">
     <value>Margem sul-africana</value>
+  </data>
+  <data name="TextLngInterface" xml:space="preserve">
+    <value>Idioma</value>
   </data>
 </root>

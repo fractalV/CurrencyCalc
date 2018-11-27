@@ -251,6 +251,42 @@
     <value>美元</value>
   </data>
   <data name="ZAR" xml:space="preserve">
-    <value>南非兰特</value>
+    <value>南非兰特</value>    
+  </data>
+  <data name="AMD" xml:space="preserve">
+    <value>亚美尼亚德拉姆</value>
+  </data>
+  <data name="AZN" xml:space="preserve">
+    <value>Azerbaijan Manat</value>
+  </data>
+  <data name="BYN" xml:space="preserve">
+    <value>阿塞拜疆马纳特</value>
+  </data>
+  <data name="KGS" xml:space="preserve">
+    <value>吉尔吉斯斯坦索姆</value>
+  </data>
+  <data name="KZT" xml:space="preserve">
+    <value>哈萨克斯坦坚戈</value>
+  </data>
+  <data name="MDL" xml:space="preserve">
+    <value>摩尔多瓦雷</value>
+  </data>
+  <data name="TextLngInterface" xml:space="preserve">
+    <value>文</value>
+  </data>
+  <data name="TJS" xml:space="preserve">
+    <value>塔吉克斯坦卢布</value>
+  </data>
+  <data name="TMT" xml:space="preserve">
+    <value>新土库曼斯坦马纳特</value>
+  </data>
+  <data name="UAH" xml:space="preserve">
+    <value>乌克兰格里夫纳</value>
+  </data>
+  <data name="UZS" xml:space="preserve">
+    <value>乌兹别克斯坦Sum</value>
+  </data>
+  <data name="XDR" xml:space="preserve">
+    <value>特别提款权</value>
   </data>
 </root>

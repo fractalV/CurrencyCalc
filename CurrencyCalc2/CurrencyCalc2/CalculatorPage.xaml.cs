@@ -246,9 +246,40 @@ namespace CurrencyCalc2
             catch (WebException e)
             {
                // Debug.WriteLine("208 строка " + e.Message);  //TODO: Обработать таймаут!                
-                DisplayAlert("Internet", e.Message, "OK");
-                UpdateLabelDate("Ошибка загрузки курсов");
+                //DisplayAlert("Internet", e.Message, "OK");
+                //UpdateLabelDate("Ошибка загрузки курсов");
+                if (Application.Current.Properties.ContainsKey("time")) UpdateLabelDate((string)Application.Current.Properties["time"]);
+
+
+                if ((SourceUrl == App.cbr) && (Application.Current.Properties.ContainsKey("USD")))
+                {
+
+                    _valutes.Clear();
+                    _valutes.Add(rub);
+                    LoadCurrencyFromProperties();                   
+                    
+                }  else
+                {
+                    _valutes.Clear();
+                    _valutes.Add(eur);
+                    LoadCurrencyFromProperties();
+                }
+
+
             }
+
+            if (Valuta.Count > 2) {
+                if (Application.Current.Properties.ContainsKey("pickersID0"))
+                {
+                    System.Diagnostics.Debug.WriteLine($"pickersID0 = {Application.Current.Properties["pickersID0"]}");
+                    pickersID[0] = (int)Application.Current.Properties["pickersID0"];
+                }
+                if (Application.Current.Properties.ContainsKey("pickersID1"))
+                {
+                    System.Diagnostics.Debug.WriteLine($"pickersID1 = {Application.Current.Properties["pickersID1"]}");                    
+                    pickersID[1] = (int)Application.Current.Properties["pickersID1"];
+                }               
+            }           
 
 
             UpdateLabelDate(""); //на текущую дату
@@ -307,6 +338,10 @@ namespace CurrencyCalc2
             imageCurrencyTwo.Source = _valutes[pickerCurrencyTwo.SelectedIndex].GetImg(_valutes[pickerCurrencyTwo.SelectedIndex].CharCode);
 
             //this.BackgroundImage = ImageSource.FromResource("CurrencyCalc2.images.background.jpg"); //"CurrencyCalc2.images.background.jpg";
+
+#if DEBUG
+            PrintProperties();
+#endif
 
             LabelTwoUpdate(CalculateItog(labelDigitsOne.Text));
 
@@ -443,7 +478,7 @@ namespace CurrencyCalc2
             imageCurrencyOne_tap.Tapped += (s, e) =>
             {
                 pickerCurrencyOne.Focus();
-                Debug.WriteLine("imageCurrencyOne_tap");
+               // Debug.WriteLine("imageCurrencyOne_tap");
             };
             imageCurrencyOne.GestureRecognizers.Add(imageCurrencyOne_tap);
 
@@ -451,7 +486,7 @@ namespace CurrencyCalc2
             imageCurrencyTwo_tap.Tapped += (s, e) =>
             {
                 pickerCurrencyTwo.Focus();
-                Debug.WriteLine("imageCurrencyTwo_tap");
+              //  Debug.WriteLine("imageCurrencyTwo_tap");
             };
             imageCurrencyTwo.GestureRecognizers.Add(imageCurrencyTwo_tap);
 
@@ -477,7 +512,7 @@ namespace CurrencyCalc2
             {
                 //Debug.WriteLine(stackLayontCurrencyOne.ToString() + " Double tapped");
                 Clipboard.SetText(labelDigitsOne.Text);
-                DisplayAlert("Cкопировано", labelDigitsOne.Text, "Ok");
+                DisplayAlert("Copied", labelDigitsOne.Text, "Ok");
             };
             //stackLayontCurrencyOne.GestureRecognizers.Add(stackLayontCurrencyOne_doubletap);
             frameOne.GestureRecognizers.Add(stackLayontCurrencyOne_doubletap);
@@ -523,8 +558,9 @@ namespace CurrencyCalc2
 
                 if (String.IsNullOrEmpty(msg))
                 {
-                    dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
-                    labelUpdateDate.Text = $"КУРС НА {dateTime}";
+                    dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture(cultureName));
+                    labelUpdateDate.Text = $"{Resx.AppResources.ExchangeRateFor} {dateTime}";
+                    Application.Current.Properties["time"] = dateTime;
                 } else
                 {
                     labelUpdateDate.TextColor = Color.Plum;
@@ -534,26 +570,57 @@ namespace CurrencyCalc2
                 
             }
 
+        }
+
+#if DEBUG
+        private void PrintProperties ()
+        {
+            IDictionary<string, object> properties = Application.Current.Properties;
+
+            Debug.WriteLine(string.Format("==============================================================="));
+            foreach (var prop in properties)
+            {
+                Debug.WriteLine(string.Format("found key: {0} value: {1}", prop.Key, prop.Value));
+
+            }
+            Debug.WriteLine(string.Format("==============================================================="));
+        }
+#endif
 
 
-            //void Connectivity_ConnectivityChanged(ConnectivityChangedEventArgs e)
-            //{
-            //    var access = e.NetworkAccess;
-            //    var profiles = e.Profiles;
-            //    if (access == NetworkAccess.Internet)
-            //    {
-            //        Debug.WriteLine("Интернет есть");
+        //загрузка ранее сохраненных валют
+        private void LoadCurrencyFromProperties()
+        {
+            IDictionary<string, object> properties = Application.Current.Properties;
 
-            //        hasInternet = true;
-            //    }
-            //    else
-            //    {
-            //        hasInternet = false;
-            //        Debug.WriteLine("отключился интернет");
-            //        //labelUpdateDate.Text = "Нет соединения с Интернет";
-            //    }
-            //}
+            List<string> vals = new List<string>();
 
+            // foreach (var elem in doc.Descendants("Valute"))
+            foreach (var prop in properties) {
+                if (prop.Key.Length == 3)
+                {
+                    Debug.WriteLine(string.Format("found key: ", prop.Key));
+
+                    string tmp = (string)prop.Value;
+
+                    vals = tmp.Split('#').Distinct().ToList();
+
+                    foreach (string elem in vals)
+                    {
+                        Debug.WriteLine(string.Format("found values: ", elem));
+                    }
+
+                    //Currency cur = new Currency(prop.Key, nominal, name, value, symbol);
+
+                    //запишем
+                    //Application.Current.Properties[charcode] = nominal + "#" + name + "#" + value + "#" + symbol;
+                }
+            }
+
+            if (properties.ContainsKey("source"))
+            {
+                SourceUrl = (string)properties["source"];
+            }
         }
 
 
@@ -778,7 +845,7 @@ namespace CurrencyCalc2
                     {
                         _valutes.Clear();
                         _valutes.Add(eur);
-                        ParseResultECB(e);
+                        ParseResultECB(e);                        
                     }
                     
                 };
@@ -834,6 +901,9 @@ namespace CurrencyCalc2
                 string nominal = elem.Element("Nominal").Value;
 
                 Currency cur = new Currency(charcode, nominal, name, value, symbol);
+
+                //запишем
+                Application.Current.Properties[charcode] = nominal + "#" + name + "#" + value + "#" + symbol;   
 
                 Debug.WriteLine($"{charcode}, {nominal}, {name}, {value}, {symbol}");
 
@@ -930,6 +1000,7 @@ namespace CurrencyCalc2
                                     value = value.Replace(".", Convert.ToString(separator));
                                     name = GetCurrencyName(charcode);
                                     Currency cur = new Currency(charcode, nominal, name, value, symbol);
+                                    Application.Current.Properties[charcode] = nominal + "#" + name + "#" + value + "#" + symbol;
                                     Debug.WriteLine($"{charcode}, {nominal}, {name}, {value}, {symbol}");
                                     //_valutes.Add(cur);
                                     SetValutes(cur);
@@ -1048,6 +1119,39 @@ namespace CurrencyCalc2
                 case "CHF":
                     result = Resx.AppResources.CHF;
                     break;
+                case "AZN":
+                    result = Resx.AppResources.AZN;
+                    break;
+                case "AMD":
+                    result = Resx.AppResources.AMD;
+                    break;
+                case "BYN":
+                    result = Resx.AppResources.BYN;
+                    break;
+                case "KZT":
+                    result = Resx.AppResources.KZT;
+                    break;
+                case "KGS":
+                    result = Resx.AppResources.KGS;
+                    break;
+                case "XDR":
+                    result = Resx.AppResources.XDR;
+                    break;
+                case "TJS":
+                    result = Resx.AppResources.TJS;
+                    break;
+                case "TMT":
+                    result = Resx.AppResources.TMT;
+                    break;
+                case "UZS":
+                    result = Resx.AppResources.UZS;
+                    break;
+                case "UAH":
+                    result = Resx.AppResources.UAH;
+                    break;
+                case "MDL":
+                    result = Resx.AppResources.MDL;
+                    break;
                 default:
                     result = charcode;
                     break;
@@ -1130,8 +1234,10 @@ namespace CurrencyCalc2
         {
             if ((a != -1) && (b != -1))
             {
-                pickersID[0] = a;
+                pickersID[0] = a;                
                 pickersID[1] = b;
+                Application.Current.Properties["pickersID0"] = pickersID[0];
+                Application.Current.Properties["pickersID1"] = pickersID[1];
             }            
         }
 
@@ -1231,9 +1337,7 @@ namespace CurrencyCalc2
             labelCurrentCurrencyRate.Text = "1 " + charcode1 + " = " + cross_kurs.ToString(pSpecifier) + " " + charcode2;
             labelCurrentCurrencyRate2.Text = "1 " + charcode2 + " = " + cross_kurs2.ToString(pSpecifier) + " " + charcode1;
 
-        }
-
-        
+        }        
 
         void LabelOneUpdate(string tmp)
         {
@@ -1344,9 +1448,6 @@ namespace CurrencyCalc2
             }
 
         }
-
-
-
 
         void SetDigitsComma()
         {

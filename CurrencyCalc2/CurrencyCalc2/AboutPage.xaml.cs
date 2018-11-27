@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -24,14 +25,15 @@ namespace CurrencyCalc2
             labelLicenseTerms.GestureRecognizers.Add(new TapGestureRecognizer
             {
                 Command = new Command(async () => await OpenBrowser(uri)),
-            });
+            });           
 
-            var currentVersion = VersionTracking.CurrentBuild;
 
-            //Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            //string displayableVersion = $"{version}";
+            var currentVersion = VersionTracking.CurrentVersion;
 
-            labelVersion.Text = AppResources.NameApp + " " + currentVersion + "\r\n"+AppResources.CopyRightApp;
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            string displayableVersion = $"{version}";           
+
+            labelVersion.Text = AppResources.NameApp + " " + displayableVersion + " (" + currentVersion + ") \r\n"+AppResources.CopyRightApp;
 
             imageLogofull.IsVisible = true;
             imageLogofull.RotationY = 0;

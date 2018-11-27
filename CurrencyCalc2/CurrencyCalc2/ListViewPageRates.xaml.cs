@@ -66,7 +66,7 @@ namespace CurrencyCalc2
 
             Debug.WriteLine("{0}, {1}",Valuta[pickersID[0]].CharCode, Valuta[pickersID[1]].CharCode);
 
-            dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("ru-ru"));
+            dateTime = DateTime.Now.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture(System.Threading.Thread.CurrentThread.CurrentUICulture.Name));
 
             headerLabelCenter.Text = $"{dateTime}";
             headerLabelEnd.Text = AppResources.ExchangeRateFor + $" { entry.Nominal} { entry.CharCode}";

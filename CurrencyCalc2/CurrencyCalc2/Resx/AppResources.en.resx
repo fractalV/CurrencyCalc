@@ -125,7 +125,7 @@
     <value>Alta-Soft doesn`t guarantee the accuracy of the displayed exchange rates. Before performing currency conversion transactions, check the current exchange rate.</value>
   </data>
   <data name="CopyRightApp" xml:space="preserve">
-    <value>Alta Soft, 2018, All rights reserved.</value>
+    <value>Alta-Soft, 2018, All rights reserved.</value>
   </data>
   <data name="ExchangeRateFor" xml:space="preserve">
     <value>Exchange rate for</value>
@@ -252,5 +252,41 @@
   </data>
   <data name="ZAR" xml:space="preserve">
     <value>South African rand</value>
+  </data>
+  <data name="AMD" xml:space="preserve">
+    <value>Armenia Dram</value>
+  </data>
+  <data name="AZN" xml:space="preserve">
+    <value>Azerbaijan Manat</value>
+  </data>
+  <data name="BYN" xml:space="preserve">
+    <value>Belarussian Ruble</value>
+  </data>
+  <data name="KGS" xml:space="preserve">
+    <value>Kyrgyzstan Som</value>
+  </data>
+  <data name="KZT" xml:space="preserve">
+    <value>Kazakhstan Tenge</value>
+  </data>
+  <data name="MDL" xml:space="preserve">
+    <value>Moldova Lei</value>
+  </data>
+  <data name="TextLngInterface" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="TJS" xml:space="preserve">
+    <value>Tajikistan Ruble</value>
+  </data>
+  <data name="TMT" xml:space="preserve">
+    <value>New Turkmenistan Manat</value>
+  </data>
+  <data name="UAH" xml:space="preserve">
+    <value>Ukrainian Hryvnia</value>
+  </data>
+  <data name="UZS" xml:space="preserve">
+    <value>Uzbekistan Sum</value>
+  </data>
+  <data name="XDR" xml:space="preserve">
+    <value>Special Drawing Rights</value>
   </data>
 </root>
