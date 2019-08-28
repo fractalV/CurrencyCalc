@@ -452,7 +452,8 @@ namespace CurrencyCalc2
                     iTmp = pickerCurrencyTwo.SelectedIndex;
                     pickerCurrencyTwo.SelectedIndex = pickerCurrencyOne.SelectedIndex;
                     pickerCurrencyOne.SelectedIndex = iTmp;
-                    tapClickLabelOne();
+                SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
+                tapClickLabelOne();
                 //}
                 //else
                 //{
@@ -464,7 +465,7 @@ namespace CurrencyCalc2
                 //    //labelDigitsTwo.Text = CalculateItog(labelDigitsOne.Text); 
                 //};
 
-                SetPickersID(pickerCurrencyOne.SelectedIndex, pickerCurrencyTwo.SelectedIndex);
+                
             };
             labelChangeStackLayont.GestureRecognizers.Add(labelChangeStackLayont_tap);
 
@@ -511,7 +512,7 @@ namespace CurrencyCalc2
             stackLayontCurrencyOne_doubletap.Tapped += (s, e) =>
             {
                 //Debug.WriteLine(stackLayontCurrencyOne.ToString() + " Double tapped");
-                Clipboard.SetText(labelDigitsOne.Text);
+                Clipboard.SetTextAsync(labelDigitsOne.Text);
                 DisplayAlert("Copied", labelDigitsOne.Text, "Ok");
             };
             //stackLayontCurrencyOne.GestureRecognizers.Add(stackLayontCurrencyOne_doubletap);
@@ -525,7 +526,7 @@ namespace CurrencyCalc2
             stackLayontCurrencyTwo_doubletap.Tapped += (s, e) =>
             {
                 //Debug.WriteLine(stackLayontCurrencyOne.ToString() + " Double tapped");
-                Clipboard.SetText(labelDigitsTwo.Text);
+                Clipboard.SetTextAsync(labelDigitsTwo.Text);
                 DisplayAlert("Cкопировано", labelDigitsTwo.Text, "Ok");
             };
             stackLayontCurrencyTwo.GestureRecognizers.Add(stackLayontCurrencyTwo_doubletap);

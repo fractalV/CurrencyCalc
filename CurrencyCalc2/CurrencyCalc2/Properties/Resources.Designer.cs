@@ -59,5 +59,14 @@ namespace CurrencyCalc2.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Hello from App Resources.
+        /// </summary>
+        internal static string HelloWorld {
+            get {
+                return ResourceManager.GetString("HelloWorld", resourceCulture);
+            }
+        }
     }
 }

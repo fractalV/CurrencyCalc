@@ -25,15 +25,15 @@ namespace CurrencyCalc2
             labelLicenseTerms.GestureRecognizers.Add(new TapGestureRecognizer
             {
                 Command = new Command(async () => await OpenBrowser(uri)),
-            });           
+            });
 
 
-            var currentVersion = VersionTracking.CurrentVersion;
+            var currentBuild = VersionTracking.CurrentBuild;
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            string displayableVersion = $"{version}";           
+            string displayableVersion = $"{version.Major}";           
 
-            labelVersion.Text = AppResources.NameApp + " " + displayableVersion + " (" + currentVersion + ") \r\n"+AppResources.CopyRightApp;
+            labelVersion.Text = AppResources.NameApp + " " + displayableVersion + " (" + currentBuild + ") \r\n"+AppResources.CopyRightApp;
 
             imageLogofull.IsVisible = true;
             imageLogofull.RotationY = 0;

@@ -116,6 +116,24 @@ namespace CurrencyCalc2
 
 		protected override void OnResume ()
 		{
+            IDictionary<string, object> properties = Application.Current.Properties;
+            if (properties.ContainsKey("source"))
+            {
+                SourceUrl = (string)properties["source"];
+            }
+            if (properties.ContainsKey("culture"))
+            {
+                cultureName = (string)properties["culture"];
+            }
+            if (properties.ContainsKey("pickersID0"))
+            {
+                pickersID[0] = (int)properties["source"];
+            }
+            if (properties.ContainsKey("pickersID1"))
+            {
+                pickersID[1] = (int)properties["culture"];
+            }
+
             // Handle when your app resumes   
             //Task<bool> task = DisplayAlert("Simple Alert", "Decide on an option",
 

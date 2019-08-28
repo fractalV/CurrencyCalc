@@ -15,7 +15,7 @@ using Xamarin.Forms.Xaml;
 namespace CurrencyCalc2
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MenuMaster : ContentPage
+    public partial class MenuMaster : ContentPage , INotifyPropertyChanged
     {
         public ListView ListView;       
 

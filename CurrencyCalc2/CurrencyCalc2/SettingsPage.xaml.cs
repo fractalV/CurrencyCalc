@@ -13,23 +13,27 @@ using Xamarin.Forms.Xaml;
 namespace CurrencyCalc2
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class SettingsPage : ContentPage
-	{
+    public partial class SettingsPage : ContentPage
+    {
 
         public enum XApplicationThemes
         {
             Original,
             Light,
             Dark
-        }      
+        }
 
-        public SettingsPage()
+    public SettingsPage()
         {
-            
+                
             InitializeComponent();
 
             var themeList = new List<string> { "Оригинальная", "Светлая", "Темная" };
           
+            //Languages = new ObservableCollection<Language>()
+            //{
+            //    new Language {Display}
+            //}
 
             ThemePicker.ItemsSource = themeList;
 
